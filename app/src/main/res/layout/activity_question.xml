@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        android:padding="16dp"
+        android:theme="@style/CustomMaterialTheme"
+        tools:context=".activity.QuestionActivity">
+
+        <Button
+            android:id="@+id/btn_finish"
+            style="@style/ButtonExam"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@id/navigation_container"
+            android:text="@string/selesai" />
+
+        <Button
+            android:id="@+id/btn_total_answered"
+            style="@style/ButtonExam"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/timer_container"
+            android:background="@drawable/round_button_primary"
+            android:textStyle="bold"
+            tools:text="Terjawab : 0/20" />
+
+        <LinearLayout
+            android:id="@+id/timer_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/size_secondary"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_countdown_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/size_secondary"
+                android:drawableStart="@drawable/ic_timer"
+                android:drawablePadding="@dimen/size_5"
+                android:padding="@dimen/size_5"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="01:00:00" />
+
+            <Button
+                android:id="@+id/btn_pause"
+                style="@style/ButtonExam"
+                android:drawableStart="@drawable/ic_pause"
+                android:drawablePadding="@dimen/size_5"
+                android:text="@string/pause" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/navigation_container">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/soal_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:elevation="2dp"
+                app:cardCornerRadius="10dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        style="@style/TextPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/imgbtn_question"
+                            android:layout_width="wrap_content"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:contentDescription="@string/image_question"
+                            android:scaleType="centerInside"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_question"
+                            style="@style/TextPrimary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="start"
+                            tools:text="Pertanyaan" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_option_a"
+                                style="@style/TextPrimary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="A." />
+
+                            <TextView
+                                android:id="@+id/tv_option_b"
+                                style="@style/TextPrimary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="B." />
+
+                            <TextView
+                                android:id="@+id/tv_option_c"
+                                style="@style/TextPrimary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="C." />
+
+                            <TextView
+                                android:id="@+id/tv_option_d"
+                                style="@style/TextPrimary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="D." />
+
+                            <TextView
+                                android:id="@+id/tv_option_e"
+                                style="@style/TextPrimary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="E." />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+            </androidx.cardview.widget.CardView>
+
+            <RadioGroup
+                android:id="@+id/rb_option_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_option_a"
+                    style="@style/ButtonOptions"
+                    android:button="@android:color/transparent"
+                    android:text="@string/a" />
+
+                <RadioButton
+                    android:id="@+id/rb_option_b"
+                    style="@style/ButtonOptions"
+                    android:button="@android:color/transparent"
+                    android:text="@string/b" />
+
+                <RadioButton
+                    android:id="@+id/rb_option_c"
+                    style="@style/ButtonOptions"
+                    android:button="@android:color/transparent"
+                    android:text="@string/c" />
+
+                <RadioButton
+                    android:id="@+id/rb_option_d"
+                    style="@style/ButtonOptions"
+                    android:button="@android:color/transparent"
+                    android:text="@string/d" />
+
+                <RadioButton
+                    android:id="@+id/rb_option_e"
+                    style="@style/ButtonOptions"
+                    android:button="@android:color/transparent"
+                    android:text="@string/e" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navigation_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/size_primary"
+            android:gravity="bottom">
+
+            <ImageButton
+                android:id="@+id/imgbtn_prev"
+                style="@style/Button40"
+                android:src="@drawable/ic_prev"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputOutline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_number"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/round_button_white_bordered"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="number"
+                    android:longClickable="false"
+                    android:maxLines="1"
+                    android:padding="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/imgbtn_next"
+                style="@style/Button40"
+                android:src="@drawable/ic_next"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/container_pause"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/img_bg_pause"
+            android:background="@color/colorLightGray"
+            android:contentDescription="@string/black_background" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:gravity="center">
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adv_banner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                ads:adSize="MEDIUM_RECTANGLE"
+                ads:adUnitId="@string/ad_banner2"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="30dp"
+                android:layout_toEndOf="@id/adv_banner"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pause_message"
+                    style="@style/TextPrimary"
+                    android:layout_marginBottom="6dp"
+                    android:textSize="@dimen/size_text_16"/>
+                <Button
+                    android:id="@+id/btn_continue"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_play"
+                    android:drawablePadding="@dimen/size_5"
+                    android:text="@string/lanjut" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/img_bg_darken"
+        android:visibility="gone"
+        android:background="@color/colorDarken"
+        android:contentDescription="@string/black_background" />
+
+    <ImageView
+        android:id="@+id/img_expanded"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:contentDescription="@string/expanded_image" />
+
+</FrameLayout>

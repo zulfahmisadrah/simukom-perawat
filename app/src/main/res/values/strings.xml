@@ -1,0 +1,305 @@
+<resources>
+    <string name="app_name">Simukom Perawat</string>
+    <string name="latihan">Latihan</string>
+    <string name="simulasi">Simulasi</string>
+    <string name="tips_trik">Tips dan Trik</string>
+    <string name="forum">Forum</string>
+    <string name="pilih_paket">Pilih Paket Soal</string>
+    <string name="paket">Paket</string>
+    <string name="a">A</string>
+    <string name="b">B</string>
+    <string name="c">C</string>
+    <string name="d">D</string>
+    <string name="e">E</string>
+    <string name="tidak">Tidak</string>
+    <string name="ya">Ya</string>
+    <string name="selesai">Selesai</string>
+    <string name="statistik">Statistik:</string>
+    <string name="nilai">Nilai</string>
+    <string name="halaman_utama">KELUAR</string>
+    <string name="_100">/100</string>
+    <string name="donor_soal">Kirim Soal</string>
+    <string name="kembali">Kembali</string>
+    <string name="pembahasan">Pembahasan</string>
+    <string name="expanded_image">expanded image</string>
+    <string name="explanation_image">explanation image</string>
+    <string name="image_question">image question</string>
+    <string name="black_background">black background</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="belum_memiliki_akun_daftar_disini">Belum memiliki Akun? Daftar disini!</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Konfirmasi Password</string>
+    <string name="daftar">Daftar</string>
+    <string name="email_content">Hai, \nSaya ingin berkontribusi dengan mengirimkan soal untuk aplikasi Simukom Perawat Anda. \n\nBerikut saya lampirkan soal beserta jawaban dan pembahasannya. \nSemoga Bermanfaat.</string>
+    <string name="info">Simukom Perawat merupakan aplikasi dengan berbagai fitur yang diharapkan dapat membantu pengguna dalam mempersiapkan diri sebelum menghadapi Ukom Perawat.\n\nSoal-soal pada aplikasi ini diambil dari buku yang ditulis oleh Syaputra Artama S. S.Kep, Ns, M.Kep, CWCCA dan Abd. Rahman Rara, S.Kep.Ners, CWCCA.\n\nEmail:\nPenulis buku: abd.rahmanrara@gmail.com\nDeveloper: cbs.fahmi@gmail.com</string>
+    <string name="have_account_text">Sudah memiliki akun? Login disini!</string>
+    <string name="open_email_alert_message">Anda akan diarahkan ke aplikasi email. Lanjutkan?</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="image">image</string>
+    <string name="message">Message</string>
+    <string name="back">back</string>
+    <string name="nurse">nurse</string>
+
+    <string name="ad_banner1">ca-app-pub-2669489647881676/1231125035</string>
+    <string name="ad_banner2">ca-app-pub-2669489647881676/6052206870</string>
+    <string name="ad_banner3">ca-app-pub-2669489647881676/7678233440</string>
+    <string name="ad_banner4">ca-app-pub-2669489647881676/3561774900</string>
+    <string name="ad_banner5">ca-app-pub-2669489647881676/9632838166</string>
+    <string name="ad_inters1">ca-app-pub-2669489647881676/5960707538</string>
+    <string name="ad_inters2">ca-app-pub-2669489647881676/2021462528</string>
+<!--    <string name="ad_banner1">ca-app-pub-3940256099942544/6300978111</string>-->
+<!--    <string name="ad_banner2">ca-app-pub-2348320609427796/2104728161</string>-->
+<!--    <string name="ad_banner3">ca-app-pub-2348320609427796/2474896279</string>-->
+<!--    <string name="ad_banner4">ca-app-pub-2348320609427796/8784126088</string>-->
+<!--    <string name="ad_banner5">ca-app-pub-2348320609427796/2845403694</string>-->
+<!--    <string name="ad_inters1">ca-app-pub-2348320609427796/4844881071</string>-->
+<!--    <string name="ad_inters2">ca-app-pub-2348320609427796/3531799403</string>-->
+    <string name="ad_test">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="panduan_soal">Panduan pengerjaan soal</string>
+    <string name="mulai">Mulai</string>
+    <string name="pause">Jeda</string>
+    <string name="lanjut">Lanjut</string>
+
+    <string name="panduan_latihan">1. Carilah tempat yang nyaman. \n2. Latihan terdiri dari 20 soal tanpa batasan waktu pengerjaan.\n3. Tekan tombol SELESAI untuk mengakhiri Latihan.</string>
+    <string name="panduan_simulasi">1. Carilah tempat yang tenang dan singkirkan segala sesuatu yang dapat mengganggu. \n2. Simulasi terdiri dari 100 soal dengan waktu 100 menit.\n3. Sebisa mungkin hindari penggunaan tombol JEDA.\n4. Waktu akan mulai berjalan setelah Anda menekan tombol MULAI di bawah ini.\n5.Tekan tombol SELESAI untuk mengakhiri Simulasi.</string>
+    <string name="kamus_perawat">Kamus Perawat</string>
+    <string name="title">title</string>
+    <string name="pause_message">Waktu simulasi dijeda. Silakan tekan tombol LANJUT di bawah ini untuk melanjutkan simulasi.</string>
+
+    <string-array name="article_titles">
+        <item>Strategi Dalam Try Out</item>
+        <item>60 Hari Review Materi Ujian</item>
+        <item>Trik Cermat Menjawab Soal Ujian Kompetensi</item>
+        <item>Trik Taklukkan Soal Kasus dengan Singkat</item>
+        <item>Tips Tingkatkan Materi Ujian dengan Metode Open Book</item>
+        <item>Wilayah Teknis yang Membuat Peserta Tidak Lulus</item>
+    </string-array>
+
+    <string-array name="article_first_paragraph">
+        <item>Try out sangat membantu calon peserta ujian untuk memahami dan mengetahui gambaran ujian dan teknis pelaksanaan pada saat ujian nantinya. Try out juga memberikan gambaran materi soal ujian yang akan naik pada saat ujian kompetensi. Try out memberikan pengalaman menggunakan aplikasi komputer yang dirancang oleh penyelenggara ujian kompetensi nasional. Calon peserta ujian diajarkan dan dilatih bagaimana cara mengaplikasikannya. Dengan demikian, calon peserta ujian tidak canggung lagi pada saat mengikuti ujian nantinya.</item>
+        <item>Satu sampai tiga bulan adalah masa-masa penting seorang peserta ukom mempersiapkan ujian kompetensinya. Masa ini adalah waktu terbaik yang harus disempatkan untuk mangatur waktu pendalaman materi Ujian. Beratnya beban sks dan jumlah mata kuliah yang berhubungan langsung dengan ujian membuat peserta ukom harus memiliki jeda waktu untuk persiapan pengulangan materi ujian kompetensi. Sebab jika peserta ukom tidak memberikan kesempatan otaknya untuk mereview kembali materi kuliah yang telah lama dipelajari maka akan menyulitkan peserta ukom untuk menganalisa soal kasus pada ujian kompetensi nantinya.</item>
+        <item>Memahami dan menjawab soal ukom pada dasarnya cukup sulit. Selain soalnya dibuat dalam bentuk kasus juga pilihan jawabannya bersifat homogen (jawaban yang satu dan yang lainnya hampir sama). Namun, pada prinsipnya ketika calon peserta ujian kompetensi banyak berlatih menjawab contoh soal ukom maka secara otomatis calon peserta ukom bisa menjawab dan memilih jawaban secara tepat dan cepat. </item>
+        <item>Ujian kompetensi adalah penapisan seorang lulusan keperawatan melalui tes kompetensi. Dalam ujian kompetensi ada beberapa standar yang dijadikan barometer pada peserta ujian sehingga bisa dikatakan lulus ujian kompetensi. Standar tersebut telah diatur dalam Blue Print Kompetensi perawat.</item>
+        <item>Salah satu cara yang terbaik untuk memaksimalkan ingatan yaitu dengan cara mencari dan menelusuri secara langsung pilihan jawaban dari contoh soal melalui buku atau materi kuliah. Calon peserta akan terlatih mengingat kunci jawaban dari soal yang dijawab dan dengan mudah calon peserta mengingat jawaban ketika ada soal yang mirip dengan soal tersebut  pada saat ujian berlangsung. Tidak hanya itu, calon peserta akan mendapatkan banyak penambahan referensi sebagai modal mejelang ujian kompetensi.</item>
+        <item>Memahami dan mengenal wilayah teknis ujian kompetensi sangat berpengaruh pada saat ujian berlangsung. Kenapa?, karena kesiapan peserta ujian lebih terencana dan terkoodinir dengan rapi. Beda halnya dengan tanpa persiapan yang hanya jalan secara natural begitu saja. Tanpa persiapan ilmu dan taktik maka peluang lulus ujian kompetensi begitu sulit untuk diraih.</item>
+    </string-array>
+
+    <string-array name="article_images">
+        <item>@drawable/article_2_1</item>
+        <item>@drawable/article_2_2</item>
+        <item>@drawable/article_2_3</item>
+        <item>@drawable/article_2_4</item>
+        <item>@drawable/article_2_5</item>
+        <item>@drawable/article_2_6</item>
+        <item>@drawable/article_2_7</item>
+        <item>@drawable/article_3_1</item>
+        <item>@drawable/article_3_2</item>
+        <item>@drawable/article_3_3</item>
+        <item>@drawable/article_3_4</item>
+        <item>@drawable/article_3_5</item>
+        <item>@drawable/article_3_6</item>
+        <item>@drawable/article_3_7</item>
+        <item>@drawable/article_3_8</item>
+        <item>@drawable/article_4_1</item>
+        <item>@drawable/article_4_2</item>
+        <item>@drawable/article_4_3</item>
+        <item>@drawable/article_4_4</item>
+        <item>@drawable/article_4_5</item>
+        <item>@drawable/article_4_6</item>
+        <item>@drawable/article_4_7</item>
+        <item>@drawable/article_4_8</item>
+        <item>@drawable/article_4_9</item>
+        <item>@drawable/article_5_1</item>
+    </string-array>
+
+    <string-array name="article_1">
+        <item>Try out sangat membantu calon peserta ujian untuk memahami dan mengetahui gambaran ujian dan teknis pelaksanaan pada saat ujian nantinya. Try out juga memberikan gambaran materi soal ujian yang akan naik pada saat ujian kompetensi. Try out memberikan pengalaman menggunakan aplikasi komputer yang dirancang oleh penyelenggara ujian kompetensi nasional. Calon peserta ujian diajarkan dan dilatih bagaimana cara mengaplikasikannya. Dengan demikian, calon peserta ujian tidak canggung lagi pada saat mengikuti ujian nantinya.</item>
+        <item>Trik pada saat ujian try out, sebaiknya calon peserta ujian membuat kelompok belajar dan membagi tugas kepada masing-masing anggota kelompok pada saat ujian nantinya. Tugas yang dimaksud adalah mencari tahu bentuk materi soal yang ada dalam ujian try out tersebut.</item>
+        <item>Tekhnisnya seperti ini, misalnya si A harus tahu soal yang muncul pada nomor 1 sampai 30. Kemudian si B juga seperti itu. Dan seterusnya sampai cukup 180 soal. Setelah selesai ujian calon peserta ujian berkumpul kembali dan pada saat calon peserta ujian dikarantina, disinilah calon peserta ujian beserta kelompok belajar yang lainnya merangkum semua materi soal yang diujikan. Tujuannya agar calon peserta ujian tidak lupa. Karena soal yang muncul pada saat try out merupakan soal yang sudah divalidasi oleh tim penyelenggara ujian dan bentuk soalnya tidak jauh melenceng dari ujian kompetensi yang akan dihadapi nantinya.</item>
+        <item>Ini bagian dari trik penulis yang telah dilalui pada saat try out sebelumnya sehingga memudahkan konsentrasi belajar. Karena hampir 50–70% model soal try out muncul pada saat ujian kompetensi yang sebenarnya. Sehingga penulis merekomendasikan menggunakan trik ini dan serius mengulangi kembali materi yang diujikan. Dengan demikian peluang calon peserta ujian untuk sukses dan lulus pada saat ujian nanti lebih besar.</item>
+        <item>Ujian kompetensi adalah penapisan seorang lulusan keperawatan melalui tes kompetensi. Dalam ujian kompetensi ada beberapa standar yang dijadikan barometer pada peserta ujian sehingga bisa dikatakan lulus ujian kompetensi. Standar tersebut telah diatur dalam Blue Print Kompetensi perawat.</item>
+    </string-array>
+
+    <string-array name="article_2">
+        <item>Satu sampai tiga bulan adalah masa-masa penting seorang peserta ukom mempersiapkan ujian kompetensinya. Masa ini adalah waktu terbaik yang harus disempatkan untuk mangatur waktu pendalaman materi Ujian. Beratnya beban sks dan jumlah mata kuliah yang berhubungan langsung dengan ujian membuat peserta ukom harus memiliki jeda waktu untuk persiapan pengulangan materi ujian kompetensi. Sebab jika peserta ukom tidak memberikan kesempatan otaknya untuk mereview kembali materi kuliah yang telah lama dipelajari maka akan menyulitkan peserta ukom untuk menganalisa soal kasus pada ujian kompetensi nantinya.</item>
+        <item>Pentingnya membangun motivasi untuk mengulang kembali materi kuliah adalah hal yang paling istemewa buat para calon peserta ukom. Tidak hanya sebagai bekal ujian kompetensi tetapi peserta ukom kembali mengasah keilmuwannya yang sangat dibutuhkan pada saat melamar pekerjaan nantinya dan kalaupun sudah bekerja pasti akan bermanfaat pada pekerjaan calon peserta ukom. Jadi tidak ada cacatnya peserta ukom mereview materi kuliah yang telah dipelajarinya.</item>
+        <item>Pengulangan materi kuliah juga mengurangi beban calon peserta ukom pada saat menjelang ujian. Biasanya calon peserta ukom akan keteteran dengan tumpukan materi yang belum dipelajarinya saat latihan menjawab soal, peserta ujian baru akan menyadari saat latihan menjawab soal.</item>
+        <item>Maka diperlukan suatu manajemen waktu persiapan pengulangan materi ujian. Yang mana pengulangan materinya dapat dimulai sejak tiga bulan sebelum ujian dilaksanakan. Prinsipnya adalah mini habits.</item>
+        <item>Habits adalah segala sesuatu yang kita lakukan secara otomatis, bahkan kita melakukan tanpa berfikir. Mini Habits adalah suatu aktivitas kecil yang dilakukan secara konsisten sehingga menjadi bagian dari jati diri seorang manusia. Aktivitas yang dilakukannya menimbulkan rasa senang, asik dan gampang. Intinya mini habits adalah kebiasaan kecil yang dilakukan setiap waktu yang akhirnya menjadi luar biasa.</item>
+        <item>Dalam status dilaman sosial media milik Prof. Yohannes Suryo sekaligus perintis Surya Institute digambarkan secara sederhana tentang teori mini habits ini. Beliau mengatakan:</item>
+        <item>“Bahwa otak kita butuh makanan berupa “kepuasan”. Games, smartphone (sms, WA, BB) atau situs tertentu memberikan “kepuasan” bagi otak. Otak puas menimbulkan rasa senang. Ini mendorong kita untuk melakukannya lagi dan lagi, menjadi suatu kebiasaan.</item>
+        <item>Kebiasaan membaca lebih 50 buku pertahun, baca 2 halaman per hari. Ini bukan tugas berat bagi otak. Sukses, membuat otak “puas” dan ingin melakukannya lagi dan lagi. Dari 2 halalaman, jadi 4 halaman, 10 halaman dan akhirnya 1 buku per bulan. Lalu 1 buku perminggu dan akhirnya lebih 50 buku pertahun.</item>
+        <item>Kebiasaan jalan pagi, saya mulai dengan jalan 5 menit perhari (gampang dilakukan). Sukses mampu jalan 5 menit , membuat otak “puas” (senang), sehingga saya lakukan ini tiap hari. Agar lebih asik, jalan sambil dengar lagu atau merenung. Rasa senang memotivasi saya untuk jalan 10 menit, 15 menit, lalu 20 menit dan akhirnya 30–45 menit, apalagi rewardnya hebat: tubuh lebih segar, penyakit (kolesterol, cepat lelah dsb.) sembuh tanpa obat. </item>
+        <item>Dari gambaran diatas memberikan kesimpulan bahwa tindakan yang kecil tidak boleh disepelekan dan dikucilkan karena ternyata tindakan kecillah yang mampu memberikan hasil yang luar biasa.</item>
+        <item>Banyak kebiasaan positif bisa dimulai dengan GASING (gampang, asik dan menyenangkan). Dan tentunya ini bisa diterapkan dalam persiapan ujian kompetensi. Sangat mudah dan simpel serta tidak memberikan beban berat buat individu terutama otak. Sehingga dengan demikian persiapan ujian kompetensi yang dilakukan dianggap biasa-biasa saja dan tentunya hasilnya adalah luar biasa. </item>
+        <item>Berikut ini penulis akan bagikan materi keperawatan yang selalu muncul dalam soal ukom. Materi ini jika dilihat secara kasat mata nampaknya akan sulit untuk dipelajari dan diulang. Namun, jika materi ini diulang atau dipelajari dengan prinsip mini habits maka materi tersebut akan gampang dan ringan untuk didalami.</item>
+        <item>Silahkan peserta ukom rencanakan persiapan ujiannya dengan mengikuti manajemen waktu yang terpampang dalam tabel ini. Calon peserta ujian tinggal mengikuti arahan dari tabel dibawah ini dan selanjutnya jika materi telah diulang dan dipelajari maka berilah tanda ceklist dalam kolom yang disediakan dan adapun kolom keterangan ini diisi jika ada materi yang cukup susah diulang atau kemungkinan tertunda untuk dipelajari. </item>
+        <item>#0</item>
+        <item>#1</item>
+        <item>#2</item>
+        <item>#3</item>
+        <item>#4</item>
+        <item>#5</item>
+        <item>#6</item>
+        <item>Prinsipnya adalah komitmen serta konsistensi. Jika ada materi yang terlewati maka akan menjadi beban pada hari selanjutnya. Dan usahakan tindakan yang seperti itu dijauhi. Kalau perlu berikan rewards dan punishment pada usaha anda. Ini akan menjadikan calon peserta semangat untuk menyelesaikan target pembelajaran persiapan ujian kompetensinya selama 3 bulan lamanya.</item>
+    </string-array>
+
+    <string-array name="article_3">
+        <item>Memahami dan menjawab soal ukom pada dasarnya cukup sulit. Selain soalnya dibuat dalam bentuk kasus juga pilihan jawabannya bersifat homogen (jawaban yang satu dan yang lainnya hampir sama). Namun, pada prinsipnya ketika calon peserta ujian kompetensi banyak berlatih menjawab contoh soal ukom maka secara otomatis calon peserta ukom bisa menjawab dan memilih jawaban secara tepat dan cepat. </item>
+        <item>Cara sederhana yang bisa calon peserta terapkan yaitu dengan memahami gambaran rancangan soal ukom perawat. Cara ini merupakan persiapan ideal bagi calon peserta ukom, karena calon peserta akan memiliki mindset bahwa soal ukom pada dasarnya mudah.</item>
+        <item>Berikut ini gambaran rancangan soal ujian kompetensi nasional yang dikutip dari buku panduan pelaksanaan uji kompetensi perawat :</item>
+        <item>1. Jarang ada soal ingatan murni (recall). Semua soal adalah soal terapan dari kejadian atau kasus dalam pekerjaan.</item>
+        <item>2. Setiap soal diawali dengan kasus. Kasus bisa merupakan setting rumah sakit, puskesmas, komunitas, atau keluarga.</item>
+        <item>3. Setelah kasus, terdapat pertanyaan. Kalimat pertanyaan diawali kata Tanya dan diakhiri dengan tanda Tanya (?).</item>
+        <item>4. Pilihan ganda, satu pilihan benar (one best answer) dengan opsi 4 atau lebih (a,b,c,d,e). Pilihan jawaban terkesan benar semua. Namun hanya satu jawaban yang tepat untuk pertanyaan dimaksud. Dalam buku ini tersedia 4 dan 5 pilihan jawaban tiap soal. Namun, prinsip menjawab model soal one best answer walaupun dengan opsi pilihan jawaban lebih dari 4 adalah sama.</item>
+        <item>Untuk menjawab model rancangan soal diatas penulis merekomendasikan menggunakan teknik  skimming dan scanning. Tekhnik ini adalah teknik yang paling cerdas dan tepat untuk menjawab soal kasus. Bagaimanapun soal kasusnya, apakah itu pilihannya bersifat homogen ataupun heterogen akan mudah terpecahkan jawabannya. Bahkan jika dalam soal terdapat kata-kata medis yang cukup sulit dikenal dengan bantuan teknik ini maka akan terbantu memilih jawaban dengan tepat.</item>
+        <item>Skimming adalah membaca dengan cepat untuk mengetahui isi umum atau bagian suatu soal. Sedangkan scanning atau disebut juga membaca memindai yaitu mencari informasi spesifik secara cepat dan akurat. Tekhnik ini digunakan untuk mengetahui dengan pasti kata kunci soal sehingga seorang calon peserta ukom lebih berkonsentrasi mencari jawaban yang spesifik dan berhubungan dengan kasus soal.</item>
+        <item>Langkah-langkah skimming dan scanning sebagai berikut:</item>
+        <item>1. Bacalah soal dengan cepat tetapi cermat.</item>
+        <item>2. Renungkan dan bayangkan soal yang sedang anda baca secara objektif bukan asumtif, lalu coba lakukan hal-hal sebagai berikut:</item>
+        <item>1) Formulasikan apa sebenarnya fokus dari kasus yang disajikan.</item>
+        <item>2) Formulasikan pertanyaan dengan bahasa sendiri.</item>
+        <item>3) Cari kata kunci yang ada pada setiap pertanyaan. Kata kunci pada soal pada umumnya adalah kata–kata seperti: terpenting, utama, prioritas, pertama, paling, dan sebagainya.</item>
+        <item>4) Apa informasi tambahan penting dan relevan yang ada dalam kasus. Jangan terjebak dengan kalimat atau informasi yang tidak relevan dengan pertanyaan.</item>
+        <item>5) Hati-hati terhadap informasi baru pada kasusnya. Mungkin informasi tersebut penting, tapi jangan terkecoh yakinlah dan tetap fokus.</item>
+        <item>6) Pikirkan dengan cepat kemungkinan jawaban-jawaban yang menjawab pertanyaan.</item>
+        <item>7) Jawab pertanyaan tersebut dengan bahasa sendiri minimal gunakan logika atau insting.</item>
+        <item>3. Setelah melakukan hal-hal tersebut diatas, bacalah dengan cermat pilihan jawaban yang tersedia. Segera buat keputusan, kemudian jawablah pertanyaan-pertanyaan berikut ini:</item>
+        <item>1) Apakah ada pilihan yang mirip dengan jawaban yang dipikirkan?</item>
+        <item>2) Apakah jawaban tersebut yang paling tepat dan paling lengkap untuk menjawab pertanyaan yang diajukan?</item>
+        <item>4. Jika mendapatkan soal yang kelihatannya diluar bidang atau pengalaman yang dikuasai, jangan panik. Yang perlu dilakukan adalah tetap tenang, pahami soal baik-baik untuk mengerti apa yang sebenarnya ditanyakan dengan logika yang anda miliki dan cari kemungkinan jawaban yang paling sesuai dan tepat.</item>
+        <item>5. Jika terasa sulit, jangan terpaku pada soal tersebut karena akan menguras waktu dan energi anda. Teruskanlah mengerjakan soal yang anda anggap mudah terlebih dahulu dengan menggunakan teknik diatas. Setelah mengerjakan soal yang mudah, barulah kembali pada soal yang belum anda kerjakan tadi.</item>
+        <item>Dibawah ini beberapa contoh soal kasus untuk penerapan teknik skimming dan scanning diatas.</item>
+        <item>#7</item>
+        <item>#8</item>
+        <item>#9</item>
+        <item>#10</item>
+        <item>#11</item>
+        <item>#12</item>
+        <item>#13</item>
+        <item>#14</item>
+        <item>Penerapana metode skimming dan scanning ini bisa optimal digunakan pada saat tes berlangsung jika calon peserta banyak berlatih menjawab soal. Tanpa latihan yang konsisten mustahil calon peserta bisa manfaatkan metode ini untuk menjawab soal ukom nantinya.</item>
+        <item>Calon peserta bisa manfaatkan contoh-sontoh soal yang tersedia untuk mengasah kemampuan metode tersebut. Berlatihlah menjawab 1 soal dalam waktu 1 menit dengan benar menggunakan teknik tersebut. Jangan putus asa jika tidak berhasil. Lakukanlah secara terus-menerus. Jika calon peserta telah menjawab beberapa soal dengan teknik tersebut maka secara otomatis teknik tersebut akan dikuasai. Dan tentunya bekal tersebutlah yang paling menunjang dalam menuntaskan soal ujian kompetensi nantinya. Dan harapan calon peserta lulus ukom dapat tercapai.</item>
+    </string-array>
+
+    <string-array name="article_4">
+        <item>Ujian kompetensi adalah penapisan seorang lulusan keperawatan melalui tes kompetensi. Dalam ujian kompetensi ada beberapa standar yang dijadikan barometer pada peserta ujian sehingga bisa dikatakan lulus ujian kompetensi. Standar tersebut telah diatur dalam Blue Print Kompetensi perawat.</item>
+        <item>Jumlah soal yang digunakan dalam uji kompetensi adalah 180 soal dan disediakan waktu 3 jam untuk mengerjakannya. Jenis soal yang digunakan adalah soal pilihan ganda (MCQ type A question/dengan 5 alternatif jawaban (a,b,c,d,e). Ada dua metode yaitu PBT (untuk DIII) dan CBT (untuk Ners). </item>
+        <item>Setiap soal disajikan dalam bentuk vigneet (kasus) yang menggambarkan situasi klinik yang logis. Setiap set soal yang disusun memiliki bobot yang sama. Artinya set soal yang dibuat oleh penyelenggara telah melalui uji statistik dan semuanya dalam bentuk penalaran bukan ingatan. </item>
+        <item>Calon peserta ukom tidak mesti tegang dan cemas dengan gambaran diatas karena soal ukom nantinya telah dirancang oleh tim penyelenggara sesuai dengan kemampuan dan standar yang telah ditetapkan. Pengalaman penulis menilai bahwa set soal yang disajikan semuanya telah dilewati sejak bangku kuliah hingga praktik klinik. Dan peruntukannya tidak untuk perawat yang berpengalaman atau intermediate tetapi soal dibuat untuk fresh graduate atau peserta didik baru yang baru lulus. </item>
+        <item>Agar calon peserta nantinya tidak kaget berhadapan dengan soal ukom maka jalan terbaik yang dilakukan adalah banyak berlatih menjawab soal. Dengan berlatih menjawab soal calon peserta mampu mengenal dan mengetahui gambaran soal ujian kompetensi.  Dan kemudian soal-soal tersebut dipecahkan dengan teknik-teknik yang berbeda sesuai dengan model kasus dalam soal secara tepat dan benar. Misalnya, model soal kasus A dijawab dengan teknik A, model kasus B dijawab dengan teknik B dan seterusnya. </item>
+        <item>Selain itu, menaklukkan soal tidak hanya menjawab begitu saja tanpa memperhatikan waktunya. Calon peserta juga perlu mempertimbangkan manajemen waktu dalam menjawab soal, yang idealnya 1 soal dijawab dengan benar dalam waktu 1 menit. Jika tidak, maka soal tidak akan tuntas terjawab semua dengan benar.</item>
+        <item>Calon peserta dapat menyelesaikan 1 soal dalam satu menit dengan menggunakan metode “menjawab soal dengan singkat”. Metode ini cukup sederhana karena dengan memperhatikan kata kunci yang ada dalam kasus maka soal dapat dijawab dengan mudah. Dan dengan kemudahan ini maka waktu menjawab soal menjadi singkat. </item>
+        <item>Agar metode tersebut dapat diaplikasikan, dibawah ini dibagikan beberapa contoh kasus yang dapat digunakan oleh calon peserta untuk berlatih menggunakan metode tersebut. Contoh kasus ini disertai dengan pembahasan cara menjawab soal dengan singkat. Yang calon peserta dapat mencontohi teknik tersebut dan dapat menerapkannya dalam menjawab soal ukom nantinya. </item>
+        <item>Berikut contoh kasus yang dibagikan untuk menerapkan metode diatas.</item>
+        <item>#15</item>
+        <item>Untuk menyelesaikan kasus ini maka pengalaman membuat diagram patofisiologi adalah solusinya. Calon peserta tidak diragukan lagi dengan tugas patofisiologinya. Hampir setiap pekan calon peserta mendapatkan kasus yang menjadi tugas pada saat praktik klinik. Dan model kasus ini dianggap calon peserta dengan mudah dapat dikerjakannya. </item>
+        <item>#16</item>
+        <item>Kata kunci pada soal adalah polidipsi (selalu haus). Dengan melihat pathways di atas, maka dapat dilihat bahwa hiperglikemia yang disebabkan oleh DM type 2 akan mengakibatkan kelebihan ambang pada ginjal untuk memfiltrasi dan reabsorbsi glukosa (lihat gambar kanan). Kelebihan ini menimbulkan efek pembuangan glukosa melalui urine (glukosuria). Ekskresi molekul glukosa yang aktif secara osmosis menyebabkan kehilangan sejumlah besar air atau yang disebut dengan diuresis osmotic yang kemudian mengakibatkan peningkatan volume air (poliuria). Untuk mengimbangi hal tersebut tubuh menstimulasi otak (hipotalamus) untuk menggantikan cairan yang keluar dengan melalui rasa haus atau dengan banyak minum. Sehingga jawaban yang tepat adalah D.</item>
+        <item>Jika calon peserta masih merasa sulit maka seringlah berlatih mengerjakan soal kasus yang sama kemudian buatlah patofisiologinya. Atau berlatihlah membuat patofisiologi kemudian bahasakanlah sendiri alur patofisiologi hasil kerja anda. Latihan ini akan anda rasakan tidak hanya ujian saja, tetapi saat bekerja anda akan terbantu dengan hasil usaha anda. Dan latihan ini akan menjadi nilai tambah buat anda jika semua penyakit anda kuasai patofisiologinya. </item>
+        <item>#17</item>
+        <item>Jika infus diberikan pada pukul 10.00 maka akan habis setelah 8 jam pemberian dengan tetasan 20 tpm dan infuse akan diganti pada pukul 18.00 WIB. Jadi, jawaban yang benar adalah B.</item>
+        <item>Soal seperti ini sebaiknya dijawab dalam waktu singkat. Calon peserta berlatih menjawab model soal seperti ini paling lambat 60 menit dalam satu soal. Ukurannya jika dalam latihan calon peserta masih menggunakan waktu menjawab soal seperti ini lewat dari 1 menit maka sebaiknya berlatih terus. Dan sebaiknya proses perhitungannya tidak menggunakan alat perhitungan atau kalkulator.</item>
+        <item>#18</item>
+        <item>Pertanyaan diatas membutuhkan perhitungan dan pemahaman terkait dengan materi perkuliahan manajemen keperawatan. Keseriusan mengikuti perkuliahan dikelas dan mengerjakan laporan klinik akan dapat membantu calon peserta untuk menjawab soal dengan model seperti ini. </item>
+        <item>Untuk menjawab model soal seperti ini maka diperlukan pengetahuan tentang konsep kergantungan pasien dan konsep perhitungan ketenagaan. Menurut Douglas (1984), Loveridge &amp; Cummings (1996) klasifikasi derajat ketergantungan pasien dibagi 3 (tiga) kategori, yaitu perawatan minimal memerlukan waktu 1–2 jam/24 jam. Perawat intermediet memerlukan waktu 3–4 jam/24 jam. Perawatan maksimal atau total memerlukan waktu 5–6/24 jam. </item>
+        <item>Jumlah perawat yang dibutuhkan pada pagi, sore dan malam tergantung pada tingkat ketergantungan pasien seperti pada tabel ini:</item>
+        <item>#19</item>
+        <item>Tabel diatas ini sudah menjadi ketentuan untuk menghitung jumlah perawat yang akan berjaga sesuai dengan kondisi pasien. Untuk menyelesaikan soal diatas silahkan masukkan masing-masing jumlah pasien yang masuk dalam klasifikasi ketergantungan pasien. Sesuai dengan kasus diatas, pasien minimal care sebanyak 5, intermediate/parsial care sebanyak 15 dan total care sebanyak 5 pasien. Jumlah ini kemudian dikonversikan kedalam tabel diatas sesuai dengan kata kunci dari soal. Kata kunci dari soal yaitu mencari jumlah tenaga perawat yang dibutuhkan jaga siang. Sehingga rumus yang digunakan hanya jaga siang saja. Jika soal menanyakan untuk jaga pagi dan malam maka tinggal hitung sesuai daftar tabel diatas.</item>
+        <item>5 x 0.14 = 0.7 (minimal care), 15 x 0.15 = 2.25 (intermediate/parsial), 5 x 0.36 = 1.80 (total care). Setelah dihitung sesuai daftar ktergantungan pasien selanjutnya akumulasikan dari jumlah masing-masing 0.7 + 2.25 + 1.80 = 4.75 dibulatkan menjadi 5. Sehingga jumlah tenaga perawat yang dibutuhkan jaga siang dengan pasien sebanyak 25 orang adalah 5 orang. Jadi, jawabannya adalah A.</item>
+        <item>#20</item>
+        <item>Materi EKG bagi lulusan didik saat ini masih cukup sulit untuk diinterpretasi. Karena materinya dalam kurikulum masih terbilang sedikit, dan memang materi EKG ini tidak diajarkan untuk ahli menginterpretasi hanya sebatas paham materi dasarnya saja. Dan hanya yang menjadi prioritas adalah skill pemasangan EKG-nya. Namun, jangan khawatir soal EKG yang keluar pada ujian kompetensi memang dasar-dasarnya saja dan lebih mengarah pada prosedurnya.</item>
+        <item>Soal yang berhubungan EKG juga termasuk paling sering dimunculkan pada ujian kompetensi. Termasuk model contoh diatas. Untuk menjawab soal diatas maka diperlukan pemahaman dasar gelombang EKG. </item>
+        <item>Kata kunci pertanyaan diatas adalah irama ekg. Sebelum menjawab calon peserta harus memahami gelombang EKG. Gelombang EKG secara umum terdiri atas PQRST, masing-masing adalah gelombang P, gelombang QRS, gelombang Q, gelombang R, gelombang S, dan gelombang T. Seperti gambar dibawah ini:</item>
+        <item>#21</item>
+        <item>Setiap beat memiliki gelombang EKG yang sempurna yaitu PQRST dan irama yang normal yaitu sinus ritme atau irama reguler. Syarat Irama normal yaitu antara interval R–R harus sama. Dan syarat Heart Rate/frekuensi Jantung normal yaitu 60–100x/menit. Dan untuk mengetahui normal atau tidak HR yaitu dengan cara menghitung kotak kecil atau kotak besar dari setiap beat gelombang EKG diatas. 300/jumlah kotak besar antara R-R atau 1500/jumlah kotak kecil antara R-R. HR Jika lebih dari normal maka disebut dengan takikardi dan dibawah normal disebut bradikardi.</item>
+        <item>Soal diatas sangat sederhana dimana yang ditanyakan adalah iramanya saja. Sebelum menjawab lihat beat secara keseluruhan apakah gelombangnya lengkap dan normal. Jika dilihat gambar diatas gelombangnya lengkap dan normal, karena geompang P selalu diikuti gelombang kompleks QRS dan gelombang T. Selanjutnya hitung kotak kecil antara R beat pertama ke R beat selanjutnya. Gambar diatas menunjukkan interval R-R nya sama yaitu 14 kotak kecil. Berarti kesimpulan pertama irama gelombang diatas sinus reguler atau iramanya teratur. Namun, kesimpulannya belum berakhir karena pilihan jawaban tidak ada sinus reguler yang ada hanya takikardi dan bradikardi. </item>
+        <item>#22</item>
+        <item>Pada penjelasan sebelumnya untuk mengetahui apakah takikardi atau bradikardi maka dilakukan perhitungan interval R–R atau 1500/31 adalah 48. Ternyata jumlah interval antara interval antara R–R yaitu kurang dari 60–100x/menit. Berarti HR gambar diatas adalah bradikardi. Dengan demikian dapat disimpulkan bahwa irama gambar EKG diatas adalah sinus bradikardi. Jadi, jawaban yang tepat adalah C. Sinus Bradikardi.</item>
+        <item>#23</item>
+        <item>Untuk menjawab kasus ini maka kata kunci utama perlu digaris bawahi yaitu perawat sudah siap-siap memasukkan kateter kedalam uretra yang berarti sebelum perawat memasukkan kateter maka ada tahap-tahap sebelumnya. Sehingga untuk kasus ini perawat harus memahami langkah pemasangan kateter. Adapun prosedur tindakannya secara umum yaitu menjelaskan tindakan, mencuci tangan, memakai sarung tangan, membersihkan daerah genetalia dan mengoleskan kateter dengan jelly dan selanjutnya memasukkan kateter dalam uretra. Dari tahapan prosedur ini tindakan mengoleskan kateter dengan jelly adalah langkah yang dilakukan sebelum memasukkan kateter kedalam uretra. Jadi jawaban yang benar adalah B. </item>
+        <item>Soal kasus diatas merupakan salah satu keterampilan seorang perawat. Dan saat praktik klinik keterampilan pemasangan Kateter ini cukup mudah didapatkan pengaplikasiannya. Tidak hanya di lapangan, di laboratorium kampus juga didapatkan baik melalui teori maupun prakteknya. </item>
+        <item>Demikianlah contoh kasus untuk penerapan metode \"menjawab soal dengan singkat\", calon peserta dapat menerapkannya pada contoh soal yang lainnya. Dan prinsipnya cuma satu yaitu rajin berlatih. </item>
+        <item>Jika calon peserta menemukan soal tindakan prosedur, calon peserta jangan khawatir untuk tidak bisa menjawab dengan singkat. Ternyata soal dengan model tersebut cukup mudah untuk menjawabnya karena tindakan prosedur cukup familiar pada saat praktik di laboratorium dan klinik. Dengan bekal laboratorium skill dan praktik klinik maka soal tindakan prosedur dapat terpecahkan dengan mudah. Dan model soal tersebut cukup menggembirakan karena model soal seperti itu cukup banyak keluar pada saat ujian kompetensi. Untuk lulusan DIII soal prosedural knowledge sekitar 45–55% atau sekitar 80–90 dan lulusan Ners sekitar 20–25% atau 40–50 nomor dari 180 soal yang diujiankan. Jadi, sangat disayangkan jika calon peserta tidak lulus karena model soal tindakan keperawatan cukup banyak muncul pada soal ujian kompetensi.</item>
+        <item>Ingat: jika calon peserta serius saat laboratorium skill dan praktik klinik maka soal diatas cukup mudah dikerjakan. Maka dari itu berlatihlah kembali kemampuan skill yang belum dikuasai atau buka kembali bukunya yang berhubungan dengan prosedural knowledge. Ulangi atau baca kembali prosedurnya, usahakan anda mengulangi hingga 40 kali. </item>
+    </string-array>
+
+    <string-array name="article_5">
+        <item>Salah satu cara yang terbaik untuk memaksimalkan ingatan yaitu dengan cara mencari dan menelusuri secara langsung pilihan jawaban dari contoh soal melalui buku atau materi kuliah. Calon peserta akan terlatih mengingat kunci jawaban dari soal yang dijawab dan dengan mudah calon peserta mengingat jawaban ketika ada soal yang mirip dengan soal tersebut  pada saat ujian berlangsung. Tidak hanya itu, calon peserta akan mendapatkan banyak penambahan referensi sebagai modal mejelang ujian kompetensi.</item>
+        <item>Metode ini disebut dengan open book. Metode yang mudah dan sederhana serta realistis. Calon peserta dengan mudahnya membuka buku kemudian mencocokkan jawaban tersebut sesuai dengan kasus dan pilihan jawabannya. Calon peserta menjawab contoh soal dengan merasionalkan jawaban tersebut melalui buku bacaan. </item>
+        <item>Prinsipnya sederhana calon peserta tidak membebankan memori otak untuk berfikir keras menjawab soal, tetapi buku bacaanlah yang menjadi rujukan dalam menjawab soal tersebut. Calon peserta tinggal mencari dan menemukan jawaban yang sesuai dalam buku bacaan. Dan kemudian memilih jawaban yang tepat sesuai dengan hasil bacaan calon peserta. Jadi peserta menjawab soal dengan membuka materi yang ada dalam buku.</item>
+        <item>Calon peserta akan dituntut mengulangi materi kuliah melalui bacaannya. Dan secara otomatis calon peserta akan berusaha mendalami materi tersebut jika calon peserta merasa materi tersebut masih kurang dipahami. Dan dengan demikian proses pembelajaran menjadi produktif karena melalui bacaan ada banyak tambahan ilmu yang didalami. Dimana ilmu ini adalah modal persiapan yang paling menunjang dalam ujian kompetensi nantinya.</item>
+        <item>Dibawah ini dibagikan satu kasus yang dapat dijadikan contoh pembalajaran untuk menerapkan metode diatas. Berikut contoh kasusnya:</item>
+        <item>#24</item>
+        <item>Cara belajarnya yaitu memahami kasusnya kemudian mencari arti/pengertian dari semua pilihan jawaban diatas melalui buku. Mulai dari pilihan a sampai e. Jika semua arti/pengertian dari pilihan jawaban tersebut sudah dicari dan diketahui maka selanjutnya adalah tinggal menghubungkannya dengan kasus kemudian memilih jawaban yang paling tepat. Berikut penjabarannya.</item>
+        <item>Dibawah ini pengertian dari pilihan jawaban soal diatas.</item>
+        <item>a. Autokratic : Segala keputusan berada di tangan pemimpin, pendapat dari bawahan tidak pernah dibenarkan.</item>
+        <item>b. Demokratik: Ditemukan adanya peran serta dari bawahan dalam pengambilan keputusan yang dilakukan dengan musyawarah.</item>
+        <item>c. Laisess faire : Kemampuan mempengaruhi orang lain agar bersedia bekerja sama untuk mencapai tujuan dengan cara berbagai kegiatan dan pelaksanaanya dilakukan lebih banyak diserahkan kepada bawahan karena bawahan dianggap mampu melakukan tindakan tersebut.</item>
+        <item>d. Transformasional: pemimpin yang mempunyai kekuatan untuk mempengaruhi bawahan dengan cara-cara tertentu. Dengan penerapan kepemimpinan transformasional bawahan akan merasa dipercaya, dihargai, loyal dan respek kepada pimpinannya. Pada akhirnya bawahan akan termotivasi untuk melakukan lebih dari yang diharapkan.</item>
+        <item>e. Spiritual : Pemimpin yang mempengaruhi bawahannya dengan pendekataan agama.</item>
+        <item>f. Partisipatif: pemimpin dan bawahan saling tukar menukar ide dalam pemecahan masalah dan pembuatan keputusan.</item>
+        <item>Setelah calon peserta mencari dan menemukan pengertian dari masing-masing jawaban, calon peserta selanjutnya menghubungkan dengan soalnya. Adapun kata kunci dari soal diatas adalah kepala ruangan memberikan kebebasan ide atau perubahan kepada bawahan tanpa control dari kepala ruangan yang mana kepala ruangan menganggap bahwa bawahan memiliki kemampuan dan motivasi yang tinggi.</item>
+        <item>Pilihan jawaban yang berhubungan dengan kasus dan pengertian diatas hanya satu yaitu laisses faire: dimana leisses faire adalah gaya kepemimpinan yang menerapkan segala tindakan, ide atau perubahan diserahkan kepada bawahan karena bawahan dianggap mampu melakukan hal tersebut. Dengan demikian jawaban yang tepat adalah C.</item>
+        <item>Seperti itulah gambaran khusus cara mengaplikasikan salah satu metode persiapan ukom diatas. Calon peserta bisa mencontohi metode pembelajaran ini dan penulis yakin dengan metode ini pemahaman tentang materi keperawatan dalam rangka persiapan ukom akan meningkat drastis.</item>
+        <item>Ingat, jika calon peserta merasa pengertian pilihan jawaban diatas masih kurang dipahami maka dalamilah terlebih dahulu atau kalau perlu hafalkan pengertiannya sebelum menjawab soal selanjutnya.</item>
+        <item>Pada panduan III dibagikan beberapa contoh soal kasus yang dapat dijadikan sumber pembelajaran dari metode diatas. Dan penulis sengaja tidak memberikan kunci jawabannya secara langsung agar calon peserta dapat mandiri menelusuri dan menganalisa pilihan jawaban dari contoh soal keperawatan tersebut.</item>
+    </string-array>
+
+    <string-array name="article_6">
+        <item>Memahami dan mengenal wilayah teknis ujian kompetensi sangat berpengaruh pada saat ujian berlangsung. Kenapa?, karena kesiapan peserta ujian lebih terencana dan terkoodinir dengan rapi. Beda halnya dengan tanpa persiapan yang hanya jalan secara natural begitu saja. Tanpa persiapan ilmu dan taktik maka peluang lulus ujian kompetensi begitu sulit untuk diraih.</item>
+        <item>Penulis yakini dan berani mengatakan seperti ini, karena pengalaman dari beberapa teman yang telah melalui proses ujian ternyata banyak mengalami kegagalan akibat cuek dan apatis dengan wilayah teknis ujian kompetensi dan ini adalah trik yang salah yang membuat peserta tidak lulus. Olehnya itu, pembahasan ini jangan dibiarkan berlalu begitu saja usahakan wilayah teknis ini harus dijadikan penunjang untuk kelulusan. Bagi penulis berpendapat bahwa hal sepele inilah yang paling mendasar dan fundamental untuk diketahui dan harus diaplikasikan. Karena jika trik salah ini dibiarkan begitu saja maka jurang kegagalan akan terbuka lebar buat anda sebagai calon peserta ujian kompetensi.</item>
+        <item>Ingat: Wilayah teknislah yang menjadi pintu utama peserta ujian bisa lulus. Hati-hati dengan jebakan kondisi rutinitas ini. Banyak peserta terjebak dan akhirnya tidak lulus akibat menyepelekan wilayah ini.</item>
+        <item>Seperti apakah wilayah teknis itu sehingga membuat beberapa peserta ujian gagal dalam ujian kompetensinya. Berikut penulis bagikan wilayah-wilayah teknis tersebut. </item>
+        <item>1. Belajar Dengan Sistem Kebut Semalam</item>
+        <item>Hampir setiap pelajar mengetahui metode belajar ini. Dan rata-rata metode ini paling sering digunakan oleh setiap pelajar sebelum menjalani proses ujiannya.  Tidak hanya pelajar, tetapi calon peserta ujian kompetensi pun juga melakukan hal demikian. Dilakukan survey sederhana didapatkan bahwa dari 10 peserta yang menjadi peserta ujian hanya 4 orang yang memang serius belajar. Serius yang dimaksud adalah pendalaman materi ujian dan latihan menjawab soal  dilakukan satu sampai tiga bulan sebelum ujian kompetensi.</item>
+        <item>Sebenarnya terlihat sederhana dan sepele tentang implementasi cara belajar yang serius dan fokus sebelum menempuh proses ujian namun terkadang diabaikan begitu saja dan terlalu diremehkan. Anggapan bahwa materi ujian dengan mudah diketahui sehari sebelum ujian. Biasa juga muncul pikiran yang kurang tepat bahwa jika persiapan ujian dilakukan terlalu jauh maka ilmunya akan cepat lupa mengingat intervalnya cukup jauh yang bisa saja ada aktivitas lain yang membuat fokus dan konsentrasi persiapan ujian  buyar dan hasilnya nol.</item>
+        <item>Penulis tidak merekomendasikan cara metode belajar tersebut. Ujian kompetensi sangat berbeda dengan ujian semester ataupun ujian diperkuliahan. Ujian semester jika tidak lulus bisa dilakukan remedial dan tidak langsung berefek pada masa depan, tetapi untuk ujian kompetensi efeknya langsung pada masa depan seorang peserta ujian. Ujian kompetensi adalah pintu utama seorang perawat bisa bekerja ditatanan layanan kesehatan, tanpa kelulusan dari ujian kompetensi seorang perawat akan sangat susah melakukan tindakan ditatanan layanan keperawatan ataupun tindakan mandiri. Jika peserta tidak lulus maka mimpi seorang peserta ujian akan sedikit terhambat karena harus melewati ujian kompetensi diperiode selanjutnya yang belum dipastikan juga lulus.</item>
+        <item>Seorang calon peserta ujian sangat disarankan untuk belajar tiga bulan sebelum ujian kompetensi. Belajar yang dimaksud disini adalah pengulangan materi perkuliahan dan pendalaman materi, serta memperbanyak melakukan simulasi menjawab soal keperawatan. Semakin sering menjawab soal maka semakin terasah analisa kasus dalam pikiran calon peserta ujian.</item>
+        <item>Beda halnya jika peserta ujian belajar sehari sebelum ujian, terlebih hanya belajar pada saat malam harinya saja. Peserta ujian akan dihantui dengan materi-materi perkuliahan yang belum sempat dipelajari yang diduga akan muncul pada saat ujian. Materi ujian yang dipelajari menumpuk dan akhirnya tidak ada sama sekali yang dipelajari.</item>
+        <item>Tidak hanya itu saja, efek dari belajar dengan sistem kebut semalam itu antara lain peserta ujian akan belajar hingga larut malam, dan paginya peserta ujian terlambat bangun, kemudian berangkat ke lokasi ujian tanpa bekal makanan karena terburu-buru takut terlambat masuk, sampai dilokasi ujian sudah berlangsung karena dijalan kendaran macet, dan selanjutnya peserta tidak konsentrasi karena ngantuk dan akhirnya peserta menjawab ujian dengan asal-asalan. Dan pada saat pengumuman hasilnya adalah kegagalan.</item>
+        <item>Seperti inilah efek ketika metode persiapan ujian yang dilakukan hanya dengan belajar semalam saja. Efek yang ditimbulkan sistemik dan masif. Sangat merugikan bagi peserta ujian. Olehnya itu, sebagai calon peserta ujian harus mewaspadai dan menghindari jebakan belajar dengan sistem kebut semalam ini. </item>
+        <item>2. Belajar Kelompok</item>
+        <item>Metode belajar yang juga cukup digemari oleh pelajar adalah dengan belajar kelompok. Belajar kelompok  sangat menunjang seorang pelajar dapat menimbah ilmu banyak. Karena belajar kelompok mempertemukan beberapa pikiran setiap orang dan setiap pikiran ini mengeluarkan idenya untuk berbagi, sehingga dari setiap orang dalam kelompok tersebut dapat dengan mudah memperoleh ide atau ilmu yang telah dibagikan.</item>
+        <item>Sama halnya dengan peserta ujian juga sangat penting dilakukan dengan metode belajar kolompok. Saling bertukar informasi antara yang satu dengan yang lainnya. Jika ada kesulitan bisa dibantu oleh peserta yang lainnya. Sehingga beberapa kendala dalam memahami materi ujian dapat dengan mudah terpecahkan.</item>
+        <item>Namun, perlu diingat bahwa belajar kelompok juga dapat merugikan bagi peserta ujian. Karena bisa jadi niat awal untuk belajar berubah menjadi hiburan atau acara makan-makan. Dan hal inilah yang paling sering terjadi. Tidak sah jika tidak disertai dengan makan-makan. Penulis setuju dengan prinsip tersebut tetapi perlu dipisahkan antara acara makan-makan dan belajar kelompoknya. Disamping itu juga, ada efek lain yang perlu diperhatikan dari belajar kelompok yaitu kesiapan.</item>
+        <item>Sebaiknya peserta ujian sebelum berdiskusi dalam belajar kelompok menyiapkan terlebih dahulu persiapan bahan materinya sehingga pada saat bertukar informasi peserta tidak buta dengan ide-ide yang diutarakan oleh teman kelompok lainnya. Jika peserta pada dasarnya tidak mengetahui materi yang didiskusikan maka peserta tersebut sebaiknya mencari tahu kepada teman yang lebih paham.</item>
+        <item>Penulis merekomendasikan bahwa sebaiknya waktu belajar kelompok jangan dilakukan sehari sebelum ujian dan juga jangan berada pada rumah teman yang membuat tuan rumah menjadi repot dengan tamu yang hadir. Tuan rumah akan buyar konsentrasi belajarnya disebabkan sibuk dan fokus menyediakan jemuan untuk para tamu yang sedang belajar dan akhirnya tuan rumah tidak ada waktu lagi untuk belajar. Jadi, sebaiknya jika ingin melakukan belajar kolompok sedianya diluar rumah teman atau menempati lokasi khusus untuk berdiskusi. Dan jangan lupa bedakan waktu makan-makannya dan wakut belajar kelompoknya.</item>
+        <item>3. Bangun Kesiangan</item>
+        <item>Bangun kesiangan adalah salah satu efek dari alur belajar hingga larut malam. Namun, terkadang seorang peserta ujian juga bangun kesiangan memang karena terbiasa dengan bangun kesiangan ataukah ada aktifitas lain selain dari belajar sehingga peserta ujian bangun kesiangan. Intinya bangun kesiangan membuat peserta tidak mendapatkan waktu yang banyak untuk sempat memantapkan persiapan ujian sebelum berangkat. Tidak hanya itu, bangun kesiangan membuat seorang peserta menjadi tergesa-gesa yang jika dilakukan dalam perjalanan menuju kelokasi ujian bisa saja terjadi sesuatu hal diluar dugaan misalnya kecelakaan.</item>
+        <item>Bagi peserta ujian yang statusnya pekerja dilayanan kesehatan maka disarankan untuk mengosongkan aktifitas atau jadwalnya 3 hari sebelum ujian. Paling tidak sehari sebelum ujian, tidak merangkap dinas pada malam hari hingga pagi hari. Sebaiknya minta libur atau kalau bisa cuti. Karena sangat disayangkan jika hanya karena kondisi ini membuat peserta ukom tidak mampu maksimal pada saat ujian kompetensi berlangsung. Dan jika hasilnya buruk maka prosedur ini akan dilakukan pada periode berikutnya. Olehnya itu, jaga wilayah ini agar saat ujian berlangsung produktifitas semangat ujian tercapai.</item>
+        <item>4. Terlambat Tiba Dilokasi Ujian</item>
+        <item>Disiplin dalam setiap kegiatan atau event adalah tindakan positif untuk produktifitas seseorang. Begitu juga dengan seorang peserta ujian kompetensi dituntut untuk tepat waktu tiba dilokasi ujian. Seorang peserta ujian akan mendapatkan keberuntungan jika hadir dilokasi ujian 30–60 menit sebelum ujian. Peserta akan memiliki kesempatan waktu untuk memantapkan persiapan ujiannya seperti perlengkapan ujiannya dan sebagainya. Selain itu juga peserta memiliki waktu untuk melihat kondisi disekitar ujian. </item>
+        <item>Sangat berbeda kondisinya jika seorang peserta ujian terlambat datang dilokasi ujian. Peserta akan kebingungan dengan beberapa persiapan yang dilakukan oleh panitia dan pengawas. Kurang mendapatkan Informasi terkait dengan proses ujian. Dan juga waktu untuk mengerjakan soal manjadi sedikit. Penulis sangat merekomendasikan untuk menghindari kerterlambatan tiba dilokasi ujian. Karena beberapa pengalaman peserta tidak lulus karena efek dari keterlambatannya datang dilokasi ujian.</item>
+        <item>5. Mengabaikan Kesehatan Fisik</item>
+        <item>Kesahatan sangat penting bagi setiap individu. Jika seorang individu mengalami gangguan pada kesehatan tubuhnya maka secara otomatis juga akan mengalami hambatan pada aktifitas kesehariannya. Maka kesehatan tubuh adalah penunjang utama individu dalam melakukan aktifitasnya sehari-hari.</item>
+        <item>Begitupun dengan seorang calon peserta ujian kompetensi. Harus lebih sensitif dengan kesehatan tubuhnya agar terjaga selalu hingga pelaksanaan ujian kompetensi. Bagaimanapun pintarnya seseorang jika pada waktu menjawab soal ukom tubuhnya tidak bisa menyeimbanginya maka pada saat itu juga ujian yang dilakukan akan mengalami hambatan. Akibatnya fokus menghilang dan jawaban yang dipilihpun menjadi tidak tepat dan akhirnya gagal.</item>
+        <item>Sebagai calon peserta ujian sedianya menjaga kesehatan fisiknya selama menjalani proses persiapan ujian kompetensi. Calon peserta ukom selalu proteksi dirinya dengan aktifitas yang tidak jelas, misalnya hura-hura dengan teman atau begadang yang tidak jelas ataukah bepergian yang tidak ada manfaatnya. Calon peserta selalu memikirkan kesehatan fisiknya agar dapat terjaga dan fit sampai hari –H pelaksanaan ujian kompetensi.</item>
+        <item>Satu hal yang membuat penulis kaget dengan berita salah satu dari rekan calon peserta ukom yang tidak bisa mengikuti ujian kompetensinya dikarenakan seminggu sebelum ujian mengalami kecelakaan dan sampai hari-H rekan tersebut tak mampu memenuhi undangan sebagai peserta ukom untuk menjalani proses ujian kompetensinya. Karena tak ada ujian susulan bagi peserta yang sakit  maka ketika pengumuman muncul namanya gagal dalam ujian tersebut. Dan akhirnya rekan tersebut mengulang hingga tahun depat berikutnya.</item>
+        <item>Seperti inilah salah satu pengalaman rekan kita yang kondisinya terganggu saat pelaksanaan ujian kompetensi. Dia menjadi gagal ujian karena sakit. </item>
+        <item>Tidak hanya itu, ada banyak cerita dan pengalaman calon peserta ujian yang tidak mampu melanjutkan ukomnya, misalnya dikarenakan sakit pada saat pelaksanaan ujian dan ada juga peserta ujian yang melanjutkan proses ujiannya tetapi hasilnya pun nihil, dia tak mampu berbuat apa-apa dengan kondisinya yang kurang fit. Dia tak mampu menahan kondisi ruangan yang cukup dingin dan suhu tubuhnya tidak mampu mengkompensasi suhu dari dunia luar. Dan akhirnya peserta ukom ini cuman menjawab sebagian saja dan selanjutnya mengundurkan diri dari proses ujian karena tak sanggup dengan kondisi tubuhnya yang perlu istirahat total.</item>
+        <item>Dan masih banyak lagi cerita dan pengalaman tentang hambatan proses ujian karena kesehatan tubuh seorang peserta ujiann terganggu. Olehnya itu, penulis sangat menyarankan untuk menjaga kesehatan tubuh calon peserta ukom dari hal-hal yang diduga dapat mencelakakan anggota tubuh calon peserta ukom.</item>
+        <item>Sebulan sebelum ujian sebaiknya mengurangi jadwal yang tidak terlalu relevan dengan ujian kompetensi. Jikapun itu ada maka minimalisir kegiatan tersebut agar tidak mengganggu persiapan ujian kompetensi.</item>
+        <item>Ingat: Hanya 3 jam yang menentukan nasib anda, dan anda perlu menjaga wakut 3 jam tersebut sejak dini. Jika anda menyia-nyiakannya yakin dan percaya anda akan menyesal dan karir anda sedikit terhambat langkahnya dibanding dengan teman-teman anda yang sudah lulus pada periode tersebut. </item>
+        <item>6. Kurang memperhatikan Makanan Yang Dikonsumsi</item>
+        <item>Proses pendidikan berlangsung kurang lebih 3–5 tahun dan yang akan menentukan masa depan anda adalah 3–4 jam saja. Ingat waktu yang singkat ini yang akan menjadi penghalang masa depan calon peserta ujian. Dan perlu diingat bahwa waktu yang singkat ini akan menjadi singkat jika makanan yang dikonsumsi sebelum berangkat kelokasi ujian menjadi penghambat ujian peserta ukom. Dan ini juga sering terjadi pada peserta ujian kompetensi. Saking paniknya dengan ukom muncul stress yang kemudian seluruh makanan yang masuk akhirnya keluar semua apakah itu lewat defekasi atau muntah.</item>
+        <item>Terkadang juga peserta ukom menganggap sepele untuk tidak membekali perutnya dengan makanan. Bahkan air putih juga tidak diminum karena fokus dipikirannya hanyalah ujian dan lulus. Padahal hal sepele inilah yang membuat seorang calon peserta ukom tidak konsentrasi. </item>
+        <item>Yang perlu calon peserta lakukan adalah mengkonsumsi makanan yang tidak menimbulkan gas misalnya durian atau makanan yang merangsang pencernaan seperti sambal, yoghurt atau lainnya. Sebaiknya manfaatkan madu untuk menjaga keseimbangan energi dalam ujian. Hindari banyak minum karena bisa menyebabkan bak meningkat yang bisa mengurangi waktu pengerjaan tugas. Terlebih lagi AC dalam ruangan ujian dingin. Jika calon peserta ukom tidak terbiasa dengan AC dingin sebaiknya buat lapisan baju sedikit lebih tebal. Kondisi ruangan ujian sebaiknya dicek pada saat breafing peserta ujian dilaksanakan.</item>
+        <item>Jika tidak sempat makan karena takut terlambat silahkan dipersiapkan bekal makanan. Karena sebelum ujian ada yang namanya proses karantina. Manfaatkan proses karantina ini untuk mengkonsumsi bekal anda. Biasa panitia memberikan kesempatan untuk makan sebelum ujian diwaktu karantina ini. Prinsipnya jangan terlalu banyak makan dan minum serta  hindari makan yang mengandung gas.</item>
+        <item>7. Tidak Fokus Pada Saat Karantina</item>
+        <item>Hati-hati dengan kondisi dalam proses karantina. Proses karantina dilakukan oleh panita/pengawas ukom jika pelaksanaan ukom dilakukan lebih dari satu sesi dan juga untuk menyatukan jadwal dimulainya ujian secara nasional. Selain itu, juga dilakukan persiapan seperti pemasangan server soal dan pemantapan persiapan ujian oleh panitia dan pengecekan kembali peserta ujian akan atribut yang perlu dibawa masuk diruang ujian.</item>
+        <item>Pada saat karantina ada masa dimana seorang peserta ujian jenuh menunggu pelaksanaan ujian dan biasanya waktu ini peserta ujian tidak sadar bahwa saat inilah seorang peserta harus banyak berdoa dan mengulang-ulang sedikit materi ujian. Jangan habiskan waktu karantina hanya untuk melepas rindu atau ngobrol kesana kemari. Hal inilah yang membuat konsentrasi pudar pada saat karantina. Waktu karantina itu harus digunakan untuk fokus pada materi ujian, cek perlengkapan yang belum terpenuhi  dan cek kondisi tubuh apakah masih gugup atau sudah fresh. Kalau ada perasaan miksi atau defekasi sebaiknya pastikan untuk dikeluarkan. Jangan ditahan karena dapat mengganggu proses ujian. Biasanya perasaan ini muncul karena stress atau grogi menghadapi ukom. Sebaiknya lakukan manajemen relaksasi untuk menenangkan diri dan yakin bahwa ujian kompetensi ini dapat dilalui dengan mudah dan lancar.  Penulis sarankan untuk menjauhi yang namanya gosip atau tindakan yang tidak jelas diluar konteks ujian kompetensi.</item>
+        <item>8. Cepat Puas Setelah Ujian</item>
+        <item>Setelah ujian anda akan merasa sedikit legah dengan usaha yang anda kerjakan. Silahkan anda merelaksasikan diri anda, biarkan otak kembali encer sehingga tidak membuat anda stress dengan hasil yang anda hadapi. Namun, peserta ujian jangan terlalu cepat puas setelah melaksanakan ujian kompetensi karena masih ada pengumuman hasil ujian yang menunggu peserta ujian. Ada beberapa yang perlu anda lakukan setelah ujian selesai.</item>
+        <item>1) Kartu ujian atau id card anda sebaiknya disimpan baik-baik karena pada saat pengumuman boleh jadi bukan nama yang akan ditempel pada situs resminya tetapi nomor kartu ujian anda. Jadi, sebaiknya anda hapal atau simpan baik-baik kartu ujian anda.</item>
+        <item>2) Jangan lupa banyak berdoa kepada Tuhan, mengharap dengan tulus dan ikhlas terhadap usaha yang anda lakukan agar hasilnya memuaskan dan lulus.</item>
+        <item>3) Jangan lupa menitip doa kepada orang tua, saudara, keluarga dan teman dekat anda untuk didoakan agar semua hasilnya adalah yang terbaik dan memuaskan. Doa mereka sangat besar kekuatannya untuk dikabulkan jadi sebaiknya anda mengutamakan doa dari mareka semua.</item>
+        <item>4) Jangan lupa banyak bersedekah. Dengan bersedekah secara otomatis anda sebagai pemberi akan mendapatkan doa dari orang yang disedekahi dan itu amat sangat berefek pada anda. Sedekah juga bisa menjadi sebab Tuhan mendatangkan pertolongan-Nya kepada pemberi sedekah. Dengan demikian sedekah mampu menolong calon peserta untuk lulus  pada ujian kompetensi.</item>
+        <item>5) Jangan lupa sering mengecek hasil pengumumannya di situs resminya. Untuk Ners silahkan cek di situs http://ukners.dikti.go.id/ dan untuk DIII di situs http://ukperawat.dikti.go.id/. Biasanya 40 hari pasca ujian pengumuman hasil ukom akan dipublish.</item>
+        <item>Demikianlah beberapa wilayah teknis yang bisa membuat peserta gagal dalam ujian kompetensi. Penulis berharap trik yang salah diatas dapat diminimalisir kehadirannya sehingga harapan kelulusan terbuka lebar buat anda. Fokuslah terhadap persiapan anda jangan terlena dengan kondisi sekitar anda. Yakin dan percaya bahwa jika saat ini anda berusaha dengan keras untuk belajar dan belajar maka bisa dipastikan anda akan lulus dalam ujian kompetensi tersebut.</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,104 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">@font/source_sans_regular</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomMaterialTheme" parent="Theme.MaterialComponents.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="ImageExpand">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="ButtonPrimary">
+        <item name="android:paddingStart">@dimen/size_primary</item>
+        <item name="android:paddingEnd">@dimen/size_primary</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">@dimen/size_text_16</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/round_button_primary</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="ButtonPrimaryHome">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingStart">@dimen/size_primary</item>
+        <item name="android:paddingEnd">@dimen/size_primary</item>
+        <item name="android:layout_marginBottom">@dimen/size_5</item>
+        <item name="fontFamily">@font/ubuntu_bold</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">@dimen/size_text_16</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/round_button_primary</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Button40">
+        <item name="android:layout_width">@dimen/size_40</item>
+        <item name="android:layout_height">@dimen/size_40</item>
+        <item name="android:background">@drawable/round_button_primary</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="ButtonOptions">
+        <item name="android:layout_width">@dimen/size_40</item>
+        <item name="android:layout_height">@dimen/size_40</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">@dimen/size_text_20</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:background">@drawable/selector_options</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="ButtonExam">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/size_40</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:paddingStart">@dimen/size_primary</item>
+        <item name="android:paddingEnd">@dimen/size_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/round_button_primary</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="InputUnderline" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxBackgroundColor">#fff</item>
+        <item name="boxCornerRadiusTopStart">6dp</item>
+        <item name="boxCornerRadiusTopEnd">6dp</item>
+    </style>
+
+    <style name="InputOutline" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="hintTextColor">@color/colorDarkGray</item>
+        <item name="android:strokeColor">#fff</item>
+    </style>
+
+    <style name="TextPrimary">
+        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textSize">@dimen/size_text_16</item>
+        <item name="fontFamily">@font/source_sans_regular</item>
+
+    </style>
+
+</resources>

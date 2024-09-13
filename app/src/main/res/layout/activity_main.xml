@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".activity.MainActivity">
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adv_banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_banner1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/size_primary">
+        <ImageView
+            android:id="@+id/img_app_name"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:src="@drawable/title"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/img_group_medic"
+            android:layout_width="250dp"
+            android:layout_height="190dp"
+            android:translationY="16dp"
+            android:src="@drawable/group"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@id/buttons"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/imgbtn_info"
+            android:layout_width="@dimen/size_40"
+            android:layout_height="@dimen/size_40"
+            android:background="@drawable/round_button_green"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_info"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/btn_send_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_40"
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@drawable/round_button_red"
+            android:layout_alignParentBottom="true"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:drawableStart="@drawable/ic_add"
+            android:drawablePadding="10dp"
+            android:text="@string/donor_soal"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_latihan"
+                style="@style/ButtonPrimaryHome"
+                android:text="@string/latihan" />
+
+            <Button
+                android:id="@+id/btn_simulasi"
+                style="@style/ButtonPrimaryHome"
+                android:text="@string/simulasi"/>
+
+            <Button
+                android:id="@+id/btn_tipstrick"
+                style="@style/ButtonPrimaryHome"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:text="@string/tips_trik"/>
+
+            <Button
+                android:id="@+id/btn_forum"
+                style="@style/ButtonPrimaryHome"
+                android:text="@string/forum"/>
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_kamusperawat"-->
+<!--                style="@style/ButtonPrimaryHome"-->
+<!--                android:text="@string/kamus_perawat"/>-->
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

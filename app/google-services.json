@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "989495479794",
+    "firebase_url": "https://simukom-perawat.firebaseio.com",
+    "project_id": "simukom-perawat",
+    "storage_bucket": "simukom-perawat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989495479794:android:0bf055eb504dcb66abef6b",
+        "android_client_info": {
+          "package_name": "com.zulfahmi.simukomperawat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989495479794-77jnibb3epm0tih1vnh939rcgqh199o6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zulfahmi.simukomperawat",
+            "certificate_hash": "a6293722467f8af748d2030035c5344c493f875c"
+          }
+        },
+        {
+          "client_id": "989495479794-2vl3rep9emso8aidei636dmpp13j6mr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWzb-fJej93J0B860AmJTiyhF0t1KDK8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989495479794-2vl3rep9emso8aidei636dmpp13j6mr5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

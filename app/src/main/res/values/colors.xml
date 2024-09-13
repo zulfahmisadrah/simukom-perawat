@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#319CAB</color>
+    <color name="colorPrimaryDark">#126672</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="colorActive">#4CAF50</color>
+    <color name="colorDanger">#EF5350</color>
+    <color name="ButtonEnabled">#039BE5</color>
+    <color name="ButtonDisabled">#54c7ff</color>
+    <color name="colorDarkGray">#131313</color>
+    <color name="colorGray">#505050</color>
+    <color name="colorLightGray">#EDEEF1</color>
+    <color name="colorLightBackground">#FAFAFA</color>
+    <color name="colorDarken">#ee000000</color>
+</resources>
