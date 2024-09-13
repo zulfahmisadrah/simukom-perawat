@@ -14,20 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.databinding.ActivityQuestionBinding
 import com.zulfahmi.simukomperawat.model.Question
 import com.zulfahmi.simukomperawat.utlis.Commons
 import com.zulfahmi.simukomperawat.utlis.CustomConfirmDialog
 import com.zulfahmi.simukomperawat.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_explanation.*
-import kotlinx.android.synthetic.main.activity_question.*
-import kotlinx.android.synthetic.main.activity_question.adv_banner
-import kotlinx.android.synthetic.main.activity_question.btn_finish
-import kotlinx.android.synthetic.main.activity_question.container
-import kotlinx.android.synthetic.main.activity_question.imgbtn_next
-import kotlinx.android.synthetic.main.activity_question.imgbtn_prev
-import kotlinx.android.synthetic.main.activity_question.imgbtn_question
-import kotlinx.android.synthetic.main.activity_question.input_number
-import kotlinx.android.synthetic.main.activity_question.tv_question
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -43,6 +34,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var listAnswer: Array<String>
     private lateinit var listUserAnswer: Array<String>
     private lateinit var listQuestionImage: IntArray
+    private lateinit var binding: ActivityQuestionBinding
 
     private lateinit var mCountDownTimer: CountDownTimer
     private val handler = Handler()
@@ -61,12 +53,13 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Commons.setFullscreenLayout(this)
-        setContentView(R.layout.activity_question)
+        binding = ActivityQuestionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         window.enterTransition = Fade()
 
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
-        adv_banner.loadAd(adRequest)
+        binding.advBanner.loadAd(adRequest)
 
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -82,7 +75,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
         listUserAnswer = Array(totalQuestions){""}
 
         if (questionType != "latihan") {
-            timer_container.visibility = View.VISIBLE
+            binding.timerContainer.visibility = View.VISIBLE
             startTimer()
             handler.post(object : Runnable {
                 override fun run() {
@@ -97,16 +90,16 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
         observeData(questionType, questionPack)
         updateAnsweredQuestion()
 
-        imgbtn_next.setOnClickListener(this)
-        imgbtn_prev.setOnClickListener(this)
-        imgbtn_question.setOnClickListener(this)
-        input_number.setOnClickListener(this)
-        btn_finish.setOnClickListener(this)
-        btn_total_answered.setOnClickListener(this)
-        btn_pause.setOnClickListener(this)
-        btn_continue.setOnClickListener(this)
+        binding.imgbtnNext.setOnClickListener(this)
+        binding.imgbtnPrev.setOnClickListener(this)
+        binding.imgbtnQuestion.setOnClickListener(this)
+        binding.inputNumber.setOnClickListener(this)
+        binding.btnFinish.setOnClickListener(this)
+        binding.btnTotalAnswered.setOnClickListener(this)
+        binding.btnPause.setOnClickListener(this)
+        binding.btnContinue.setOnClickListener(this)
 
-        rb_option_group.setOnCheckedChangeListener { _, checkedId ->
+        binding.rbOptionGroup.setOnCheckedChangeListener { _, checkedId ->
             if(checkedId!=-1){
                 val selectedOption = findViewById<RadioButton>(checkedId)
                 listSelectedRadioButtonId[currentIndex] = checkedId
@@ -134,7 +127,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun bindQuestions() {
         val number = currentIndex+1
-        input_number.setText(number.toString())
+        binding.inputNumber.setText(number.toString())
 
         val question = "$number. ${listQuestions[currentIndex].question}"
         val optionA = "A. ${listQuestions[currentIndex].optionA}"
@@ -144,31 +137,31 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
         val optionE = "E. ${listQuestions[currentIndex].optionE}"
 
         if(listSelectedRadioButtonId[currentIndex]!=0)
-            rb_option_group.check(listSelectedRadioButtonId[currentIndex])
+            binding.rbOptionGroup.check(listSelectedRadioButtonId[currentIndex])
 
-        tv_question.text = question
-        tv_option_a.text = optionA
-        tv_option_b.text = optionB
-        tv_option_c.text = optionC
-        tv_option_d.text = optionD
-        tv_option_e.text = optionE
+        binding.tvQuestion.text = question
+        binding.tvOptionA.text = optionA
+        binding.tvOptionB.text = optionB
+        binding.tvOptionC.text = optionC
+        binding.tvOptionD.text = optionD
+        binding.tvOptionE.text = optionE
 
         val imageQuestion = listQuestions[currentIndex].image
         if (imageQuestion!=null) {
-            imgbtn_question.visibility = View.VISIBLE
+            binding.imgbtnQuestion.visibility = View.VISIBLE
             listQuestionImage[currentIndex] = Commons.getResourceId( imageQuestion, R.drawable::class.java)
-            imgbtn_question.setImageResource(listQuestionImage[currentIndex])
+            binding.imgbtnQuestion.setImageResource(listQuestionImage[currentIndex])
         }else
-            imgbtn_question.visibility = View.GONE
+            binding.imgbtnQuestion.visibility = View.GONE
     }
 
     // 0 = previous, 1 = next, 2 = jump
     private fun changeQuestion(type: Int) {
         if (type==0 && currentIndex>0){
-            rb_option_group.clearCheck()
+            binding.rbOptionGroup.clearCheck()
             currentIndex--
         } else if (type==1 && currentIndex < totalQuestions-1) {
-            rb_option_group.clearCheck()
+            binding.rbOptionGroup.clearCheck()
             currentIndex++
         } else if (type==2){
             bindQuestions()
@@ -199,7 +192,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
     private fun updateAnsweredQuestion() {
         totalAnswered = Commons.countFilledArray(listUserAnswer)
         val strAnswered = "Terjawab: $totalAnswered/$totalQuestions"
-        btn_total_answered.text = strAnswered
+        binding.btnTotalAnswered.text = strAnswered
     }
 
     private fun startTimer() {
@@ -217,7 +210,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun pauseTimer() {
         mCountDownTimer.cancel()
-        container_pause.visibility = View.VISIBLE
+        binding.containerPause.visibility = View.VISIBLE
     }
 
     private fun updateCountDownText() {
@@ -232,7 +225,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
             minutesInHour,
             seconds
         )
-        tv_countdown_timer.text = timeLeftFormatted
+        binding.tvCountdownTimer.text = timeLeftFormatted
     }
 
     override fun onBackPressed() {
@@ -246,7 +239,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
             R.id.input_number -> {
                 val numbers = Array(totalQuestions) { i -> (i+1).toString()}
                 Commons.showSelector(this, "Pilih nomor soal", numbers) { _, i ->
-                    rb_option_group.clearCheck()
+                    binding.rbOptionGroup.clearCheck()
                     currentIndex = i
                     changeQuestion(2)
                 }
@@ -280,11 +273,11 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_pause -> pauseTimer()
             R.id.btn_continue -> {
-                container_pause.visibility = View.GONE
+                binding.containerPause.visibility = View.GONE
                 startTimer()
             }
             R.id.imgbtn_question -> {
-                Commons.zoomImageFromThumb(container, v, listQuestionImage[currentIndex], resources.getInteger(android.R.integer.config_shortAnimTime))
+                Commons.zoomImageFromThumb(binding.container, v, listQuestionImage[currentIndex], resources.getInteger(android.R.integer.config_shortAnimTime))
             }
         }
     }

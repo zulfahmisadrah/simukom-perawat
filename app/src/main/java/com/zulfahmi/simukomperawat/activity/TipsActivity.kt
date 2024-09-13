@@ -9,16 +9,18 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.adapter.RvAdapter
+import com.zulfahmi.simukomperawat.databinding.ActivityTipsBinding
 import com.zulfahmi.simukomperawat.model.Article
 import com.zulfahmi.simukomperawat.utlis.Commons
-import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.activity_pack.*
 
 class TipsActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityTipsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tips)
+        binding = ActivityTipsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.title = "Tips dan Trik"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -26,7 +28,7 @@ class TipsActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
-        adv_banner.loadAd(adRequest)
+        binding.advBanner.loadAd(adRequest)
 
         val listTitle = resources.getStringArray(R.array.article_titles)
         val listFirstParagraph = resources.getStringArray(R.array.article_first_paragraph)
@@ -44,7 +46,7 @@ class TipsActivity : AppCompatActivity() {
             startActivity(Intent(this, ArticleActivity::class.java).putExtra(ArticleActivity.EXTRA_INDEX, position), Commons.setIntentTransition(this))
         }
 
-        recyclerview.apply {
+        binding.recyclerview.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = articleAdapter
         }

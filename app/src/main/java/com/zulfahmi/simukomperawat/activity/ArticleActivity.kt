@@ -15,10 +15,8 @@ import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.databinding.ActivityArticleBinding
 import com.zulfahmi.simukomperawat.utlis.Commons
-import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.activity_article.adv_banner
-import kotlinx.android.synthetic.main.activity_article.container
 import java.lang.IllegalArgumentException
 
 class ArticleActivity : AppCompatActivity() {
@@ -27,9 +25,13 @@ class ArticleActivity : AppCompatActivity() {
         const val EXTRA_INDEX = "extra_index"
     }
 
+    private lateinit var binding: ActivityArticleBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_article)
+        binding = ActivityArticleBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         window.enterTransition = Explode()
         window.returnTransition = Explode()
 
@@ -39,14 +41,14 @@ class ArticleActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
-        adv_banner.loadAd(adRequest)
+        binding.advBanner.loadAd(adRequest)
 
         val index = intent.getIntExtra(EXTRA_INDEX, 0)
 
         val listImages = resources.obtainTypedArray(R.array.article_images)
 
         val title = resources.getStringArray(R.array.article_titles)[index]
-        tv_title.text = title
+        binding.tvTitle.text = title
 
         val article = getArticle(index)
         article.forEachIndexed { _, item ->
@@ -66,10 +68,10 @@ class ArticleActivity : AppCompatActivity() {
                     scaleType = ImageView.ScaleType.CENTER_CROP
                     setImageResource(images)
                     setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
-                    setOnClickListener { Commons.zoomImageFromThumb(container, imageButton, images, resources.getInteger(android.R.integer.config_shortAnimTime))
+                    setOnClickListener { Commons.zoomImageFromThumb(binding.container, imageButton, images, resources.getInteger(android.R.integer.config_shortAnimTime))
                     }
                 }
-                container_article.addView(imageButton)
+                binding.containerArticle.addView(imageButton)
 
             } else{
                 val strParagraph = if (item[1]==')' || item[1]=='.') item else "\t\t\t\t\t$item"
@@ -91,7 +93,7 @@ class ArticleActivity : AppCompatActivity() {
                         setTextColor(ContextCompat.getColor(context, R.color.colorDarkGray))
                         text = strParagraph
                     }
-                    container_article.addView(textView)
+                    binding.containerArticle.addView(textView)
                 } else {
                     val number = strParagraph.substring(0, 3)
                     val newParagraph = strParagraph.substring(3, strParagraph.length)
@@ -116,7 +118,7 @@ class ArticleActivity : AppCompatActivity() {
                         addView(Commons.setTextViewAttributes(textView, params, font, newParagraph))
                     }
 
-                    container_article.addView(linearLayout)
+                    binding.containerArticle.addView(linearLayout)
                 }
             }
         }

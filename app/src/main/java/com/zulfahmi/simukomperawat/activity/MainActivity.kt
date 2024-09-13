@@ -13,28 +13,31 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.databinding.ActivityMainBinding
 import com.zulfahmi.simukomperawat.utlis.Commons
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Commons.setFullscreenLayout(this)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
-        adv_banner.loadAd(adRequest)
+        binding.advBanner.loadAd(adRequest)
 
-        btn_latihan.setOnClickListener(this)
-        btn_simulasi.setOnClickListener(this)
-        btn_tipstrick.setOnClickListener(this)
-        btn_forum.setOnClickListener(this)
+        binding.btnLatihan.setOnClickListener(this)
+        binding.btnSimulasi.setOnClickListener(this)
+        binding.btnTipstrick.setOnClickListener(this)
+        binding.btnForum.setOnClickListener(this)
 //        btn_kamusperawat.setOnClickListener(this)
 
-        btn_send_questions.setOnClickListener(this)
-        imgbtn_info.setOnClickListener(this)
+        binding.btnSendQuestions.setOnClickListener(this)
+        binding.imgbtnInfo.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {

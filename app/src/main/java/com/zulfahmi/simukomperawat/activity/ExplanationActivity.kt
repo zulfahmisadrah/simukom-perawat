@@ -9,11 +9,11 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.R.drawable
+import com.zulfahmi.simukomperawat.databinding.ActivityExplanationBinding
 import com.zulfahmi.simukomperawat.model.Question
 import com.zulfahmi.simukomperawat.utlis.Commons
 import com.zulfahmi.simukomperawat.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_explanation.*
-import kotlinx.android.synthetic.main.activity_explanation.adv_banner
+
 
 class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
 
@@ -24,6 +24,7 @@ class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
         const val EXTRA_ANSWER = "extra_answer"
     }
 
+    private lateinit var binding: ActivityExplanationBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var listAnswer: Array<String>
     private lateinit var listUserAnswer: Array<String>
@@ -41,11 +42,12 @@ class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Commons.setFullscreenLayout(this)
-        setContentView(R.layout.activity_explanation)
+        binding = ActivityExplanationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
-        adv_banner.loadAd(adRequest)
+        binding.advBanner.loadAd(adRequest)
 
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -61,13 +63,13 @@ class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
 
         observeData(questionType, questionPack)
 
-        btn_finish.setOnClickListener(this)
-        imgbtn_next.setOnClickListener(this)
-        imgbtn_prev.setOnClickListener(this)
-        input_number.setOnClickListener(this)
+        binding.btnFinish.setOnClickListener(this)
+        binding.imgbtnNext.setOnClickListener(this)
+        binding.imgbtnPrev.setOnClickListener(this)
+        binding.inputNumber.setOnClickListener(this)
 
-        imgbtn_explanation.setOnClickListener(this)
-        imgbtn_question.setOnClickListener(this)
+        binding.imgbtnExplanation.setOnClickListener(this)
+        binding.imgbtnQuestion.setOnClickListener(this)
     }
 
     private fun observeData(type: String, pack: Int){
@@ -80,7 +82,7 @@ class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
 
     private fun bindQuestionsExplanation() {
         val number = currentIndex+1
-        input_number.setText(number.toString())
+        binding.inputNumber.setText(number.toString())
 
         val question = "$number. ${listQuestions[currentIndex].question}"
         val userAnswer = getOptionsText(listUserAnswer[currentIndex])
@@ -92,26 +94,26 @@ class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
         val answerStatus = if(userAnswer!="-" && userAnswer==correctAnswer) "(BENAR)" else if (userAnswer!="-" && userAnswer!=correctAnswer) "(SALAH)" else ""
         strUserAnswer = "$strUserAnswer $answerStatus"
 
-        tv_question.text = question
-        tv_user_answer.text = Commons.setBoldAtSpanString(strUserAnswer, 0, 12)
-        tv_correct_answer.text = Commons.setBoldAtSpanString(strCorrectAnswer, 0, 13)
-        tv_explanation.text = listQuestions[currentIndex].explanation
+        binding.tvQuestion.text = question
+        binding.tvUserAnswer.text = Commons.setBoldAtSpanString(strUserAnswer, 0, 12)
+        binding.tvCorrectAnswer.text = Commons.setBoldAtSpanString(strCorrectAnswer, 0, 13)
+        binding.tvExplanation.text = listQuestions[currentIndex].explanation
 
         val imageQuestion = listQuestions[currentIndex].image
         if (imageQuestion!=null) {
-            imgbtn_question.visibility = View.VISIBLE
+            binding.imgbtnQuestion.visibility = View.VISIBLE
             listQuestionImage[currentIndex] = Commons.getResourceId( imageQuestion, drawable::class.java)
-            imgbtn_question.setImageResource(listQuestionImage[currentIndex])
+            binding.imgbtnQuestion.setImageResource(listQuestionImage[currentIndex])
         }else
-            imgbtn_question.visibility = View.GONE
+            binding.imgbtnQuestion.visibility = View.GONE
 
         val imageExplanation = listQuestions[currentIndex].imageExplanation
         if (imageExplanation!=null) {
-            imgbtn_explanation.visibility = View.VISIBLE
+            binding.imgbtnExplanation.visibility = View.VISIBLE
             listExplanationImage[currentIndex] = Commons.getResourceId( imageExplanation, drawable::class.java)
-            imgbtn_explanation.setImageResource(listExplanationImage[currentIndex])
+            binding.imgbtnExplanation.setImageResource(listExplanationImage[currentIndex])
         }else
-            imgbtn_explanation.visibility = View.GONE
+            binding.imgbtnExplanation.visibility = View.GONE
 
     }
 
@@ -154,10 +156,10 @@ class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
                 onBackPressed()
             }
             R.id.imgbtn_question -> {
-                Commons.zoomImageFromThumb(container, v, listQuestionImage[currentIndex], resources.getInteger(android.R.integer.config_shortAnimTime))
+                Commons.zoomImageFromThumb(binding.container, v, listQuestionImage[currentIndex], resources.getInteger(android.R.integer.config_shortAnimTime))
             }
             R.id.imgbtn_explanation -> {
-                Commons.zoomImageFromThumb(container, v, listExplanationImage[currentIndex], resources.getInteger(android.R.integer.config_shortAnimTime))
+                Commons.zoomImageFromThumb(binding.container, v, listExplanationImage[currentIndex], resources.getInteger(android.R.integer.config_shortAnimTime))
             }
         }
     }

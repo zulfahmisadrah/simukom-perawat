@@ -4,25 +4,26 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Window
-import com.zulfahmi.simukomperawat.R
-import kotlinx.android.synthetic.main.dialog_confirm.*
+import com.zulfahmi.simukomperawat.databinding.DialogConfirmBinding
 
 class CustomConfirmDialog(context: Context, private val title: String, private val message: String, private val isCancelable: Boolean = true, private var btnPositiveText: String ="Ya", private var btnNegativeText: String = "Tidak", private val yesAction: () -> Unit): Dialog(context){
+    private lateinit var binding: DialogConfirmBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setCancelable(false)
-        setContentView(R.layout.dialog_confirm)
+        binding = DialogConfirmBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setCanceledOnTouchOutside(isCancelable)
 
-        tv_title.text = title
-        tv_message.text = message
-        btn_no.text = btnNegativeText
-        btn_yes.text = btnPositiveText
-        btn_no.setOnClickListener { dismiss() }
-        btn_yes.setOnClickListener {
+        binding.tvTitle.text = title
+        binding.tvMessage.text = message
+        binding.btnNo.text = btnNegativeText
+        binding.btnYes.text = btnPositiveText
+        binding.btnNo.setOnClickListener { dismiss() }
+        binding.btnYes.setOnClickListener {
             yesAction()
             dismiss()
         }

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
-import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.databinding.FragmentLoginBinding
 import com.zulfahmi.simukomperawat.interfaces.OnAuthPageListener
 import com.zulfahmi.simukomperawat.interfaces.OnAuthRequestListener
 import com.zulfahmi.simukomperawat.utlis.MyApplication
@@ -15,48 +15,57 @@ import com.zulfahmi.simukomperawat.network.AuthRequest
 import com.zulfahmi.simukomperawat.utlis.Commons
 import com.zulfahmi.simukomperawat.utlis.Constants
 import com.zulfahmi.simukomperawat.utlis.InputTextListener
-import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
     private lateinit var registerPage: OnAuthPageListener
+
+    private var _binding: FragmentLoginBinding? = null
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        input_email.addTextChangedListener(InputTextListener(layout_email))
-        input_password.addTextChangedListener(InputTextListener(layout_password))
+        binding.inputEmail.addTextChangedListener(InputTextListener(binding.layoutEmail))
+        binding.inputPassword.addTextChangedListener(InputTextListener(binding.layoutPassword))
 
-        tv_sign_up.setOnClickListener { registerPage.onRegisterPage() }
-        btn_sign_in.setOnClickListener {
-            val email = input_email.text.toString()
-            val password = input_password.text.toString()
+        binding.tvSignUp.setOnClickListener { registerPage.onRegisterPage() }
+        binding.btnSignIn.setOnClickListener {
+            val email = binding.inputEmail.text.toString()
+            val password = binding.inputPassword.text.toString()
 
             if (email.isEmpty()) {
-                layout_email.error = "Masukkan email"
-                input_email.requestFocus()
+                binding.layoutEmail.error = "Masukkan email"
+                binding.inputEmail.requestFocus()
                 return@setOnClickListener
             }
 
             if (!Commons.isEmailValid(email)) {
-                layout_email.error = "Email tidak valid"
-                input_email.requestFocus()
+                binding.layoutEmail.error = "Email tidak valid"
+                binding.inputEmail.requestFocus()
                 return@setOnClickListener
             }
 
             if (password.isEmpty()) {
-                layout_password.error = "Masukkan password"
-                input_password.requestFocus()
+                binding.layoutPassword.error = "Masukkan password"
+                binding.inputPassword.requestFocus()
                 return@setOnClickListener
             }
 
-            MyApplication.hideSoftInput(requireContext(), input_email)
+            MyApplication.hideSoftInput(requireContext(), binding.inputEmail)
 
             view.isEnabled = false
             setInputTextEnabled(false)
@@ -68,12 +77,12 @@ class LoginFragment : Fragment() {
 
                     when (error) {
                         Constants.ERR_EMAIL_NOT_EXISTS -> {
-                            layout_email.error = "Email belum terdaftar"
-                            input_email.requestFocus()
+                            binding.layoutEmail.error = "Email belum terdaftar"
+                            binding.inputEmail.requestFocus()
                         }
                         Constants.ERR_PASS -> {
-                            layout_password.error = "Password salah"
-                            input_password.requestFocus()
+                            binding.layoutPassword.error = "Password salah"
+                            binding.inputPassword.requestFocus()
                         }
                         else -> showSnackbar(error!!)
                     }
@@ -93,14 +102,14 @@ class LoginFragment : Fragment() {
     }
 
     fun setInputTextEnabled(state: Boolean) {
-        layout_email.isEnabled = state
-        layout_password.isEnabled = state
+        binding.layoutEmail.isEnabled = state
+        binding.layoutPassword.isEnabled = state
 
-        if (state) progressbar.visibility = View.GONE else progressbar.visibility = View.VISIBLE
+        if (state) binding.progressbar.visibility = View.GONE else binding.progressbar.visibility = View.VISIBLE
     }
 
     private fun showSnackbar(message: String) {
-        Snackbar.make(container, message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.container, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {

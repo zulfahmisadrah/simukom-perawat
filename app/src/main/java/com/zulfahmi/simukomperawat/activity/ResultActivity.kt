@@ -4,17 +4,21 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.Explode
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.databinding.ActivityResultBinding
 import com.zulfahmi.simukomperawat.utlis.Commons
-import kotlinx.android.synthetic.main.activity_result.*
 
 class ResultActivity : AppCompatActivity() {
-    companion object{
+    companion object {
+        const val TAG = "ResultActivity"
         const val EXTRA_USER_TIME = "extra_user_time"
         const val EXTRA_TIME_PER_QUESTION = "extra_time_per_question"
         const val EXTRA_USER_ANSWER = "extra_user_answer"
@@ -24,8 +28,9 @@ class ResultActivity : AppCompatActivity() {
         const val EXTRA_TOTAL_QUESTIONS = "extra_total_questions"
     }
 
-    private lateinit var interstitialAd: InterstitialAd
+    private lateinit var binding: ActivityResultBinding
 
+    private var mInterstitialAd: InterstitialAd? = null
     private var questionType = ""
     private var totalQuestions = 0
     private var questionPack = 0
@@ -33,13 +38,23 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Commons.setFullscreenLayout(this)
-        setContentView(R.layout.activity_result)
+        binding = ActivityResultBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         window.enterTransition = Explode()
 
         MobileAds.initialize(this) {}
-        interstitialAd = InterstitialAd(this)
-        interstitialAd.adUnitId = resources.getString(R.string.ad_inters1)
-        interstitialAd.loadAd(AdRequest.Builder().build())
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this, resources.getString(R.string.ad_inters1), adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError.toString())
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d(TAG, "Ad was loaded.")
+                mInterstitialAd = interstitialAd
+            }
+        })
 
         val listUserAnswer = intent.getStringArrayExtra(EXTRA_USER_ANSWER) as Array<String>
         val listAnswer = intent.getStringArrayExtra(EXTRA_ANSWER) as Array<String>
@@ -58,24 +73,24 @@ class ResultActivity : AppCompatActivity() {
         val strTotalCorrectAnswer = "Jawaban benar: $totalCorrectAnswer"
         val strTotalWrongAnswer = "Jawaban salah: $totalWrongAnswer"
 
-        tv_score.text = score.toString()
-        tv_answered.text = strTotalAnswered
-        tv_correct_answer.text = strTotalCorrectAnswer
-        tv_wrong_answer.text = strTotalWrongAnswer
+        binding.tvScore.text = score.toString()
+        binding.tvAnswered.text = strTotalAnswered
+        binding.tvCorrectAnswer.text = strTotalCorrectAnswer
+        binding.tvWrongAnswer.text = strTotalWrongAnswer
 
         if (questionType!="latihan") {
-            tv_time.visibility = View.VISIBLE
-            tv_average_time.visibility = View.VISIBLE
+            binding.tvTime.visibility = View.VISIBLE
+            binding.tvAverageTime.visibility = View.VISIBLE
 
-            tv_time.text = userTime
-            tv_average_time.text = averageTime
+            binding.tvTime.text = userTime
+            binding.tvAverageTime.text = averageTime
         }
 
-        btn_home.setOnClickListener {
-            if (interstitialAd.isLoaded) interstitialAd.show()
+        binding.btnHome.setOnClickListener {
+            if (mInterstitialAd != null)  mInterstitialAd?.show(this)
             finish()
         }
-        btn_explanation.setOnClickListener {
+        binding.btnExplanation.setOnClickListener {
             startActivity(
                 Intent(this, ExplanationActivity::class.java)
                     .putExtra(ExplanationActivity.EXTRA_QUESTION_TYPE, questionType)

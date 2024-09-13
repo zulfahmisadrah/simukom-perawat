@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.databinding.ItemArticleBinding
+import com.zulfahmi.simukomperawat.databinding.ItemChatBinding
+import com.zulfahmi.simukomperawat.databinding.ItemEmptyBinding
+import com.zulfahmi.simukomperawat.databinding.ItemPackBinding
 import com.zulfahmi.simukomperawat.utlis.MyApplication
 import com.zulfahmi.simukomperawat.model.Article
 import com.zulfahmi.simukomperawat.model.Chat
 import com.zulfahmi.simukomperawat.utlis.Constants
-import kotlinx.android.synthetic.main.item_article.view.*
-import kotlinx.android.synthetic.main.item_chat.view.*
-import kotlinx.android.synthetic.main.item_empty.view.*
-import kotlinx.android.synthetic.main.item_pack.view.*
+
 
 class RvAdapter(private val listData: List<Any>, private val listener: (Any, Int) -> Unit ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_EMPTY = 0
@@ -22,10 +22,10 @@ class RvAdapter(private val listData: List<Any>, private val listener: (Any, Int
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_PACK -> PackViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_pack, parent, false))
-            VIEW_TYPE_ARTICLE -> ArticleViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false))
-            VIEW_TYPE_CHAT -> ChatViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_chat, parent, false))
-            VIEW_TYPE_EMPTY -> EmptyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_empty, parent, false))
+            VIEW_TYPE_PACK -> PackViewHolder(ItemPackBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            VIEW_TYPE_ARTICLE -> ArticleViewHolder(ItemArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            VIEW_TYPE_CHAT -> ChatViewHolder(ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            VIEW_TYPE_EMPTY -> EmptyViewHolder(ItemEmptyBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             else -> throw IllegalArgumentException("Undefined view type")
         }
     }
@@ -67,53 +67,53 @@ class RvAdapter(private val listData: List<Any>, private val listener: (Any, Int
         }
     }
 
-    class PackViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class PackViewHolder(private val itemBinding: ItemPackBinding): RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(item: String, listener: (Any, Int) -> Unit) {
-            itemView.tv_paket.text = item
+            itemBinding.tvPaket.text = item
 
-            itemView.setOnClickListener{
+            itemBinding.root.setOnClickListener{
                 listener(item, layoutPosition)
             }
         }
     }
 
-    class ArticleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class ArticleViewHolder(private val itemBinding: ItemArticleBinding): RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(item: Article, listener: (Any, Int) -> Unit) {
-            itemView.tv_title.text = item.title
-            itemView.tv_content.text = item.firstParagraph
+            itemBinding.tvTitle.text = item.title
+            itemBinding.tvContent.text = item.firstParagraph
 
-            itemView.setOnClickListener{
+            itemBinding.root.setOnClickListener{
                 listener(item, layoutPosition)
             }
         }
     }
 
-    class ChatViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class ChatViewHolder(private val itemBinding: ItemChatBinding): RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(item: Chat) {
             val user = item.user
             val currentUser = MyApplication.getInstance().getSharedPreferences().getString(Constants.PREF_USERNAME, "user")
 
             if (user == currentUser) {
-                itemView.card_to.visibility = View.VISIBLE
-                itemView.card_from.visibility = View.GONE
+                itemBinding.cardTo.visibility = View.VISIBLE
+                itemBinding.cardFrom.visibility = View.GONE
 
-                itemView.tv_username_to.text = item.user
-                itemView.tv_message_to.text = item.message
-                itemView.tv_time_to.text = item.time
+                itemBinding.tvUsernameTo.text = item.user
+                itemBinding.tvMessageTo.text = item.message
+                itemBinding.tvTimeTo.text = item.time
             } else {
-                itemView.card_from.visibility = View.VISIBLE
-                itemView.card_to.visibility = View.GONE
+                itemBinding.cardFrom.visibility = View.VISIBLE
+                itemBinding.cardTo.visibility = View.GONE
 
-                itemView.tv_username_from.text = item.user
-                itemView.tv_message_from.text = item.message
-                itemView.tv_time_from.text = item.time
+                itemBinding.tvUsernameFrom.text = item.user
+                itemBinding.tvMessageFrom.text = item.message
+                itemBinding.tvTimeFrom.text = item.time
             }
         }
     }
 
-    class EmptyViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
+    class EmptyViewHolder (private val itemBinding: ItemEmptyBinding): RecyclerView.ViewHolder(itemBinding.root){
         fun bindItem(){
-            itemView.tv_empty.text = "No data found"
+            itemBinding.tvEmpty.text = "No data found"
         }
     }
 

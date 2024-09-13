@@ -7,10 +7,10 @@ import android.transition.Slide
 import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.adapter.RvAdapter
+import com.zulfahmi.simukomperawat.databinding.ActivityPackBinding
 import com.zulfahmi.simukomperawat.utlis.Commons
-import kotlinx.android.synthetic.main.activity_pack.*
+import java.util.Locale
 
 
 class PackActivity : AppCompatActivity() {
@@ -21,17 +21,25 @@ class PackActivity : AppCompatActivity() {
         const val TOTAL_PACK_SIMULASI = 2
     }
 
+    private lateinit var binding: ActivityPackBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Commons.setFullscreenLayout(this)
-        setContentView(R.layout.activity_pack)
+        binding = ActivityPackBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         val slide = Slide()
         slide.slideEdge = Gravity.END
         window.enterTransition = slide
         window.returnTransition = Explode()
 
         val questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) as String
-        tv_type.text = questionType.capitalize()
+        binding.tvType.text = questionType.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        }
 
         val listPaket = when (questionType) {
             "latihan" -> setJumlahPaket(TOTAL_PACK_LATIHAN)
@@ -43,12 +51,12 @@ class PackActivity : AppCompatActivity() {
             startActivity(Intent(this, GuideActivity::class.java).putExtra(GuideActivity.EXTRA_QUESTION_TYPE, questionType).putExtra(GuideActivity.EXTRA_QUESTION_PACK, position+1), Commons.setIntentTransition(this))
         }
 
-        recyclerview.apply {
+        binding.recyclerview.apply {
             layoutManager = GridLayoutManager(context, 3)
             adapter = paketAdapter
         }
 
-        imgbtn_back.setOnClickListener { onBackPressed() }
+        binding.imgbtnBack.setOnClickListener { onBackPressed() }
     }
 
     private fun setJumlahPaket(total: Int): List<String> {

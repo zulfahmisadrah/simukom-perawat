@@ -75,7 +75,7 @@
         android:layout_gravity="start"
         android:background="#fff">
 
-        <include layout="@layout/navigation_layout" />
+        <include android:id="@+id/layout_navigation" layout="@layout/navigation_layout" />
 
     </LinearLayout>
 
