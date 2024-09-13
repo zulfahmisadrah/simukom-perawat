@@ -103,7 +103,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
             if(checkedId!=-1){
                 val selectedOption = findViewById<RadioButton>(checkedId)
                 listSelectedRadioButtonId[currentIndex] = checkedId
-                listUserAnswer[currentIndex] = selectedOption.text.toString().toLowerCase(Locale.ROOT)
+                listUserAnswer[currentIndex] = selectedOption.text.toString().lowercase(Locale.ROOT)
             }
             updateAnsweredQuestion()
         }
