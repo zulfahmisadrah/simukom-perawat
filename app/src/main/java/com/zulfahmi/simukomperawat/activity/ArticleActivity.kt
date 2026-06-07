@@ -12,9 +12,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.ads.AdMobManager
 import com.zulfahmi.simukomperawat.databinding.ActivityArticleBinding
 import com.zulfahmi.simukomperawat.utlis.Commons
 import java.lang.IllegalArgumentException
@@ -40,8 +40,7 @@ class ArticleActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         MobileAds.initialize(this) {}
-        val adRequest = AdRequest.Builder().build()
-        binding.advBanner.loadAd(adRequest)
+        AdMobManager.loadAdaptiveBanner(this, binding.advBanner, R.string.ad_banner_article)
 
         val index = intent.getIntExtra(EXTRA_INDEX, 0)
 

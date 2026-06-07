@@ -11,9 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.ads.AdMobManager
 import com.zulfahmi.simukomperawat.databinding.ActivityQuestionBinding
 import com.zulfahmi.simukomperawat.model.Question
 import com.zulfahmi.simukomperawat.utlis.Commons
@@ -58,8 +58,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
         window.enterTransition = Fade()
 
         MobileAds.initialize(this) {}
-        val adRequest = AdRequest.Builder().build()
-        binding.advBanner.loadAd(adRequest)
+        AdMobManager.loadMediumRectangle(this, binding.advBanner, R.string.ad_banner_question_pause)
 
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 

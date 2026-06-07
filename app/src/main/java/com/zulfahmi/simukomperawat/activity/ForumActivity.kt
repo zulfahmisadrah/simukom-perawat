@@ -13,11 +13,13 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.ads.NativeAdPlacementPolicy
 import com.zulfahmi.simukomperawat.adapter.RvAdapter
 import com.zulfahmi.simukomperawat.databinding.ActivityForumBinding
 import com.zulfahmi.simukomperawat.databinding.NavigationLayoutBinding
 import com.zulfahmi.simukomperawat.utlis.MyApplication
 import com.zulfahmi.simukomperawat.model.Chat
+import com.zulfahmi.simukomperawat.model.NativeAdItem
 import com.zulfahmi.simukomperawat.network.ChatRequest
 import com.zulfahmi.simukomperawat.utlis.*
 
@@ -32,6 +34,7 @@ class ForumActivity : AppCompatActivity() {
 
     private var mInterstitialAd: InterstitialAd? = null
     private var listChat = ArrayList<Chat>()
+    private val nativeAdPlacementPolicy = NativeAdPlacementPolicy()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +45,7 @@ class ForumActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(this, resources.getString(R.string.ad_inters2), adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(this, resources.getString(R.string.ad_interstitial_forum_sign_out), adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, adError.toString())
                 mInterstitialAd = null
@@ -97,7 +100,13 @@ class ForumActivity : AppCompatActivity() {
                 if (listChat.size > 100)
                     listChat.removeAt(0)
 
-                val chatAdapter = RvAdapter(listChat) { _, _ ->}
+                val monetizedChatList = nativeAdPlacementPolicy.withNativeAdEveryInterval(
+                    listChat,
+                    interval = 10,
+                    placement = NativeAdItem.Placement.FORUM_FEED
+                )
+
+                val chatAdapter = RvAdapter(monetizedChatList) { _, _ ->}
                 chatAdapter.notifyDataSetChanged()
 
                 binding.rvChat.adapter = chatAdapter

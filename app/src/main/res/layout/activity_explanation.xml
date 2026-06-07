@@ -16,13 +16,10 @@
         tools:context=".activity.ExplanationActivity">
 
         <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adv_banner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/ad_banner3"/>
+            android:layout_alignParentBottom="true" />
 
         <Button
             android:id="@+id/btn_finish"

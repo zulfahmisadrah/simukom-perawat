@@ -9,10 +9,10 @@ import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.ads.AdMobManager
 import com.zulfahmi.simukomperawat.databinding.ActivityMainBinding
 import com.zulfahmi.simukomperawat.utlis.Commons
 
@@ -27,8 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
 
         MobileAds.initialize(this) {}
-        val adRequest = AdRequest.Builder().build()
-        binding.advBanner.loadAd(adRequest)
+        AdMobManager.loadAdaptiveBanner(this, binding.advBanner, R.string.ad_banner_home)
 
         binding.btnLatihan.setOnClickListener(this)
         binding.btnSimulasi.setOnClickListener(this)

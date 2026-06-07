@@ -44,7 +44,12 @@ class GuideActivity : AppCompatActivity() {
         binding.imgbtnBack.setOnClickListener { onBackPressed() }
 
         binding.btnStart.setOnClickListener {
-            startActivity(Intent(this, QuestionActivity::class.java).putExtra(QuestionActivity.EXTRA_QUESTION_TYPE, questionType).putExtra(QuestionActivity.EXTRA_QUESTION_PACK, questionPack), Commons.setIntentTransition(this))
+            startActivity(
+                Intent(this, QuestionActivity::class.java)
+                    .putExtra(QuestionActivity.EXTRA_QUESTION_TYPE, questionType)
+                    .putExtra(QuestionActivity.EXTRA_QUESTION_PACK, questionPack),
+                Commons.setIntentTransition(this)
+            )
         }
     }
 }

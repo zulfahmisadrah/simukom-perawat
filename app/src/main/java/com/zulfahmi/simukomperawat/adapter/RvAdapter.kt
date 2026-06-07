@@ -1,30 +1,45 @@
 package com.zulfahmi.simukomperawat.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.nativead.NativeAd
+import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.databinding.ItemArticleBinding
 import com.zulfahmi.simukomperawat.databinding.ItemChatBinding
 import com.zulfahmi.simukomperawat.databinding.ItemEmptyBinding
+import com.zulfahmi.simukomperawat.databinding.ItemNativeAdBinding
 import com.zulfahmi.simukomperawat.databinding.ItemPackBinding
 import com.zulfahmi.simukomperawat.utlis.MyApplication
 import com.zulfahmi.simukomperawat.model.Article
 import com.zulfahmi.simukomperawat.model.Chat
+import com.zulfahmi.simukomperawat.model.NativeAdItem
 import com.zulfahmi.simukomperawat.utlis.Constants
 
 
 class RvAdapter(private val listData: List<Any>, private val listener: (Any, Int) -> Unit ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    companion object {
+        private const val TAG = "RvAdapter"
+    }
+
     private val VIEW_TYPE_EMPTY = 0
     private val VIEW_TYPE_PACK = 1
     private val VIEW_TYPE_ARTICLE = 2
     private val VIEW_TYPE_CHAT = 3
+    private val VIEW_TYPE_NATIVE_AD = 4
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_PACK -> PackViewHolder(ItemPackBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             VIEW_TYPE_ARTICLE -> ArticleViewHolder(ItemArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             VIEW_TYPE_CHAT -> ChatViewHolder(ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            VIEW_TYPE_NATIVE_AD -> NativeAdViewHolder(ItemNativeAdBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             VIEW_TYPE_EMPTY -> EmptyViewHolder(ItemEmptyBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             else -> throw IllegalArgumentException("Undefined view type")
         }
@@ -38,6 +53,7 @@ class RvAdapter(private val listData: List<Any>, private val listener: (Any, Int
                 is String -> VIEW_TYPE_PACK
                 is Article -> VIEW_TYPE_ARTICLE
                 is Chat -> VIEW_TYPE_CHAT
+                is NativeAdItem -> VIEW_TYPE_NATIVE_AD
                 else -> throw IllegalArgumentException("Undefined type")
             }
         }
@@ -64,7 +80,18 @@ class RvAdapter(private val listData: List<Any>, private val listener: (Any, Int
                 val chatHolder = holder as ChatViewHolder
                 chatHolder.bindItem(listData[position] as Chat)
             }
+            VIEW_TYPE_NATIVE_AD -> {
+                val nativeAdHolder = holder as NativeAdViewHolder
+                nativeAdHolder.bindItem(listData[position] as NativeAdItem)
+            }
         }
+    }
+
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+        if (holder is NativeAdViewHolder) {
+            holder.destroyNativeAd()
+        }
+        super.onViewRecycled(holder)
     }
 
     class PackViewHolder(private val itemBinding: ItemPackBinding): RecyclerView.ViewHolder(itemBinding.root) {
@@ -108,6 +135,57 @@ class RvAdapter(private val listData: List<Any>, private val listener: (Any, Int
                 itemBinding.tvMessageFrom.text = item.message
                 itemBinding.tvTimeFrom.text = item.time
             }
+        }
+    }
+
+    class NativeAdViewHolder(private val itemBinding: ItemNativeAdBinding): RecyclerView.ViewHolder(itemBinding.root) {
+        private var nativeAd: NativeAd? = null
+
+        fun bindItem(item: NativeAdItem) {
+            itemBinding.nativeAdCard.visibility = View.GONE
+            destroyNativeAd()
+
+            val context = itemBinding.root.context
+            val adUnitId = when (item.placement) {
+                NativeAdItem.Placement.TIPS_FEED -> context.getString(R.string.ad_native_tips_feed)
+                NativeAdItem.Placement.FORUM_FEED -> context.getString(R.string.ad_native_forum_feed)
+            }
+
+            AdLoader.Builder(context, adUnitId)
+                .forNativeAd { loadedNativeAd ->
+                    nativeAd = loadedNativeAd
+                    populateNativeAdView(loadedNativeAd)
+                    itemBinding.nativeAdCard.visibility = View.VISIBLE
+                }
+                .withAdListener(object : AdListener() {
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                        Log.d(TAG, adError.toString())
+                        itemBinding.nativeAdCard.visibility = View.GONE
+                    }
+                })
+                .build()
+                .loadAd(AdRequest.Builder().build())
+        }
+
+        fun destroyNativeAd() {
+            nativeAd?.destroy()
+            nativeAd = null
+        }
+
+        private fun populateNativeAdView(ad: NativeAd) {
+            itemBinding.nativeAdView.headlineView = itemBinding.adHeadline
+            itemBinding.nativeAdView.bodyView = itemBinding.adBody
+            itemBinding.nativeAdView.callToActionView = itemBinding.adCallToAction
+
+            itemBinding.adHeadline.text = ad.headline
+
+            itemBinding.adBody.visibility = if (ad.body == null) View.GONE else View.VISIBLE
+            itemBinding.adBody.text = ad.body
+
+            itemBinding.adCallToAction.visibility = if (ad.callToAction == null) View.GONE else View.VISIBLE
+            itemBinding.adCallToAction.text = ad.callToAction
+
+            itemBinding.nativeAdView.setNativeAd(ad)
         }
     }
 

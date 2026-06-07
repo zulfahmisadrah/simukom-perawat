@@ -14,13 +14,10 @@
         tools:listitem="@layout/item_article"/>
 
     <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adv_banner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="FULL_BANNER"
-        ads:adUnitId="@string/ad_banner4" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

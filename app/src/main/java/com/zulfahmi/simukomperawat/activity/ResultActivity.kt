@@ -44,7 +44,7 @@ class ResultActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(this, resources.getString(R.string.ad_inters1), adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(this, resources.getString(R.string.ad_interstitial_result_exit), adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, adError.toString())
                 mInterstitialAd = null

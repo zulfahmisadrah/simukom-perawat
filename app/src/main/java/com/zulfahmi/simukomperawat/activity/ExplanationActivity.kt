@@ -5,10 +5,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.R.drawable
+import com.zulfahmi.simukomperawat.ads.AdMobManager
 import com.zulfahmi.simukomperawat.databinding.ActivityExplanationBinding
 import com.zulfahmi.simukomperawat.model.Question
 import com.zulfahmi.simukomperawat.utlis.Commons
@@ -46,8 +46,7 @@ class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
         setContentView(binding.root)
 
         MobileAds.initialize(this) {}
-        val adRequest = AdRequest.Builder().build()
-        binding.advBanner.loadAd(adRequest)
+        AdMobManager.loadAdaptiveBanner(this, binding.advBanner, R.string.ad_banner_explanation)
 
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
