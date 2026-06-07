@@ -252,7 +252,7 @@
             android:layout_height="match_parent"
             android:padding="16dp"
             android:gravity="center">
-            <com.google.android.gms.ads.AdView
+            <FrameLayout
                 android:id="@+id/adv_banner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

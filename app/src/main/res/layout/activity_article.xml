@@ -39,7 +39,7 @@
             </LinearLayout>
         </ScrollView>
 
-        <com.google.android.gms.ads.AdView
+        <FrameLayout
             android:id="@+id/adv_banner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
