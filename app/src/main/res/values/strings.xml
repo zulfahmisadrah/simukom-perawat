@@ -42,13 +42,22 @@
     <string name="back">back</string>
     <string name="nurse">nurse</string>
 
-    <string name="ad_banner_home">ca-app-pub-2669489647881676/1231125035</string>
-    <string name="ad_banner_question_pause">ca-app-pub-2669489647881676/6052206870</string>
-    <string name="ad_banner_explanation">ca-app-pub-2669489647881676/7678233440</string>
-    <string name="ad_banner_tips">ca-app-pub-2669489647881676/3561774900</string>
-    <string name="ad_banner_article">ca-app-pub-2669489647881676/9632838166</string>
-    <string name="ad_interstitial_result_exit">ca-app-pub-2669489647881676/5960707538</string>
-    <string name="ad_interstitial_forum_sign_out">ca-app-pub-2669489647881676/2021462528</string>
+<!--TEST ADMOB ID-->
+<!--    <string name="ad_banner_home">ca-app-pub-2669489647881676/1231125035</string>-->
+<!--    <string name="ad_banner_question_pause">ca-app-pub-2669489647881676/6052206870</string>-->
+<!--    <string name="ad_banner_explanation">ca-app-pub-2669489647881676/7678233440</string>-->
+<!--    <string name="ad_banner_tips">ca-app-pub-2669489647881676/3561774900</string>-->
+<!--    <string name="ad_banner_article">ca-app-pub-2669489647881676/9632838166</string>-->
+<!--    <string name="ad_interstitial_result_exit">ca-app-pub-2669489647881676/5960707538</string>-->
+<!--    <string name="ad_interstitial_forum_sign_out">ca-app-pub-2669489647881676/2021462528</string>-->
+    <!--PROD ADMOB ID-->
+    <string name="ad_banner_home">ca-app-pub-2348320609427796/5292631304</string>
+    <string name="ad_banner_question_pause">ca-app-pub-2348320609427796/2104728161</string>
+    <string name="ad_banner_explanation">ca-app-pub-2348320609427796/2474896279</string>
+    <string name="ad_banner_tips">ca-app-pub-2348320609427796/8784126088</string>
+    <string name="ad_banner_article">ca-app-pub-2348320609427796/2845403694</string>
+    <string name="ad_interstitial_result_exit">ca-app-pub-2348320609427796/4844881071</string>
+    <string name="ad_interstitial_forum_sign_out">ca-app-pub-2348320609427796/3531799403</string>
     <string name="ad_reward_pack_access">ca-app-pub-2348320609427796/7291738633</string>
     <string name="ad_native_tips_feed">ca-app-pub-2348320609427796/4287291027</string>
     <string name="ad_native_forum_feed">ca-app-pub-2348320609427796/9307683412</string>
