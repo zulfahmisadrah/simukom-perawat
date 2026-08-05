@@ -5,7 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.zulfahmi.simukomperawat.database.AppDatabase
 import com.zulfahmi.simukomperawat.model.ExperimentalPack
 import java.util.concurrent.Executors
@@ -25,10 +24,12 @@ class ExperimentalPackRepository(
         firestore.collection(PACKS_COLLECTION)
             .whereEqualTo("type", ExperimentalQuestionMapper.TYPE)
             .whereEqualTo("isPublished", true)
-            .orderBy("packNumber", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { snapshot ->
-                onSuccess(snapshot.documents.mapNotNull(::toExperimentalPack))
+                onSuccess(
+                    snapshot.documents.mapNotNull(::toExperimentalPack)
+                        .sortedWith(compareBy<ExperimentalPack> { it.packNumber }.thenBy { it.id }),
+                )
             }
             .addOnFailureListener { error -> onError(error.message ?: "Tidak dapat memuat paket Experimental.") }
     }
@@ -45,14 +46,24 @@ class ExperimentalPackRepository(
                 val remoteQuestions = try {
                     snapshot.documents.sortedBy { it.id }.map(::toRemoteQuestion)
                 } catch (error: IllegalArgumentException) {
-                    onError(error.message ?: "Data soal Experimental tidak valid.")
+                    openCachedPackOrReportError(
+                        pack.roomPackNumber,
+                        error.message ?: "Data soal Experimental tidak valid.",
+                        onSuccess,
+                        onError,
+                    )
                     return@addOnSuccessListener
                 }
 
                 val roomQuestions = try {
-                    ExperimentalQuestionMapper.toRoomQuestions(remoteQuestions)
+                    ExperimentalQuestionMapper.toRoomQuestions(remoteQuestions, pack.roomPackNumber)
                 } catch (error: IllegalArgumentException) {
-                    onError(error.message ?: "Paket Experimental harus berisi 20 soal valid.")
+                    openCachedPackOrReportError(
+                        pack.roomPackNumber,
+                        error.message ?: "Paket Experimental harus berisi 20 soal valid.",
+                        onSuccess,
+                        onError,
+                    )
                     return@addOnSuccessListener
                 }
 
@@ -60,7 +71,7 @@ class ExperimentalPackRepository(
                     try {
                         database.ukomDao().replaceQuestions(
                             ExperimentalQuestionMapper.TYPE,
-                            ExperimentalQuestionMapper.PACK,
+                            pack.roomPackNumber,
                             roomQuestions,
                         )
                         mainHandler.post(onSuccess)
@@ -71,7 +82,31 @@ class ExperimentalPackRepository(
                     }
                 }
             }
-            .addOnFailureListener { error -> onError(error.message ?: "Tidak dapat memuat soal Experimental.") }
+            .addOnFailureListener { error ->
+                openCachedPackOrReportError(
+                    pack.roomPackNumber,
+                    error.message ?: "Tidak dapat memuat soal Experimental.",
+                    onSuccess,
+                    onError,
+                )
+            }
+    }
+
+    private fun openCachedPackOrReportError(
+        roomPack: Int,
+        fallbackMessage: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit,
+    ) {
+        executor.execute {
+            val hasCachedQuestions = database.ukomDao().countByTypeAndPack(
+                ExperimentalQuestionMapper.TYPE,
+                roomPack,
+            ) == 20
+            mainHandler.post {
+                if (hasCachedQuestions) onSuccess() else onError(fallbackMessage)
+            }
+        }
     }
 
     private fun toExperimentalPack(document: DocumentSnapshot): ExperimentalPack? {

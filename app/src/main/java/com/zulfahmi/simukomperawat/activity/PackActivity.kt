@@ -126,7 +126,7 @@ class PackActivity : AppCompatActivity() {
             pack = pack,
             onSuccess = {
                 isSyncingExperimentalPack = false
-                openGuide(ExperimentalQuestionMapper.PACK)
+                openGuide(pack.roomPackNumber)
             },
             onError = { message ->
                 isSyncingExperimentalPack = false

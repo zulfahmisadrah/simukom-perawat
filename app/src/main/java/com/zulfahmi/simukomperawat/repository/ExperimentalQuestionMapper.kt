@@ -20,13 +20,20 @@ object ExperimentalQuestionMapper {
     const val TYPE = "experimental"
     const val PACK = 1
 
-    fun toRoomQuestions(remoteQuestions: List<RemoteExperimentalQuestion>): List<Question> {
+    fun toRoomQuestions(
+        remoteQuestions: List<RemoteExperimentalQuestion>,
+        roomPack: Int = PACK,
+    ): List<Question> {
         require(remoteQuestions.size == 20)
-        return remoteQuestions.map(::toRoomQuestion)
+        return remoteQuestions.map { toRoomQuestion(it, roomPack) }
     }
 
-    fun toRoomQuestion(remote: RemoteExperimentalQuestion): Question {
+    fun toRoomQuestion(
+        remote: RemoteExperimentalQuestion,
+        roomPack: Int = PACK,
+    ): Question {
         require(remote.text.isNotBlank())
+        require(roomPack > 0)
         require(remote.options.size == 5)
         require(remote.options.all { it.text.isNotBlank() })
 
@@ -35,7 +42,7 @@ object ExperimentalQuestionMapper {
 
         return Question(
             type = TYPE,
-            pack = PACK,
+            pack = roomPack,
             question = remote.text,
             optionA = remote.options[0].text,
             optionB = remote.options[1].text,

@@ -62,4 +62,26 @@ class ExperimentalQuestionMapperTest {
             )
         })
     }
+
+    @Test
+    fun mapsQuestionIntoSelectedPacksRoomCacheSlot() {
+        val remote = RemoteExperimentalQuestion(
+            id = "q-1",
+            packId = "pack-7",
+            text = "Pertanyaan",
+            options = listOf(
+                RemoteOption("a", "A"),
+                RemoteOption("b", "B"),
+                RemoteOption("c", "C"),
+                RemoteOption("d", "D"),
+                RemoteOption("e", "E"),
+            ),
+            correctOptionId = "a",
+            explanation = "",
+        )
+
+        val question = ExperimentalQuestionMapper.toRoomQuestion(remote, roomPack = 7)
+
+        assertEquals(7, question.pack)
+    }
 }

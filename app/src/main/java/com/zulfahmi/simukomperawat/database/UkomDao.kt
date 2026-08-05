@@ -15,6 +15,9 @@ interface UkomDao {
     @Query("DELETE FROM kumpulansoal WHERE jenis = :type AND paket = :pack")
     fun deleteByTypeAndPack(type: String, pack: Int)
 
+    @Query("SELECT COUNT(*) FROM kumpulansoal WHERE jenis = :type AND paket = :pack")
+    fun countByTypeAndPack(type: String, pack: Int): Int
+
     @Transaction
     fun replaceQuestions(type: String, pack: Int, questions: List<Question>) {
         deleteByTypeAndPack(type, pack)
