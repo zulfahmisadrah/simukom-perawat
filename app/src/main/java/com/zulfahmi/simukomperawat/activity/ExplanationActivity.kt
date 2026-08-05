@@ -11,6 +11,7 @@ import com.zulfahmi.simukomperawat.R.drawable
 import com.zulfahmi.simukomperawat.ads.AdMobManager
 import com.zulfahmi.simukomperawat.databinding.ActivityExplanationBinding
 import com.zulfahmi.simukomperawat.model.Question
+import com.zulfahmi.simukomperawat.model.QuestionMode
 import com.zulfahmi.simukomperawat.utlis.Commons
 import com.zulfahmi.simukomperawat.viewmodel.MainViewModel
 
@@ -51,11 +52,11 @@ class ExplanationActivity : AppCompatActivity(), View.OnClickListener  {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         questionPack = intent.getIntExtra(EXTRA_QUESTION_PACK, 0)
-        questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) as String
+        questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) ?: throw IllegalArgumentException("Question type is required")
         listUserAnswer = intent.getStringArrayExtra(EXTRA_USER_ANSWER) as Array<String>
         listAnswer = intent.getStringArrayExtra(EXTRA_ANSWER) as Array<String>
 
-        totalQuestions = if (questionType=="latihan") 20 else 100
+        totalQuestions = QuestionMode.fromWireValue(questionType).totalQuestions
 
         listQuestionImage = IntArray(totalQuestions){0}
         listExplanationImage = IntArray(totalQuestions){0}

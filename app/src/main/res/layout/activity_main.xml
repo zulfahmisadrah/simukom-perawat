@@ -76,6 +76,11 @@
                 android:text="@string/latihan" />
 
             <Button
+                android:id="@+id/btn_experimental"
+                style="@style/ButtonPrimaryHome"
+                android:text="@string/experimental" />
+
+            <Button
                 android:id="@+id/btn_simulasi"
                 style="@style/ButtonPrimaryHome"
                 android:text="@string/simulasi"/>

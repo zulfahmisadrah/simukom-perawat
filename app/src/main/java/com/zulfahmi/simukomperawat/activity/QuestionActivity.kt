@@ -16,6 +16,7 @@ import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.ads.AdMobManager
 import com.zulfahmi.simukomperawat.databinding.ActivityQuestionBinding
 import com.zulfahmi.simukomperawat.model.Question
+import com.zulfahmi.simukomperawat.model.QuestionMode
 import com.zulfahmi.simukomperawat.utlis.Commons
 import com.zulfahmi.simukomperawat.utlis.CustomConfirmDialog
 import com.zulfahmi.simukomperawat.viewmodel.MainViewModel
@@ -62,10 +63,11 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
 
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) as String
+        questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) ?: throw IllegalArgumentException("Question type is required")
         questionPack = intent.getIntExtra(EXTRA_QUESTION_PACK, 0)
+        val questionMode = QuestionMode.fromWireValue(questionType)
 
-        totalQuestions = if (questionType=="latihan") 20 else 100
+        totalQuestions = questionMode.totalQuestions
 
         listQuestionImage = IntArray(totalQuestions){0}
 
@@ -73,7 +75,7 @@ class QuestionActivity : AppCompatActivity(), View.OnClickListener {
         listAnswer = Array(totalQuestions){""}
         listUserAnswer = Array(totalQuestions){""}
 
-        if (questionType != "latihan") {
+        if (questionMode.isTimed) {
             binding.timerContainer.visibility = View.VISIBLE
             startTimer()
             handler.post(object : Runnable {

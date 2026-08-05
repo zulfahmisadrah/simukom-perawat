@@ -21,6 +21,10 @@ import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.adapter.RvAdapter
 import com.zulfahmi.simukomperawat.ads.QuestionPackAccessPolicy
 import com.zulfahmi.simukomperawat.databinding.ActivityPackBinding
+import com.zulfahmi.simukomperawat.model.ExperimentalPack
+import com.zulfahmi.simukomperawat.model.QuestionMode
+import com.zulfahmi.simukomperawat.repository.ExperimentalPackRepository
+import com.zulfahmi.simukomperawat.repository.ExperimentalQuestionMapper
 import com.zulfahmi.simukomperawat.utlis.Commons
 import com.zulfahmi.simukomperawat.utlis.CustomConfirmDialog
 import java.util.Locale
@@ -41,6 +45,9 @@ class PackActivity : AppCompatActivity() {
     private var rewardEarned = false
     private var pendingQuestionPack = 0
     private var questionType = ""
+    private lateinit var experimentalRepository: ExperimentalPackRepository
+    private var experimentalPacks: List<ExperimentalPack> = emptyList()
+    private var isSyncingExperimentalPack = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,20 +63,24 @@ class PackActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
         loadRewardedAd()
 
-        questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) as String
+        questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) ?: throw IllegalArgumentException("Question type is required")
         binding.tvType.text = questionType.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(
                 Locale.ROOT
             ) else it.toString()
         }
 
-        val listPaket = when (questionType) {
-            "latihan" -> setJumlahPaket(TOTAL_PACK_LATIHAN)
-            "simulasi" -> setJumlahPaket(TOTAL_PACK_SIMULASI)
-            else -> throw IllegalArgumentException("Undefined type")
+        when (QuestionMode.fromWireValue(questionType)) {
+            QuestionMode.LATIHAN -> showStaticPacks(TOTAL_PACK_LATIHAN)
+            QuestionMode.SIMULASI -> showStaticPacks(TOTAL_PACK_SIMULASI)
+            QuestionMode.EXPERIMENTAL -> showExperimentalPacks()
         }
 
-        val paketAdapter = RvAdapter(listPaket) { _, position ->
+        binding.imgbtnBack.setOnClickListener { onBackPressed() }
+    }
+
+    private fun showStaticPacks(total: Int) {
+        val paketAdapter = RvAdapter(setJumlahPaket(total)) { _, position ->
             val selectedPack = position + 1
             if (questionPackAccessPolicy.requiresRewardedAdForPack(selectedPack)) {
                 confirmRewardedAdBeforeOpeningPack(selectedPack)
@@ -82,8 +93,46 @@ class PackActivity : AppCompatActivity() {
             layoutManager = GridLayoutManager(context, 3)
             adapter = paketAdapter
         }
+    }
 
-        binding.imgbtnBack.setOnClickListener { onBackPressed() }
+    private fun showExperimentalPacks() {
+        experimentalRepository = ExperimentalPackRepository(this)
+        Toast.makeText(this, "Memuat paket Experimental...", Toast.LENGTH_SHORT).show()
+        experimentalRepository.fetchPacks(
+            onSuccess = { packs ->
+                experimentalPacks = packs
+                if (packs.isEmpty()) {
+                    Toast.makeText(this, "Belum ada paket Experimental yang dipublikasikan.", Toast.LENGTH_LONG).show()
+                    return@fetchPacks
+                }
+                binding.recyclerview.apply {
+                    layoutManager = GridLayoutManager(context, 3)
+                    adapter = RvAdapter(packs.map { it.packNumber.toString() }) { _, position ->
+                        syncExperimentalPack(experimentalPacks[position])
+                    }
+                }
+            },
+            onError = { message ->
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            },
+        )
+    }
+
+    private fun syncExperimentalPack(pack: ExperimentalPack) {
+        if (isSyncingExperimentalPack) return
+        isSyncingExperimentalPack = true
+        Toast.makeText(this, "Menyiapkan ${pack.title}...", Toast.LENGTH_SHORT).show()
+        experimentalRepository.syncPack(
+            pack = pack,
+            onSuccess = {
+                isSyncingExperimentalPack = false
+                openGuide(ExperimentalQuestionMapper.PACK)
+            },
+            onError = { message ->
+                isSyncingExperimentalPack = false
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            },
+        )
     }
 
     private fun setJumlahPaket(total: Int): List<String> {

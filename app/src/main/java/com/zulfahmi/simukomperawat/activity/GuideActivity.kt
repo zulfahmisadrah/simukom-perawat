@@ -8,6 +8,7 @@ import android.transition.Slide
 import android.view.Gravity
 import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.databinding.ActivityGuideBinding
+import com.zulfahmi.simukomperawat.model.QuestionMode
 import com.zulfahmi.simukomperawat.utlis.Commons
 import java.util.Locale
 
@@ -30,7 +31,7 @@ class GuideActivity : AppCompatActivity() {
         window.enterTransition = slide
         window.returnTransition = Explode()
 
-        val questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) as String
+        val questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) ?: throw IllegalArgumentException("Question type is required")
         val questionPack = intent.getIntExtra(EXTRA_QUESTION_PACK, 0)
         binding.tvType.text = questionType.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(
@@ -38,7 +39,7 @@ class GuideActivity : AppCompatActivity() {
             ) else it.toString()
         }
 
-        val guides = if (questionType == "latihan") resources.getString(R.string.panduan_latihan) else resources.getString(R.string.panduan_simulasi)
+        val guides = if (!QuestionMode.fromWireValue(questionType).isTimed) resources.getString(R.string.panduan_latihan) else resources.getString(R.string.panduan_simulasi)
         binding.tvGuides.text = guides
 
         binding.imgbtnBack.setOnClickListener { onBackPressed() }

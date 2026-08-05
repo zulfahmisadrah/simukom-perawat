@@ -14,6 +14,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.databinding.ActivityResultBinding
+import com.zulfahmi.simukomperawat.model.QuestionMode
 import com.zulfahmi.simukomperawat.utlis.Commons
 
 class ResultActivity : AppCompatActivity() {
@@ -60,7 +61,7 @@ class ResultActivity : AppCompatActivity() {
         val listAnswer = intent.getStringArrayExtra(EXTRA_ANSWER) as Array<String>
         val averageTime = intent.getStringExtra(EXTRA_TIME_PER_QUESTION) as String
         val userTime = intent.getStringExtra(EXTRA_USER_TIME) as String
-        questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) as String
+        questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) ?: throw IllegalArgumentException("Question type is required")
         questionPack = intent.getIntExtra(EXTRA_QUESTION_PACK, 0)
         totalQuestions = intent.getIntExtra(EXTRA_TOTAL_QUESTIONS,0)
 
@@ -78,7 +79,7 @@ class ResultActivity : AppCompatActivity() {
         binding.tvCorrectAnswer.text = strTotalCorrectAnswer
         binding.tvWrongAnswer.text = strTotalWrongAnswer
 
-        if (questionType!="latihan") {
+        if (QuestionMode.fromWireValue(questionType).isTimed) {
             binding.tvTime.visibility = View.VISIBLE
             binding.tvAverageTime.visibility = View.VISIBLE
 

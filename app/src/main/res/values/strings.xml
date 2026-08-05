@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Simukom Perawat</string>
     <string name="latihan">Latihan</string>
+    <string name="experimental">Experimental</string>
     <string name="simulasi">Simulasi</string>
     <string name="tips_trik">Tips dan Trik</string>
     <string name="forum">Forum</string>

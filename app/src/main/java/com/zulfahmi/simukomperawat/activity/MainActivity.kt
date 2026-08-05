@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.ads.AdMobManager
 import com.zulfahmi.simukomperawat.databinding.ActivityMainBinding
+import com.zulfahmi.simukomperawat.model.QuestionMode
 import com.zulfahmi.simukomperawat.utlis.Commons
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         AdMobManager.loadAdaptiveBanner(this, binding.advBanner, R.string.ad_banner_home)
 
         binding.btnLatihan.setOnClickListener(this)
+        binding.btnExperimental.setOnClickListener(this)
         binding.btnSimulasi.setOnClickListener(this)
         binding.btnTipstrick.setOnClickListener(this)
         binding.btnForum.setOnClickListener(this)
@@ -41,8 +43,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btn_latihan -> startActivity(Intent(this, PackActivity::class.java).putExtra(PackActivity.EXTRA_QUESTION_TYPE, "latihan"), Commons.setIntentTransition(this))
-            R.id.btn_simulasi -> startActivity(Intent(this, PackActivity::class.java).putExtra(PackActivity.EXTRA_QUESTION_TYPE, "simulasi"), Commons.setIntentTransition(this))
+            R.id.btn_latihan -> startActivity(Intent(this, PackActivity::class.java).putExtra(PackActivity.EXTRA_QUESTION_TYPE, QuestionMode.LATIHAN.wireValue), Commons.setIntentTransition(this))
+            R.id.btn_experimental -> startActivity(Intent(this, PackActivity::class.java).putExtra(PackActivity.EXTRA_QUESTION_TYPE, QuestionMode.EXPERIMENTAL.wireValue), Commons.setIntentTransition(this))
+            R.id.btn_simulasi -> startActivity(Intent(this, PackActivity::class.java).putExtra(PackActivity.EXTRA_QUESTION_TYPE, QuestionMode.SIMULASI.wireValue), Commons.setIntentTransition(this))
             R.id.btn_tipstrick -> startActivity(Intent(this, TipsActivity::class.java))
             R.id.btn_forum -> {
                 val auth = FirebaseAuth.getInstance()
