@@ -6,6 +6,7 @@ import android.os.Looper
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.zulfahmi.simukomperawat.database.AppDatabase
+import com.zulfahmi.simukomperawat.model.LatihanPack
 import java.util.concurrent.Executors
 
 class FirestoreQuestionRepository(
@@ -19,11 +20,12 @@ class FirestoreQuestionRepository(
     fun refreshPackage(
         type: String,
         pack: Int,
+        firestorePackId: String,
         onReady: () -> Unit,
         onError: (String) -> Unit,
     ) {
         firestore.collection(QUESTIONS_COLLECTION)
-            .whereEqualTo("packId", firestorePackId(type, pack))
+            .whereEqualTo("packId", resolvedPackId(type, pack, firestorePackId))
             .get()
             .addOnSuccessListener { snapshot ->
                 val remoteQuestions = try {
@@ -52,6 +54,24 @@ class FirestoreQuestionRepository(
             .addOnFailureListener { error ->
                 openCachedPackageOrReportError(type, pack, error.message ?: FETCH_ERROR_MESSAGE, onReady, onError)
             }
+    }
+
+    fun fetchPublishedLatihanPacks(
+        onSuccess: (List<LatihanPack>) -> Unit,
+        onError: (String) -> Unit,
+    ) {
+        firestore.collection(PACKS_COLLECTION)
+            .whereEqualTo("type", "latihan")
+            .whereEqualTo("isPublished", true)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val packs = snapshot.documents.mapNotNull { document ->
+                    val number = document.getLong("packNumber")?.toInt() ?: return@mapNotNull null
+                    if (number > 0) LatihanPack.remote(number, document.id) else null
+                }.sortedBy { it.number }
+                onSuccess(packs)
+            }
+            .addOnFailureListener { error -> onError(error.message ?: PACK_FETCH_ERROR_MESSAGE) }
     }
 
     private fun openCachedPackageOrReportError(
@@ -99,7 +119,15 @@ class FirestoreQuestionRepository(
             return "legacy_${type}_paket_$pack"
         }
 
+        fun resolvedPackId(type: String, pack: Int, firestorePackId: String): String {
+            firestorePackId(type, pack)
+            require(firestorePackId.isNotBlank())
+            return firestorePackId
+        }
+
+        private const val PACKS_COLLECTION = "packs"
         private const val QUESTIONS_COLLECTION = "questions"
+        private const val PACK_FETCH_ERROR_MESSAGE = "Tidak dapat memuat paket dari server."
         private const val INVALID_DATA_MESSAGE = "Data soal dari server tidak valid."
         private const val FETCH_ERROR_MESSAGE = "Tidak dapat mengunduh soal dari server."
         private const val SAVE_ERROR_MESSAGE = "Tidak dapat menyimpan soal ke perangkat."

@@ -51,4 +51,12 @@ class FirestoreQuestionRepositoryTest {
 
         FirestoreQuestionMapper.toRoomQuestions(List(19) { remote }, "latihan", 2)
     }
+
+    @Test
+    fun usesSuppliedFirestorePackId() {
+        assertEquals(
+            "new-pack",
+            FirestoreQuestionRepository.resolvedPackId("latihan", 6, "new-pack"),
+        )
+    }
 }

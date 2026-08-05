@@ -21,6 +21,7 @@ import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.adapter.RvAdapter
 import com.zulfahmi.simukomperawat.ads.QuestionPackAccessPolicy
 import com.zulfahmi.simukomperawat.databinding.ActivityPackBinding
+import com.zulfahmi.simukomperawat.model.LatihanPack
 import com.zulfahmi.simukomperawat.model.QuestionMode
 import com.zulfahmi.simukomperawat.repository.FirestoreQuestionRepository
 import com.zulfahmi.simukomperawat.utlis.Commons
@@ -42,6 +43,7 @@ class PackActivity : AppCompatActivity() {
     private var rewardedAd: RewardedAd? = null
     private var rewardEarned = false
     private var pendingQuestionPack = 0
+    private var pendingFirestorePackId: String? = null
     private var questionType = ""
     private lateinit var firestoreQuestionRepository: FirestoreQuestionRepository
     private var isPreparingPackage = false
@@ -69,7 +71,7 @@ class PackActivity : AppCompatActivity() {
         }
 
         when (QuestionMode.fromWireValue(questionType)) {
-            QuestionMode.LATIHAN -> showStaticPacks(TOTAL_PACK_LATIHAN)
+            QuestionMode.LATIHAN -> showLatihanPacks()
             QuestionMode.SIMULASI -> showStaticPacks(TOTAL_PACK_SIMULASI)
         }
 
@@ -82,7 +84,7 @@ class PackActivity : AppCompatActivity() {
             if (questionPackAccessPolicy.requiresRewardedAdForPack(selectedPack)) {
                 confirmRewardedAdBeforeOpeningPack(selectedPack)
             } else {
-                preparePackageAndOpenGuide(selectedPack)
+                preparePackageAndOpenGuide(selectedPack, null)
             }
         }
 
@@ -92,7 +94,29 @@ class PackActivity : AppCompatActivity() {
         }
     }
 
-    private fun preparePackageAndOpenGuide(pack: Int) {
+    private fun showLatihanPacks() {
+        firestoreQuestionRepository.fetchPublishedLatihanPacks(
+            onSuccess = { remotePacks -> renderLatihanPacks(LatihanPack.merge(remotePacks)) },
+            onError = { renderLatihanPacks(LatihanPack.merge(emptyList())) },
+        )
+    }
+
+    private fun renderLatihanPacks(packs: List<LatihanPack>) {
+        binding.recyclerview.apply {
+            layoutManager = GridLayoutManager(context, 3)
+            adapter = RvAdapter(packs.map { it.number.toString() }) { _, position ->
+                val selectedPack = packs[position]
+                pendingFirestorePackId = selectedPack.firestoreId
+                if (questionPackAccessPolicy.requiresRewardedAdForPack(selectedPack.number)) {
+                    confirmRewardedAdBeforeOpeningPack(selectedPack.number)
+                } else {
+                    preparePackageAndOpenGuide(selectedPack.number, selectedPack.firestoreId)
+                }
+            }
+        }
+    }
+
+    private fun preparePackageAndOpenGuide(pack: Int, firestorePackId: String?) {
         if (questionType != QuestionMode.LATIHAN.wireValue) {
             openGuide(pack)
             return
@@ -103,6 +127,7 @@ class PackActivity : AppCompatActivity() {
         firestoreQuestionRepository.refreshPackage(
             type = QuestionMode.LATIHAN.wireValue,
             pack = pack,
+            firestorePackId = firestorePackId ?: FirestoreQuestionRepository.firestorePackId(questionType, pack),
             onReady = {
                 isPreparingPackage = false
                 openGuide(pack)
@@ -151,7 +176,7 @@ class PackActivity : AppCompatActivity() {
                         Log.d(TAG, adError.toString())
                         rewardedAd = null
                         if (questionPackAccessPolicy.canOpenAfterRewardedAdShowFailed()) {
-                            preparePackageAndOpenGuide(pendingQuestionPack)
+                            preparePackageAndOpenGuide(pendingQuestionPack, pendingFirestorePackId)
                         } else {
                             Toast.makeText(this@PackActivity, "Iklan belum siap. Silakan coba lagi.", Toast.LENGTH_SHORT).show()
                             loadRewardedAd()
@@ -165,7 +190,7 @@ class PackActivity : AppCompatActivity() {
                     override fun onAdDismissedFullScreenContent() {
                         rewardedAd = null
                         if (questionPackAccessPolicy.canOpenAfterRewardedAdClosed(rewardEarned)) {
-                            preparePackageAndOpenGuide(pendingQuestionPack)
+                            preparePackageAndOpenGuide(pendingQuestionPack, pendingFirestorePackId)
                         } else {
                             Toast.makeText(this@PackActivity, "Tonton iklan sampai selesai untuk membuka paket soal", Toast.LENGTH_SHORT).show()
                             loadRewardedAd()
