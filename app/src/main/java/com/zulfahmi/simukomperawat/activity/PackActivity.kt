@@ -21,10 +21,8 @@ import com.zulfahmi.simukomperawat.R
 import com.zulfahmi.simukomperawat.adapter.RvAdapter
 import com.zulfahmi.simukomperawat.ads.QuestionPackAccessPolicy
 import com.zulfahmi.simukomperawat.databinding.ActivityPackBinding
-import com.zulfahmi.simukomperawat.model.ExperimentalPack
 import com.zulfahmi.simukomperawat.model.QuestionMode
-import com.zulfahmi.simukomperawat.repository.ExperimentalPackRepository
-import com.zulfahmi.simukomperawat.repository.ExperimentalQuestionMapper
+import com.zulfahmi.simukomperawat.repository.FirestoreQuestionRepository
 import com.zulfahmi.simukomperawat.utlis.Commons
 import com.zulfahmi.simukomperawat.utlis.CustomConfirmDialog
 import java.util.Locale
@@ -45,9 +43,8 @@ class PackActivity : AppCompatActivity() {
     private var rewardEarned = false
     private var pendingQuestionPack = 0
     private var questionType = ""
-    private lateinit var experimentalRepository: ExperimentalPackRepository
-    private var experimentalPacks: List<ExperimentalPack> = emptyList()
-    private var isSyncingExperimentalPack = false
+    private lateinit var firestoreQuestionRepository: FirestoreQuestionRepository
+    private var isPreparingPackage = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +59,7 @@ class PackActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) {}
         loadRewardedAd()
+        firestoreQuestionRepository = FirestoreQuestionRepository(this)
 
         questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) ?: throw IllegalArgumentException("Question type is required")
         binding.tvType.text = questionType.replaceFirstChar {
@@ -73,7 +71,6 @@ class PackActivity : AppCompatActivity() {
         when (QuestionMode.fromWireValue(questionType)) {
             QuestionMode.LATIHAN -> showStaticPacks(TOTAL_PACK_LATIHAN)
             QuestionMode.SIMULASI -> showStaticPacks(TOTAL_PACK_SIMULASI)
-            QuestionMode.EXPERIMENTAL -> showExperimentalPacks()
         }
 
         binding.imgbtnBack.setOnClickListener { onBackPressed() }
@@ -85,7 +82,7 @@ class PackActivity : AppCompatActivity() {
             if (questionPackAccessPolicy.requiresRewardedAdForPack(selectedPack)) {
                 confirmRewardedAdBeforeOpeningPack(selectedPack)
             } else {
-                openGuide(selectedPack)
+                preparePackageAndOpenGuide(selectedPack)
             }
         }
 
@@ -95,41 +92,23 @@ class PackActivity : AppCompatActivity() {
         }
     }
 
-    private fun showExperimentalPacks() {
-        experimentalRepository = ExperimentalPackRepository(this)
-        Toast.makeText(this, "Memuat paket Experimental...", Toast.LENGTH_SHORT).show()
-        experimentalRepository.fetchPacks(
-            onSuccess = { packs ->
-                experimentalPacks = packs
-                if (packs.isEmpty()) {
-                    Toast.makeText(this, "Belum ada paket Experimental yang dipublikasikan.", Toast.LENGTH_LONG).show()
-                    return@fetchPacks
-                }
-                binding.recyclerview.apply {
-                    layoutManager = GridLayoutManager(context, 3)
-                    adapter = RvAdapter(packs.map { it.packNumber.toString() }) { _, position ->
-                        syncExperimentalPack(experimentalPacks[position])
-                    }
-                }
-            },
-            onError = { message ->
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            },
-        )
-    }
-
-    private fun syncExperimentalPack(pack: ExperimentalPack) {
-        if (isSyncingExperimentalPack) return
-        isSyncingExperimentalPack = true
-        Toast.makeText(this, "Menyiapkan ${pack.title}...", Toast.LENGTH_SHORT).show()
-        experimentalRepository.syncPack(
+    private fun preparePackageAndOpenGuide(pack: Int) {
+        if (questionType != QuestionMode.LATIHAN.wireValue) {
+            openGuide(pack)
+            return
+        }
+        if (isPreparingPackage) return
+        isPreparingPackage = true
+        Toast.makeText(this, "Menyiapkan soal untuk penggunaan offline...", Toast.LENGTH_SHORT).show()
+        firestoreQuestionRepository.refreshPackage(
+            type = QuestionMode.LATIHAN.wireValue,
             pack = pack,
-            onSuccess = {
-                isSyncingExperimentalPack = false
-                openGuide(pack.roomPackNumber)
+            onReady = {
+                isPreparingPackage = false
+                openGuide(pack)
             },
             onError = { message ->
-                isSyncingExperimentalPack = false
+                isPreparingPackage = false
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             },
         )
@@ -172,7 +151,7 @@ class PackActivity : AppCompatActivity() {
                         Log.d(TAG, adError.toString())
                         rewardedAd = null
                         if (questionPackAccessPolicy.canOpenAfterRewardedAdShowFailed()) {
-                            openGuide(pendingQuestionPack)
+                            preparePackageAndOpenGuide(pendingQuestionPack)
                         } else {
                             Toast.makeText(this@PackActivity, "Iklan belum siap. Silakan coba lagi.", Toast.LENGTH_SHORT).show()
                             loadRewardedAd()
@@ -186,7 +165,7 @@ class PackActivity : AppCompatActivity() {
                     override fun onAdDismissedFullScreenContent() {
                         rewardedAd = null
                         if (questionPackAccessPolicy.canOpenAfterRewardedAdClosed(rewardEarned)) {
-                            openGuide(pendingQuestionPack)
+                            preparePackageAndOpenGuide(pendingQuestionPack)
                         } else {
                             Toast.makeText(this@PackActivity, "Tonton iklan sampai selesai untuk membuka paket soal", Toast.LENGTH_SHORT).show()
                             loadRewardedAd()

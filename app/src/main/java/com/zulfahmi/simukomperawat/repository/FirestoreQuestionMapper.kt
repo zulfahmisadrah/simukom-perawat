@@ -2,38 +2,29 @@ package com.zulfahmi.simukomperawat.repository
 
 import com.zulfahmi.simukomperawat.model.Question
 
-data class RemoteOption(
+data class RemoteFirestoreOption(
     val id: String,
     val text: String,
 )
 
-data class RemoteExperimentalQuestion(
-    val id: String,
-    val packId: String,
+data class RemoteFirestoreQuestion(
     val text: String,
-    val options: List<RemoteOption>,
+    val options: List<RemoteFirestoreOption>,
     val correctOptionId: String,
     val explanation: String,
 )
 
-object ExperimentalQuestionMapper {
-    const val TYPE = "experimental"
-    const val PACK = 1
-
-    fun toRoomQuestions(
-        remoteQuestions: List<RemoteExperimentalQuestion>,
-        roomPack: Int = PACK,
-    ): List<Question> {
-        require(remoteQuestions.size == 20)
-        return remoteQuestions.map { toRoomQuestion(it, roomPack) }
-    }
+object FirestoreQuestionMapper {
+    const val QUESTIONS_PER_PACK = 20
 
     fun toRoomQuestion(
-        remote: RemoteExperimentalQuestion,
-        roomPack: Int = PACK,
+        remote: RemoteFirestoreQuestion,
+        type: String,
+        pack: Int,
     ): Question {
+        require(type == "latihan" || type == "simulasi")
+        require(pack > 0)
         require(remote.text.isNotBlank())
-        require(roomPack > 0)
         require(remote.options.size == 5)
         require(remote.options.all { it.text.isNotBlank() })
 
@@ -41,8 +32,8 @@ object ExperimentalQuestionMapper {
         require(answerIndex >= 0)
 
         return Question(
-            type = TYPE,
-            pack = roomPack,
+            type = type,
+            pack = pack,
             question = remote.text,
             optionA = remote.options[0].text,
             optionB = remote.options[1].text,
@@ -53,4 +44,14 @@ object ExperimentalQuestionMapper {
             explanation = remote.explanation,
         )
     }
+
+    fun toRoomQuestions(
+        remoteQuestions: List<RemoteFirestoreQuestion>,
+        type: String,
+        pack: Int,
+    ): List<Question> {
+        require(remoteQuestions.size == QUESTIONS_PER_PACK)
+        return remoteQuestions.map { toRoomQuestion(it, type, pack) }
+    }
+
 }

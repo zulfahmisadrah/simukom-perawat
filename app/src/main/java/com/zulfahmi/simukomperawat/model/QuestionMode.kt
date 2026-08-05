@@ -7,7 +7,6 @@ enum class QuestionMode(
 ) {
     LATIHAN("latihan", 20, false),
     SIMULASI("simulasi", 100, true),
-    EXPERIMENTAL("experimental", 20, false),
     ;
 
     companion object {

@@ -1,0 +1,107 @@
+package com.zulfahmi.simukomperawat.repository
+
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.zulfahmi.simukomperawat.database.AppDatabase
+import java.util.concurrent.Executors
+
+class FirestoreQuestionRepository(
+    context: Context,
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance(),
+) {
+    private val database = AppDatabase.getDatabase(context.applicationContext)
+    private val executor = Executors.newSingleThreadExecutor()
+    private val mainHandler = Handler(Looper.getMainLooper())
+
+    fun refreshPackage(
+        type: String,
+        pack: Int,
+        onReady: () -> Unit,
+        onError: (String) -> Unit,
+    ) {
+        firestore.collection(QUESTIONS_COLLECTION)
+            .whereEqualTo("packId", firestorePackId(type, pack))
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val remoteQuestions = try {
+                    snapshot.documents.sortedBy { it.id }.map(::toRemoteQuestion)
+                } catch (error: IllegalArgumentException) {
+                    openCachedPackageOrReportError(type, pack, error.message ?: INVALID_DATA_MESSAGE, onReady, onError)
+                    return@addOnSuccessListener
+                }
+
+                val roomQuestions = try {
+                    FirestoreQuestionMapper.toRoomQuestions(remoteQuestions, type, pack)
+                } catch (error: IllegalArgumentException) {
+                    openCachedPackageOrReportError(type, pack, error.message ?: INVALID_DATA_MESSAGE, onReady, onError)
+                    return@addOnSuccessListener
+                }
+
+                executor.execute {
+                    try {
+                        database.ukomDao().replaceQuestions(type, pack, roomQuestions)
+                        mainHandler.post(onReady)
+                    } catch (error: Exception) {
+                        mainHandler.post { onError(error.message ?: SAVE_ERROR_MESSAGE) }
+                    }
+                }
+            }
+            .addOnFailureListener { error ->
+                openCachedPackageOrReportError(type, pack, error.message ?: FETCH_ERROR_MESSAGE, onReady, onError)
+            }
+    }
+
+    private fun openCachedPackageOrReportError(
+        type: String,
+        pack: Int,
+        fallbackMessage: String,
+        onReady: () -> Unit,
+        onError: (String) -> Unit,
+    ) {
+        executor.execute {
+            val hasCachedQuestions = database.ukomDao().countByTypeAndPack(type, pack) == FirestoreQuestionMapper.QUESTIONS_PER_PACK
+            mainHandler.post {
+                if (hasCachedQuestions) onReady() else onError(fallbackMessage)
+            }
+        }
+    }
+
+    private fun toRemoteQuestion(document: DocumentSnapshot): RemoteFirestoreQuestion {
+        val content = document.get("content") as? Map<*, *>
+            ?: throw IllegalArgumentException("Konten soal tidak tersedia.")
+        val text = content["text"] as? String
+            ?: throw IllegalArgumentException("Teks soal tidak tersedia.")
+        val rawOptions = document.get("options") as? List<*>
+            ?: throw IllegalArgumentException("Pilihan soal tidak tersedia.")
+        val options = rawOptions.map { rawOption ->
+            val option = rawOption as? Map<*, *>
+                ?: throw IllegalArgumentException("Format pilihan soal tidak valid.")
+            val id = option["id"] as? String
+                ?: throw IllegalArgumentException("ID pilihan soal tidak tersedia.")
+            val optionText = option["text"] as? String
+                ?: throw IllegalArgumentException("Teks pilihan soal tidak tersedia.")
+            RemoteFirestoreOption(id, optionText)
+        }
+        val correctOptionId = document.getString("correctOptionId")
+            ?: throw IllegalArgumentException("Kunci jawaban tidak tersedia.")
+        val explanation = (document.get("explanation") as? Map<*, *>)?.get("text") as? String ?: ""
+
+        return RemoteFirestoreQuestion(text, options, correctOptionId, explanation)
+    }
+
+    companion object {
+        fun firestorePackId(type: String, pack: Int): String {
+            require(type == "latihan" || type == "simulasi")
+            require(pack > 0)
+            return "legacy_${type}_paket_$pack"
+        }
+
+        private const val QUESTIONS_COLLECTION = "questions"
+        private const val INVALID_DATA_MESSAGE = "Data soal dari server tidak valid."
+        private const val FETCH_ERROR_MESSAGE = "Tidak dapat mengunduh soal dari server."
+        private const val SAVE_ERROR_MESSAGE = "Tidak dapat menyimpan soal ke perangkat."
+    }
+}

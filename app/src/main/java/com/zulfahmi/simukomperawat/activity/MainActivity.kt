@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         AdMobManager.loadAdaptiveBanner(this, binding.advBanner, R.string.ad_banner_home)
 
         binding.btnLatihan.setOnClickListener(this)
-        binding.btnExperimental.setOnClickListener(this)
         binding.btnSimulasi.setOnClickListener(this)
         binding.btnTipstrick.setOnClickListener(this)
         binding.btnForum.setOnClickListener(this)
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_latihan -> startActivity(Intent(this, PackActivity::class.java).putExtra(PackActivity.EXTRA_QUESTION_TYPE, QuestionMode.LATIHAN.wireValue), Commons.setIntentTransition(this))
-            R.id.btn_experimental -> startActivity(Intent(this, PackActivity::class.java).putExtra(PackActivity.EXTRA_QUESTION_TYPE, QuestionMode.EXPERIMENTAL.wireValue), Commons.setIntentTransition(this))
             R.id.btn_simulasi -> startActivity(Intent(this, PackActivity::class.java).putExtra(PackActivity.EXTRA_QUESTION_TYPE, QuestionMode.SIMULASI.wireValue), Commons.setIntentTransition(this))
             R.id.btn_tipstrick -> startActivity(Intent(this, TipsActivity::class.java))
             R.id.btn_forum -> {

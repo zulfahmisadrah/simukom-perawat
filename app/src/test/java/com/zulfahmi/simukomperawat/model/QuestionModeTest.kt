@@ -7,9 +7,9 @@ import org.junit.Test
 
 class QuestionModeTest {
     @Test
-    fun experimentalHasLatihanTimingAndQuestionCount() {
-        assertEquals(20, QuestionMode.EXPERIMENTAL.totalQuestions)
-        assertFalse(QuestionMode.EXPERIMENTAL.isTimed)
+    fun latihanHasTwentyQuestionsWithoutTimer() {
+        assertEquals(20, QuestionMode.LATIHAN.totalQuestions)
+        assertFalse(QuestionMode.LATIHAN.isTimed)
     }
 
     @Test
