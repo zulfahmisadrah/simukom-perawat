@@ -42,4 +42,24 @@ class ExperimentalQuestionMapperTest {
             ),
         )
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun rejectsExperimentalBatchWithFewerThanTwentyQuestions() {
+        ExperimentalQuestionMapper.toRoomQuestions(List(19) { index ->
+            RemoteExperimentalQuestion(
+                id = "q-$index",
+                packId = "pack-a",
+                text = "Pertanyaan $index",
+                options = listOf(
+                    RemoteOption("a", "A"),
+                    RemoteOption("b", "B"),
+                    RemoteOption("c", "C"),
+                    RemoteOption("d", "D"),
+                    RemoteOption("e", "E"),
+                ),
+                correctOptionId = "a",
+                explanation = "",
+            )
+        })
+    }
 }

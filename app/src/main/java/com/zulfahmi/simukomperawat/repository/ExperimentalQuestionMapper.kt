@@ -20,6 +20,11 @@ object ExperimentalQuestionMapper {
     const val TYPE = "experimental"
     const val PACK = 1
 
+    fun toRoomQuestions(remoteQuestions: List<RemoteExperimentalQuestion>): List<Question> {
+        require(remoteQuestions.size == 20)
+        return remoteQuestions.map(::toRoomQuestion)
+    }
+
     fun toRoomQuestion(remote: RemoteExperimentalQuestion): Question {
         require(remote.text.isNotBlank())
         require(remote.options.size == 5)

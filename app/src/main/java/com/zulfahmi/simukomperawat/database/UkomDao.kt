@@ -8,4 +8,16 @@ import com.zulfahmi.simukomperawat.model.Question
 interface UkomDao {
     @Query("SELECT * FROM kumpulansoal WHERE jenis=:type AND paket=:pack")
     fun getSoal(type: String, pack: Int): LiveData<List<Question>>
+
+    @Insert
+    fun insertAll(questions: List<Question>)
+
+    @Query("DELETE FROM kumpulansoal WHERE jenis = :type AND paket = :pack")
+    fun deleteByTypeAndPack(type: String, pack: Int)
+
+    @Transaction
+    fun replaceQuestions(type: String, pack: Int, questions: List<Question>) {
+        deleteByTypeAndPack(type, pack)
+        insertAll(questions)
+    }
 }
