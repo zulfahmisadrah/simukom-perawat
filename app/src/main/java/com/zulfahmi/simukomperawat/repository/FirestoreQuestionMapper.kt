@@ -50,7 +50,9 @@ object FirestoreQuestionMapper {
         type: String,
         pack: Int,
     ): List<Question> {
-        require(remoteQuestions.size == QUESTIONS_PER_PACK)
+        require(remoteQuestions.size == QUESTIONS_PER_PACK) {
+            "Paket $type harus berisi tepat $QUESTIONS_PER_PACK soal. Ditemukan ${remoteQuestions.size}."
+        }
         return remoteQuestions.map { toRoomQuestion(it, type, pack) }
     }
 

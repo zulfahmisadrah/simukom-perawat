@@ -1,6 +1,7 @@
 package com.zulfahmi.simukomperawat.repository
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.fail
 import org.junit.Test
 
 class FirestoreQuestionRepositoryTest {
@@ -34,8 +35,8 @@ class FirestoreQuestionRepositoryTest {
         assertEquals("c", question.answer)
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun rejectsRefreshWithFewerThanTwentyQuestions() {
+    @Test
+    fun rejectsRefreshWithActionableQuestionCount() {
         val remote = RemoteFirestoreQuestion(
             text = "Pertanyaan",
             options = listOf(
@@ -49,7 +50,15 @@ class FirestoreQuestionRepositoryTest {
             explanation = "",
         )
 
-        FirestoreQuestionMapper.toRoomQuestions(List(19) { remote }, "latihan", 2)
+        try {
+            FirestoreQuestionMapper.toRoomQuestions(List(19) { remote }, "latihan", 2)
+            fail("Expected the incomplete package to be rejected")
+        } catch (error: IllegalArgumentException) {
+            assertEquals(
+                "Paket latihan harus berisi tepat 20 soal. Ditemukan 19.",
+                error.message,
+            )
+        }
     }
 
     @Test
