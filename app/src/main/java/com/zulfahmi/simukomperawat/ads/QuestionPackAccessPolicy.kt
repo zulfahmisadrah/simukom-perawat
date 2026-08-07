@@ -1,5 +1,14 @@
 package com.zulfahmi.simukomperawat.ads
 
+import com.zulfahmi.simukomperawat.model.LatihanPack
+import com.zulfahmi.simukomperawat.model.PackAccessType
+
+enum class PackOpenAction {
+    OPEN,
+    SHOW_REWARDED_AD,
+    SHOW_PREMIUM_MESSAGE,
+}
+
 class QuestionPackAccessPolicy {
     enum class StartAction {
         SHOW_REWARDED_AD,
@@ -20,6 +29,15 @@ class QuestionPackAccessPolicy {
 
     fun requiresRewardedAdForPack(pack: Int): Boolean {
         return pack > 1
+    }
+
+    fun actionFor(pack: LatihanPack): PackOpenAction = when {
+        !pack.isRemote -> {
+            if (requiresRewardedAdForPack(pack.roomPack)) PackOpenAction.SHOW_REWARDED_AD else PackOpenAction.OPEN
+        }
+        pack.accessType == PackAccessType.FREE -> PackOpenAction.OPEN
+        pack.accessType == PackAccessType.PREMIUM -> PackOpenAction.SHOW_PREMIUM_MESSAGE
+        else -> PackOpenAction.SHOW_REWARDED_AD
     }
 
     fun canOpenAfterRewardedAdClosed(rewardEarned: Boolean): Boolean {
