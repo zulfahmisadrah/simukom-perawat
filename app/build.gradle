@@ -5,12 +5,12 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.devtools.ksp'
 
 android {
-    compileSdkVersion 35
+    compileSdkVersion 36
 
     defaultConfig {
         applicationId "com.zulfahmi.simukomperawat"
         minSdkVersion 23
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode 5
         versionName "1.5"
 
