@@ -5,18 +5,32 @@ import org.junit.Test
 
 class LatihanPackTest {
     @Test
-    fun keepsSqlitePackagesAndAppendsNewFirestorePackage() {
-        val merged = LatihanPack.merge(listOf(LatihanPack.remote(6, "remote-6")))
+    fun groupsPacksByCategoryWithoutCollapsingDuplicateNumbers() {
+        val groups = LatihanPack.groupByCategory(
+            listOf(
+                LatihanPack.remote(
+                    roomPack = 10_000,
+                    firestoreId = "jiwa-1",
+                    title = "Paket Jiwa Dasar",
+                    categoryId = "jiwa",
+                    categoryName = "Keperawatan Jiwa",
+                    displayNumber = 1,
+                    accessType = PackAccessType.FREE,
+                ),
+                LatihanPack.remote(
+                    roomPack = 10_001,
+                    firestoreId = "anak-1",
+                    title = "Paket Anak Dasar",
+                    categoryId = "anak",
+                    categoryName = "Keperawatan Anak",
+                    displayNumber = 1,
+                    accessType = PackAccessType.REWARDED_AD,
+                ),
+            ),
+        )
 
-        assertEquals(listOf(1, 2, 3, 4, 5, 6), merged.map { it.number })
-        assertEquals("remote-6", merged.last().firestoreId)
-    }
-
-    @Test
-    fun ignoresRemoteDuplicateOfSqlitePackage() {
-        val merged = LatihanPack.merge(listOf(LatihanPack.remote(3, "remote-3")))
-
-        assertEquals(5, merged.size)
-        assertEquals("legacy_latihan_paket_3", merged[2].firestoreId)
+        assertEquals(listOf("Keperawatan Anak", "Keperawatan Jiwa"), groups.map { it.name })
+        assertEquals(listOf(10_001), groups[0].packs.map { it.roomPack })
+        assertEquals(listOf(10_000), groups[1].packs.map { it.roomPack })
     }
 }
