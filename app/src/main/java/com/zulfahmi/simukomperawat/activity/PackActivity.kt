@@ -6,8 +6,10 @@ import android.transition.Explode
 import android.transition.Slide
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -18,9 +20,12 @@ import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.zulfahmi.simukomperawat.R
+import com.zulfahmi.simukomperawat.adapter.LatihanPackAdapter
 import com.zulfahmi.simukomperawat.adapter.RvAdapter
+import com.zulfahmi.simukomperawat.ads.PackOpenAction
 import com.zulfahmi.simukomperawat.ads.QuestionPackAccessPolicy
 import com.zulfahmi.simukomperawat.databinding.ActivityPackBinding
+import com.zulfahmi.simukomperawat.model.LatihanCategory
 import com.zulfahmi.simukomperawat.model.LatihanPack
 import com.zulfahmi.simukomperawat.model.QuestionMode
 import com.zulfahmi.simukomperawat.repository.FirestoreQuestionRepository
@@ -42,11 +47,14 @@ class PackActivity : AppCompatActivity() {
     private val questionPackAccessPolicy = QuestionPackAccessPolicy()
     private var rewardedAd: RewardedAd? = null
     private var rewardEarned = false
-    private var pendingQuestionPack = 0
-    private var pendingFirestorePackId: String? = null
+    private var pendingLatihanPack: LatihanPack? = null
+    private var pendingStaticPack: Int? = null
     private var questionType = ""
     private lateinit var firestoreQuestionRepository: FirestoreQuestionRepository
     private var isPreparingPackage = false
+    private var latihanCategories: List<LatihanCategory> = emptyList()
+    private var activeLatihanCategory: LatihanCategory? = null
+    private lateinit var latihanPackAdapter: LatihanPackAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,10 +87,12 @@ class PackActivity : AppCompatActivity() {
     }
 
     private fun showStaticPacks(total: Int) {
+        binding.btnSelectCategory.visibility = View.GONE
         val paketAdapter = RvAdapter(setJumlahPaket(total)) { _, position ->
             val selectedPack = position + 1
             if (questionPackAccessPolicy.requiresRewardedAdForPack(selectedPack)) {
-                confirmRewardedAdBeforeOpeningPack(selectedPack)
+                pendingStaticPack = selectedPack
+                confirmRewardedAdBeforeOpeningPack("paket $selectedPack")
             } else {
                 preparePackageAndOpenGuide(selectedPack, null)
             }
@@ -95,23 +105,53 @@ class PackActivity : AppCompatActivity() {
     }
 
     private fun showLatihanPacks() {
+        binding.btnSelectCategory.visibility = View.VISIBLE
         firestoreQuestionRepository.fetchPublishedLatihanPacks(
-            onSuccess = { remotePacks -> renderLatihanPacks(LatihanPack.merge(remotePacks)) },
-            onError = { renderLatihanPacks(LatihanPack.merge(emptyList())) },
+            onSuccess = { remotePacks -> renderLatihanCategories(remotePacks + LatihanPack.bundled()) },
+            onError = { renderLatihanCategories(LatihanPack.bundled()) },
         )
     }
 
-    private fun renderLatihanPacks(packs: List<LatihanPack>) {
+    private fun renderLatihanCategories(packs: List<LatihanPack>) {
+        latihanCategories = LatihanPack.groupByCategory(packs)
+        activeLatihanCategory = latihanCategories.firstOrNull()
+        latihanPackAdapter = LatihanPackAdapter(emptyList(), ::onLatihanPackSelected)
         binding.recyclerview.apply {
             layoutManager = GridLayoutManager(context, 3)
-            adapter = RvAdapter(packs.map { it.number.toString() }) { _, position ->
-                val selectedPack = packs[position]
-                pendingFirestorePackId = selectedPack.firestoreId
-                if (questionPackAccessPolicy.requiresRewardedAdForPack(selectedPack.number)) {
-                    confirmRewardedAdBeforeOpeningPack(selectedPack.number)
-                } else {
-                    preparePackageAndOpenGuide(selectedPack.number, selectedPack.firestoreId)
-                }
+            adapter = latihanPackAdapter
+        }
+        binding.btnSelectCategory.setOnClickListener { showCategorySelector() }
+        renderActiveLatihanCategory()
+    }
+
+    private fun renderActiveLatihanCategory() {
+        val category = activeLatihanCategory ?: return
+        binding.btnSelectCategory.text = "Kategori: ${category.name} (${category.packs.size} paket)"
+        latihanPackAdapter.submitList(category.packs)
+    }
+
+    private fun showCategorySelector() {
+        val activeIndex = latihanCategories.indexOf(activeLatihanCategory).coerceAtLeast(0)
+        val labels = latihanCategories.map { "${it.name} (${it.packs.size} paket)" }.toTypedArray()
+        AlertDialog.Builder(this)
+            .setTitle("Pilih kategori")
+            .setSingleChoiceItems(labels, activeIndex) { dialog, selectedIndex ->
+                activeLatihanCategory = latihanCategories[selectedIndex]
+                renderActiveLatihanCategory()
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun onLatihanPackSelected(pack: LatihanPack) {
+        when (questionPackAccessPolicy.actionFor(pack)) {
+            PackOpenAction.OPEN -> preparePackageAndOpenGuide(pack.roomPack, pack.firestoreId)
+            PackOpenAction.SHOW_REWARDED_AD -> {
+                pendingLatihanPack = pack
+                confirmRewardedAdBeforeOpeningPack(pack.title)
+            }
+            PackOpenAction.SHOW_PREMIUM_MESSAGE -> {
+                Toast.makeText(this, "Paket premium belum tersedia.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -147,15 +187,14 @@ class PackActivity : AppCompatActivity() {
         return listNumber
     }
 
-    private fun confirmRewardedAdBeforeOpeningPack(pack: Int) {
+    private fun confirmRewardedAdBeforeOpeningPack(packTitle: String) {
         CustomConfirmDialog(
             this,
             "Tonton Iklan",
-            "Tonton iklan sampai selesai untuk membuka paket $pack?",
+            "Tonton iklan sampai selesai untuk membuka $packTitle?",
             btnPositiveText = "Tonton",
             btnNegativeText = "Batal"
         ) {
-            pendingQuestionPack = pack
             showRewardedAd()
         }.show()
     }
@@ -176,7 +215,7 @@ class PackActivity : AppCompatActivity() {
                         Log.d(TAG, adError.toString())
                         rewardedAd = null
                         if (questionPackAccessPolicy.canOpenAfterRewardedAdShowFailed()) {
-                            preparePackageAndOpenGuide(pendingQuestionPack, pendingFirestorePackId)
+                            openPendingPack()
                         } else {
                             Toast.makeText(this@PackActivity, "Iklan belum siap. Silakan coba lagi.", Toast.LENGTH_SHORT).show()
                             loadRewardedAd()
@@ -190,7 +229,7 @@ class PackActivity : AppCompatActivity() {
                     override fun onAdDismissedFullScreenContent() {
                         rewardedAd = null
                         if (questionPackAccessPolicy.canOpenAfterRewardedAdClosed(rewardEarned)) {
-                            preparePackageAndOpenGuide(pendingQuestionPack, pendingFirestorePackId)
+                            openPendingPack()
                         } else {
                             Toast.makeText(this@PackActivity, "Tonton iklan sampai selesai untuk membuka paket soal", Toast.LENGTH_SHORT).show()
                             loadRewardedAd()
@@ -209,6 +248,18 @@ class PackActivity : AppCompatActivity() {
         }) ?: run {
             Toast.makeText(this, "Iklan belum siap. Silakan coba lagi.", Toast.LENGTH_SHORT).show()
             loadRewardedAd()
+        }
+    }
+
+    private fun openPendingPack() {
+        pendingLatihanPack?.let { pack ->
+            pendingLatihanPack = null
+            preparePackageAndOpenGuide(pack.roomPack, pack.firestoreId)
+            return
+        }
+        pendingStaticPack?.let { pack ->
+            pendingStaticPack = null
+            preparePackageAndOpenGuide(pack, null)
         }
     }
 

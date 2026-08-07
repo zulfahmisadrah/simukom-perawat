@@ -62,6 +62,14 @@
                     android:textColor="@color/colorDarkGray"
                     android:textSize="20sp" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_select_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textAllCaps="false"
+                    tools:text="Kategori: Keperawatan Jiwa (3 paket)" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="wrap_content"
