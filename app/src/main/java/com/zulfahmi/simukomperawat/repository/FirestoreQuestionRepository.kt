@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.zulfahmi.simukomperawat.database.AppDatabase
 import com.zulfahmi.simukomperawat.model.LatihanPack
+import com.zulfahmi.simukomperawat.model.PackAccessType
 import java.util.concurrent.Executors
 
 class FirestoreQuestionRepository(
@@ -16,6 +17,7 @@ class FirestoreQuestionRepository(
     private val database = AppDatabase.getDatabase(context.applicationContext)
     private val executor = Executors.newSingleThreadExecutor()
     private val mainHandler = Handler(Looper.getMainLooper())
+    private val remotePackKeyStore = RemotePackKeyStore(context.applicationContext)
 
     fun refreshPackage(
         type: String,
@@ -65,11 +67,30 @@ class FirestoreQuestionRepository(
             .whereEqualTo("isPublished", true)
             .get()
             .addOnSuccessListener { snapshot ->
-                val packs = snapshot.documents.mapNotNull { document ->
-                    val number = document.getLong("packNumber")?.toInt() ?: return@mapNotNull null
-                    if (number > 0) LatihanPack.remote(number, document.id) else null
-                }.sortedBy { it.number }
-                onSuccess(packs)
+                firestore.collection(CATEGORIES_COLLECTION)
+                    .get()
+                    .addOnSuccessListener { categorySnapshot ->
+                        val categoryNames = categorySnapshot.documents.associate { document ->
+                            document.id to document.getString("name").orEmpty()
+                        }
+                        val packs = snapshot.documents.mapNotNull { document ->
+                            val packNumber = document.getLong("packNumber")?.toInt()
+                                ?: return@mapNotNull null
+                            if (packNumber <= 0) return@mapNotNull null
+
+                            toLatihanPack(
+                                firestoreId = document.id,
+                                title = document.getString("title").orEmpty(),
+                                categoryId = document.getString("categoryId").orEmpty(),
+                                categoryName = categoryNames[document.getString("categoryId")].orEmpty(),
+                                packNumber = packNumber,
+                                accessType = document.getString("accessType"),
+                                roomPack = remotePackKeyStore.roomPackFor(document.id),
+                            )
+                        }.sortedWith(compareBy<LatihanPack> { it.categoryName }.thenBy { it.title })
+                        onSuccess(packs)
+                    }
+                    .addOnFailureListener { error -> onError(error.message ?: PACK_FETCH_ERROR_MESSAGE) }
             }
             .addOnFailureListener { error -> onError(error.message ?: PACK_FETCH_ERROR_MESSAGE) }
     }
@@ -113,6 +134,27 @@ class FirestoreQuestionRepository(
     }
 
     companion object {
+        fun toLatihanPack(
+            firestoreId: String,
+            title: String,
+            categoryId: String,
+            categoryName: String,
+            packNumber: Int,
+            accessType: String?,
+            roomPack: Int,
+        ): LatihanPack {
+            val resolvedCategoryId = categoryId.ifBlank { "uncategorized" }
+            return LatihanPack.remote(
+                roomPack = roomPack,
+                firestoreId = firestoreId,
+                title = title.ifBlank { "Paket $packNumber" },
+                categoryId = resolvedCategoryId,
+                categoryName = categoryName.ifBlank { "Kategori Lainnya" },
+                displayNumber = packNumber,
+                accessType = PackAccessType.fromWireValue(accessType),
+            )
+        }
+
         fun firestorePackId(type: String, pack: Int): String {
             require(type == "latihan" || type == "simulasi")
             require(pack > 0)
@@ -126,6 +168,7 @@ class FirestoreQuestionRepository(
         }
 
         private const val PACKS_COLLECTION = "packs"
+        private const val CATEGORIES_COLLECTION = "categories"
         private const val QUESTIONS_COLLECTION = "questions"
         private const val PACK_FETCH_ERROR_MESSAGE = "Tidak dapat memuat paket dari server."
         private const val INVALID_DATA_MESSAGE = "Data soal dari server tidak valid."

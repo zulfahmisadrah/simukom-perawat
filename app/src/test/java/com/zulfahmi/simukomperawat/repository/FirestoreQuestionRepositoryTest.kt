@@ -3,6 +3,7 @@ package com.zulfahmi.simukomperawat.repository
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
+import com.zulfahmi.simukomperawat.model.PackAccessType
 
 class FirestoreQuestionRepositoryTest {
     @Test
@@ -67,5 +68,22 @@ class FirestoreQuestionRepositoryTest {
             "new-pack",
             FirestoreQuestionRepository.resolvedPackId("latihan", 6, "new-pack"),
         )
+    }
+
+    @Test
+    fun mapsRemotePackMetadataWithFreeAccess() {
+        val pack = FirestoreQuestionRepository.toLatihanPack(
+            firestoreId = "jiwa-1",
+            title = "Jiwa Dasar",
+            categoryId = "jiwa",
+            categoryName = "Keperawatan Jiwa",
+            packNumber = 1,
+            accessType = "free",
+            roomPack = 10_000,
+        )
+
+        assertEquals(PackAccessType.FREE, pack.accessType)
+        assertEquals("Keperawatan Jiwa", pack.categoryName)
+        assertEquals(10_000, pack.roomPack)
     }
 }
