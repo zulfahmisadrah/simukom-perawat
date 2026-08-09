@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -9,7 +9,7 @@
         <item name="fontFamily">@font/source_sans_regular</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -27,6 +27,7 @@
     </style>
 
     <style name="ButtonPrimary">
+        <item name="backgroundTint">@null</item>
         <item name="android:paddingStart">@dimen/size_primary</item>
         <item name="android:paddingEnd">@dimen/size_primary</item>
         <item name="android:textColor">#fff</item>
@@ -38,6 +39,7 @@
     </style>
 
     <style name="ButtonPrimaryHome">
+        <item name="backgroundTint">@null</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:paddingStart">@dimen/size_primary</item>
@@ -52,6 +54,7 @@
     </style>
 
     <style name="Button40">
+        <item name="backgroundTint">@null</item>
         <item name="android:layout_width">@dimen/size_40</item>
         <item name="android:layout_height">@dimen/size_40</item>
         <item name="android:background">@drawable/round_button_primary</item>
@@ -71,6 +74,7 @@
     </style>
 
     <style name="ButtonExam">
+        <item name="backgroundTint">@null</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/size_40</item>
         <item name="android:textColor">#fff</item>
