@@ -36,6 +36,9 @@ data class LatihanPack(
     val cardNumber: String
         get() = displayNumber.toString()
 
+    val adPromptLabel: String
+        get() = "paket $displayNumber"
+
     companion object {
         private const val SQLITE_PACK_COUNT = 5
         const val BUNDLED_CATEGORY_ID = "bundled"

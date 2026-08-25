@@ -58,4 +58,19 @@ class LatihanPackTest {
 
         assertEquals("7", pack.cardNumber)
     }
+
+    @Test
+    fun remotePackAdPromptUsesFirestorePackNumber() {
+        val pack = LatihanPack.remote(
+            roomPack = 10_000,
+            firestoreId = "jiwa-7",
+            title = "Judul Paket Firestore",
+            categoryId = "jiwa",
+            categoryName = "Keperawatan Jiwa",
+            displayNumber = 7,
+            accessType = PackAccessType.REWARDED_AD,
+        )
+
+        assertEquals("paket 7", pack.adPromptLabel)
+    }
 }

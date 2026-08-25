@@ -9,6 +9,7 @@ import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import com.zulfahmi.simukomperawat.R
@@ -55,9 +56,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //            R.id.btn_kamusperawat -> startActivity(Intent(this, TipsActivity::class.java))
             R.id.imgbtn_info -> {
                 val message = getString(R.string.info)
-                val formattedMessage = SpannableString(message)
-                formattedMessage.setSpan(StyleSpan(Typeface.BOLD), 0, 15, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-                formattedMessage.setSpan(StyleSpan(Typeface.BOLD), message.indexOf("Email"), message.indexOf("Email")+5, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+                val formattedMessage = SpannableString(HtmlCompat.fromHtml(message, HtmlCompat.FROM_HTML_MODE_LEGACY))
+                val emailStartIndex = formattedMessage.toString().indexOf("Email")
+                formattedMessage.setSpan(StyleSpan(Typeface.BOLD), emailStartIndex, emailStartIndex + 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
                 Commons.showAlertDialog(this, formattedMessage)
             }
 //            R.id.btn_send_questions -> {

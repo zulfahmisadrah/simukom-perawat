@@ -17,6 +17,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.method.LinkMovementMethod
 import android.text.style.StyleSpan
 import android.util.Patterns
 import android.view.View
@@ -89,10 +90,12 @@ object Commons {
     }
 
     fun showAlertDialog(context: Context, message: SpannableString) {
-        AlertDialog.Builder(context).setMessage(message).setCancelable(false)
+        val dialog = AlertDialog.Builder(context).setMessage(message).setCancelable(false)
             .setPositiveButton("OK") { dialogInterface, _ ->
                 dialogInterface.cancel()
-            }.create().show()
+            }.create()
+        dialog.show()
+        dialog.findViewById<TextView>(android.R.id.message)?.movementMethod = LinkMovementMethod.getInstance()
     }
 
     fun isEmailValid(Email: String): Boolean {

@@ -151,7 +151,7 @@ class PackActivity : AppCompatActivity() {
         val activeIndex = remoteCategories.indexOf(activeRemoteCategory).coerceAtLeast(0)
         val labels = remoteCategories.map { "${it.name} (${it.packs.size} paket)" }.toTypedArray()
         AlertDialog.Builder(this)
-            .setTitle("Pilih kategori")
+            .setTitle(R.string.pilih_materi)
             .setSingleChoiceItems(labels, activeIndex) { dialog, selectedIndex ->
                 activeRemoteCategory = remoteCategories[selectedIndex]
                 renderActiveRemoteCategory()
@@ -165,7 +165,7 @@ class PackActivity : AppCompatActivity() {
             PackOpenAction.OPEN -> prepareRemotePackageAndOpenGuide(pack)
             PackOpenAction.SHOW_REWARDED_AD -> {
                 pendingRemotePack = pack
-                confirmRewardedAdBeforeOpeningPack(pack.title)
+                confirmRewardedAdBeforeOpeningPack(pack.adPromptLabel)
             }
             PackOpenAction.SHOW_PREMIUM_MESSAGE -> {
                 Toast.makeText(this, "Paket premium belum tersedia.", Toast.LENGTH_SHORT).show()
