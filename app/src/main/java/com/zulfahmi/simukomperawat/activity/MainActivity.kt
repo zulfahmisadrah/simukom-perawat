@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.btnForum.setOnClickListener(this)
 //        btn_kamusperawat.setOnClickListener(this)
 
-        binding.btnSendQuestions.setOnClickListener(this)
+//        binding.btnSendQuestions.setOnClickListener(this)
         binding.imgbtnInfo.setOnClickListener(this)
     }
 
@@ -60,20 +60,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 formattedMessage.setSpan(StyleSpan(Typeface.BOLD), message.indexOf("Email"), message.indexOf("Email")+5, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
                 Commons.showAlertDialog(this, formattedMessage)
             }
-            R.id.btn_send_questions -> {
-                Commons.showAlertDialog(this, getString(R.string.open_email_alert_message), true){
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.type = "text/plain"
-                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("abd.rahmanrara@gmail.com", "cbs.fahmi@gmail.com"))
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "Soal Ukom Perawat")
-                    intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_content))
-                    try {
-                        startActivity(Intent.createChooser(intent, "Kirim soal melalui email..."))
-                    } catch (ex: ActivityNotFoundException) {
-                        //do something else
-                    }
-                }
-            }
+//            R.id.btn_send_questions -> {
+//                Commons.showAlertDialog(this, getString(R.string.open_email_alert_message), true){
+//                    val intent = Intent(Intent.ACTION_SEND)
+//                    intent.type = "text/plain"
+//                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("abd.rahmanrara@gmail.com", "cbs.fahmi@gmail.com"))
+//                    intent.putExtra(Intent.EXTRA_SUBJECT, "Soal Ukom Perawat")
+//                    intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_content))
+//                    try {
+//                        startActivity(Intent.createChooser(intent, "Kirim soal melalui email..."))
+//                    } catch (ex: ActivityNotFoundException) {
+//                        //do something else
+//                    }
+//                }
+//            }
         }
     }
 
