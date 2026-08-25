@@ -5,6 +5,8 @@
     <string name="tips_trik">Tips dan Trik</string>
     <string name="forum">Forum</string>
     <string name="pilih_paket">Pilih Paket Soal</string>
+    <string name="latihan_materi">Latihan Materi</string>
+    <string name="pilih_materi">Pilih Materi</string>
     <string name="paket">Paket</string>
     <string name="a">A</string>
     <string name="b">B</string>
@@ -33,7 +35,7 @@
     <string name="confirm_password">Konfirmasi Password</string>
     <string name="daftar">Daftar</string>
     <string name="email_content">Hai, \nSaya ingin berkontribusi dengan mengirimkan soal untuk aplikasi Simukom Perawat Anda. \n\nBerikut saya lampirkan soal beserta jawaban dan pembahasannya. \nSemoga Bermanfaat.</string>
-    <string name="info">Semangat mempersiapkan diri para pejuang Ukom Perawat. Semoga diberikan hasil yang terbaik!\n\nAnda dapat memberikan dukungan untuk pengembangan aplikasi ini melalui: https://saweria.co/mzfs \n\nSoal-soal pada aplikasi ini diambil dari buku yang ditulis oleh Syaputra Artama S. S.Kep, Ns, M.Kep, CWCCA dan Abd. Rahman Rara, S.Kep.Ners, CWCCA.\n\nEmail:\nPenulis buku: abd.rahmanrara@gmail.com\nDeveloper: cbs.fahmi@gmail.com</string>
+    <string name="info">Semangat mempersiapkan diri para Pejuang Ukom. Semoga diberikan hasil yang terbaik!\n\nAnda dapat memberikan dukungan untuk pengembangan aplikasi ini melalui: https://saweria.co/mzfs \n\nSoal-soal pada aplikasi ini diambil dari buku yang ditulis oleh Syaputra Artama S. S.Kep, Ns, M.Kep, CWCCA dan Abd. Rahman Rara, S.Kep.Ners, CWCCA.\n\nEmail:\nPenulis buku: abd.rahmanrara@gmail.com\nDeveloper: cbs.fahmi@gmail.com</string>
     <string name="have_account_text">Sudah memiliki akun? Login disini!</string>
     <string name="open_email_alert_message">Anda akan diarahkan ke aplikasi email. Lanjutkan?</string>
     <string name="sign_out">Sign Out</string>

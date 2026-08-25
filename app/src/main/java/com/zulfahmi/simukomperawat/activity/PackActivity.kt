@@ -47,14 +47,14 @@ class PackActivity : AppCompatActivity() {
     private val questionPackAccessPolicy = QuestionPackAccessPolicy()
     private var rewardedAd: RewardedAd? = null
     private var rewardEarned = false
-    private var pendingLatihanPack: LatihanPack? = null
+    private var pendingRemotePack: LatihanPack? = null
     private var pendingStaticPack: Int? = null
     private var questionType = ""
     private lateinit var firestoreQuestionRepository: FirestoreQuestionRepository
     private var isPreparingPackage = false
-    private var latihanCategories: List<LatihanCategory> = emptyList()
-    private var activeLatihanCategory: LatihanCategory? = null
-    private lateinit var latihanPackAdapter: LatihanPackAdapter
+    private var remoteCategories: List<LatihanCategory> = emptyList()
+    private var activeRemoteCategory: LatihanCategory? = null
+    private lateinit var remotePackAdapter: LatihanPackAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,14 +73,15 @@ class PackActivity : AppCompatActivity() {
 
         questionType = intent.getStringExtra(EXTRA_QUESTION_TYPE) ?: throw IllegalArgumentException("Question type is required")
         binding.tvType.text = questionType.replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.ROOT
-            ) else it.toString()
+            if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
         }
 
         when (QuestionMode.fromWireValue(questionType)) {
             QuestionMode.LATIHAN -> showLatihanPacks()
-            QuestionMode.SIMULASI -> showStaticPacks(TOTAL_PACK_SIMULASI)
+            QuestionMode.SIMULASI -> {
+                binding.materiSection.visibility = View.GONE
+                showStaticPacks(TOTAL_PACK_SIMULASI)
+            }
         }
 
         binding.imgbtnBack.setOnClickListener { onBackPressed() }
@@ -94,7 +95,7 @@ class PackActivity : AppCompatActivity() {
                 pendingStaticPack = selectedPack
                 confirmRewardedAdBeforeOpeningPack("paket $selectedPack")
             } else {
-                preparePackageAndOpenGuide(selectedPack, null)
+                openGuide(selectedPack)
             }
         }
 
@@ -105,49 +106,65 @@ class PackActivity : AppCompatActivity() {
     }
 
     private fun showLatihanPacks() {
+        showStaticPacks(TOTAL_PACK_LATIHAN)
+        showRemotePacks()
+    }
+
+    private fun showRemotePacks() {
+        binding.materiSection.visibility = View.VISIBLE
         binding.btnSelectCategory.visibility = View.VISIBLE
+        binding.recyclerviewMateri.visibility = View.VISIBLE
         firestoreQuestionRepository.fetchPublishedLatihanPacks(
-            onSuccess = { remotePacks -> renderLatihanCategories(remotePacks + LatihanPack.bundled()) },
-            onError = { renderLatihanCategories(LatihanPack.bundled()) },
+            onSuccess = ::renderRemoteCategories,
+            onError = {
+                binding.btnSelectCategory.visibility = View.GONE
+                binding.recyclerviewMateri.visibility = View.GONE
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            },
         )
     }
 
-    private fun renderLatihanCategories(packs: List<LatihanPack>) {
-        latihanCategories = LatihanPack.groupByCategory(packs)
-        activeLatihanCategory = latihanCategories.firstOrNull()
-        latihanPackAdapter = LatihanPackAdapter(emptyList(), ::onLatihanPackSelected)
-        binding.recyclerview.apply {
+    private fun renderRemoteCategories(packs: List<LatihanPack>) {
+        remoteCategories = LatihanPack.groupByCategory(packs)
+        activeRemoteCategory = remoteCategories.firstOrNull()
+        remotePackAdapter = LatihanPackAdapter(emptyList(), ::onRemotePackSelected)
+        binding.recyclerviewMateri.apply {
             layoutManager = GridLayoutManager(context, 3)
-            adapter = latihanPackAdapter
+            adapter = remotePackAdapter
         }
         binding.btnSelectCategory.setOnClickListener { showCategorySelector() }
-        renderActiveLatihanCategory()
+        if (activeRemoteCategory == null) {
+            binding.btnSelectCategory.visibility = View.GONE
+            binding.recyclerviewMateri.visibility = View.GONE
+            return
+        }
+        renderActiveRemoteCategory()
     }
 
-    private fun renderActiveLatihanCategory() {
-        val category = activeLatihanCategory ?: return
-        binding.btnSelectCategory.text = "Kategori: ${category.name} (${category.packs.size} paket)"
-        latihanPackAdapter.submitList(category.packs)
+    private fun renderActiveRemoteCategory() {
+        val category = activeRemoteCategory ?: return
+        binding.btnSelectCategory.text = "${category.name} (${category.packs.size} paket)"
+        remotePackAdapter.submitList(category.packs)
     }
 
     private fun showCategorySelector() {
-        val activeIndex = latihanCategories.indexOf(activeLatihanCategory).coerceAtLeast(0)
-        val labels = latihanCategories.map { "${it.name} (${it.packs.size} paket)" }.toTypedArray()
+        val activeIndex = remoteCategories.indexOf(activeRemoteCategory).coerceAtLeast(0)
+        val labels = remoteCategories.map { "${it.name} (${it.packs.size} paket)" }.toTypedArray()
         AlertDialog.Builder(this)
             .setTitle("Pilih kategori")
             .setSingleChoiceItems(labels, activeIndex) { dialog, selectedIndex ->
-                activeLatihanCategory = latihanCategories[selectedIndex]
-                renderActiveLatihanCategory()
+                activeRemoteCategory = remoteCategories[selectedIndex]
+                renderActiveRemoteCategory()
                 dialog.dismiss()
             }
             .show()
     }
 
-    private fun onLatihanPackSelected(pack: LatihanPack) {
+    private fun onRemotePackSelected(pack: LatihanPack) {
         when (questionPackAccessPolicy.actionFor(pack)) {
-            PackOpenAction.OPEN -> preparePackageAndOpenGuide(pack.roomPack, pack.firestoreId)
+            PackOpenAction.OPEN -> prepareRemotePackageAndOpenGuide(pack)
             PackOpenAction.SHOW_REWARDED_AD -> {
-                pendingLatihanPack = pack
+                pendingRemotePack = pack
                 confirmRewardedAdBeforeOpeningPack(pack.title)
             }
             PackOpenAction.SHOW_PREMIUM_MESSAGE -> {
@@ -156,21 +173,16 @@ class PackActivity : AppCompatActivity() {
         }
     }
 
-    private fun preparePackageAndOpenGuide(pack: Int, firestorePackId: String?) {
-        if (questionType != QuestionMode.LATIHAN.wireValue) {
-            openGuide(pack)
-            return
-        }
+    private fun prepareRemotePackageAndOpenGuide(pack: LatihanPack) {
         if (isPreparingPackage) return
         isPreparingPackage = true
-        Toast.makeText(this, "Menyiapkan soal untuk penggunaan offline...", Toast.LENGTH_SHORT).show()
         firestoreQuestionRepository.refreshPackage(
             type = QuestionMode.LATIHAN.wireValue,
-            pack = pack,
-            firestorePackId = firestorePackId ?: FirestoreQuestionRepository.firestorePackId(questionType, pack),
+            pack = pack.roomPack,
+            firestorePackId = requireNotNull(pack.firestoreId),
             onReady = {
                 isPreparingPackage = false
-                openGuide(pack)
+                openGuide(pack.roomPack)
             },
             onError = { message ->
                 isPreparingPackage = false
@@ -252,14 +264,14 @@ class PackActivity : AppCompatActivity() {
     }
 
     private fun openPendingPack() {
-        pendingLatihanPack?.let { pack ->
-            pendingLatihanPack = null
-            preparePackageAndOpenGuide(pack.roomPack, pack.firestoreId)
+        pendingRemotePack?.let { pack ->
+            pendingRemotePack = null
+            prepareRemotePackageAndOpenGuide(pack)
             return
         }
         pendingStaticPack?.let { pack ->
             pendingStaticPack = null
-            preparePackageAndOpenGuide(pack, null)
+            openGuide(pack)
         }
     }
 

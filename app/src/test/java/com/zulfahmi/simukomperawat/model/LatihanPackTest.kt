@@ -43,4 +43,19 @@ class LatihanPackTest {
         assertEquals(10_001, allocator.allocate("anak-1"))
         assertEquals(10_000, allocator.allocate("jiwa-1"))
     }
+
+    @Test
+    fun remotePackCardShowsOnlyFirestorePackNumber() {
+        val pack = LatihanPack.remote(
+            roomPack = 10_000,
+            firestoreId = "jiwa-7",
+            title = "Jiwa Lanjutan",
+            categoryId = "jiwa",
+            categoryName = "Keperawatan Jiwa",
+            displayNumber = 7,
+            accessType = PackAccessType.PREMIUM,
+        )
+
+        assertEquals("7", pack.cardNumber)
+    }
 }

@@ -3,7 +3,7 @@ package com.zulfahmi.simukomperawat.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.zulfahmi.simukomperawat.databinding.ItemLatihanPackBinding
+import com.zulfahmi.simukomperawat.databinding.ItemPackBinding
 import com.zulfahmi.simukomperawat.model.LatihanPack
 
 class LatihanPackAdapter(
@@ -18,7 +18,7 @@ class LatihanPackAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemLatihanPackBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            ItemPackBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 
@@ -29,11 +29,10 @@ class LatihanPackAdapter(
     override fun getItemCount(): Int = packs.size
 
     inner class ViewHolder(
-        private val binding: ItemLatihanPackBinding,
+        private val binding: ItemPackBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(pack: LatihanPack) {
-            binding.tvTitle.text = pack.title
-            binding.tvPackNumber.text = "Paket ${pack.displayNumber}"
+            binding.tvPaket.text = pack.cardNumber
             binding.root.setOnClickListener { onSelected(pack) }
         }
     }
